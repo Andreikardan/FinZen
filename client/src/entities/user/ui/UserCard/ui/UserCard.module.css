@@ -1,16 +1,16 @@
 .container {
   display: flex;
-  align-items: center;
   gap: 10px;
+  align-items: center;
   border-radius: 0.5rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
 }
 
 .avatarContainer {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
   overflow: hidden;
+  border-radius: 50%;
 }
 
 .avatar {

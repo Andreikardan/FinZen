@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useBudgetList } from "../useBudgetList";
 import { BudgetCard } from "@/entities/budget";
 import { IBudget } from "@/entities/budget/model/type";

@@ -27,23 +27,23 @@ export function Navbar(): React.ReactElement {
 
   return (
     <div className={styles.container}>
-      <Button text="Главная" color="green" type="button" onClick={()=>navigate(ROUTES.HOME)} />
+      <Button className = {styles.button} text="Главная"  type="button" onClick={()=>navigate(ROUTES.HOME)} />
       {user ? (
         <>
-          <Button text="Бюджеты" color="green" type="button" onClick={startGameHandler} />
-          <Button text="Выход" color="red" type="button" onClick={signOutHandler} />
+          <Button className = {styles.button} text="Бюджеты"  type="button" onClick={startGameHandler} />
+          <Button className = {styles.button} text="Выход"  type="button" onClick={signOutHandler} />
         </>
       ) : (
         <>
-          <Button
+          <Button 
+            className = {styles.button}
             text="Вход"
-            color="green"
             type="button"
             onClick={() => navigate(`${ROUTES.AUTH_ROOT}/signin`)}
           />
           <Button
+            className = {styles.button}
             text="Регистрация"
-            color="green"
             type="button"
             onClick={() => navigate(`${ROUTES.AUTH_ROOT}/signup`)}
           />
