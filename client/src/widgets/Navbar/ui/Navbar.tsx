@@ -12,20 +12,18 @@ export function Navbar(): React.ReactElement {
   const user = useAppSelector((state)=>state.user.user)
   const navigate = useNavigate();
 
-
  const startGameHandler = async() =>{
   dispatch(getAllBudgetsThunk())
 
   navigate(ROUTES.BUDGETS)
  }
 
-
   const signOutHandler = async (): Promise<void> => {
     dispatch(signOutThunk())
-   
   };
 
   return (
+
     <div className={styles.container}>
       <Button className = {styles.button} text="Главная"  type="button" onClick={()=>navigate(ROUTES.HOME)} />
       {user ? (
@@ -48,7 +46,8 @@ export function Navbar(): React.ReactElement {
             onClick={() => navigate(`${ROUTES.AUTH_ROOT}/signup`)}
           />
         </>
+
       )}
-    </div>
+    </>
   );
 }

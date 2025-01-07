@@ -6,10 +6,6 @@ import { signInThunk, signUpThunk, UserValidator} from '@/entities/user';
 import { useAppDispatch, useAppSelector } from '@/shared/hooks/reduxHooks';
 import { unwrapResult } from '@reduxjs/toolkit';
 
-type Props = {
-  type: string;
-};
-
 type InputsType = {
   email: string;
   username: string;
@@ -22,9 +18,9 @@ const inputsInitialState = {
   password: '',
 };
 
-export default function AuthForm({ type }: Props): React.ReactElement {
+export default function AuthForm(): React.ReactElement {
   const [inputs, setInputs] = useState<InputsType>(inputsInitialState);
-  // const {setUser} = useUser()
+  const [type, setType] = useState<boolean>(true)
   const loading = useAppSelector((state)=>state.user.loading)
   const dispatch = useAppDispatch()
 
@@ -37,7 +33,7 @@ export default function AuthForm({ type }: Props): React.ReactElement {
     const { email } = inputs;
     const normalizedEmail = email.toLowerCase();
 
-    if (type === 'signin') {
+    if (type) {
       const { isValid, error: validationError } = UserValidator.validateSignIn(inputs);
 
       if (!isValid) {
@@ -83,7 +79,7 @@ export default function AuthForm({ type }: Props): React.ReactElement {
         required
         autoFocus
       />
-      {type === 'signup' && (
+      {!type && (
         <input
           value={inputs.username}
           name="username"
@@ -93,12 +89,8 @@ export default function AuthForm({ type }: Props): React.ReactElement {
           autoFocus
         />
       )}
-      <Button
-        disabled={loading}
-        color="green"
-        type="submit"
-        text={type === 'signup' ? 'Регистрация' : 'Вход'}
-      />
+      <button onClick={()=>setType((prev)=>!prev)}>{type? 'Я здесь впервые':'А, нет, уже бывал'}</button>
+      <button type='submit'>{type? 'Войти':'Зарегистрироваться'}</button>
     </form>
   );
 }
