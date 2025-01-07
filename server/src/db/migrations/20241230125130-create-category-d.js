@@ -15,6 +15,9 @@ module.exports = {
       icon: {
         type: Sequelize.STRING,
       },
+      borderColor: {
+        type: Sequelize.STRING,
+      },
       budget_id: {
         type: Sequelize.INTEGER,
         references: { model: "Budgets", key: "id" },

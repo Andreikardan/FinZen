@@ -5,6 +5,8 @@ const router = require("express").Router();
 
 router
   .get("/", BudgetController.get)
-  .post("/", verifyRefreshToken, BudgetController.create);
+  .post("/", verifyRefreshToken, BudgetController.create)
+  .delete("/:id", BudgetController.delete)
+  .put("/:id", BudgetController.update);
 
 module.exports = router;

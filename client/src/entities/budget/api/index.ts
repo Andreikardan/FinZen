@@ -11,7 +11,6 @@ enum BUDGETS_THUNKS_TYPE {
   UPDATE = "budget/update",
 }
 
-
 export const getAllBudgetsThunk = createAsyncThunk<
   IApiResponseSuccess<ArrayBudgetsType>,
   void,
@@ -61,3 +60,39 @@ export const createBudgetThunk = createAsyncThunk<
     return rejectWithValue(err.response!.data);
   }
 });
+export const deleteBudgetThunk = createAsyncThunk<
+  IApiResponseSuccess<IBudget>,
+  number,
+  { rejectValue: IApiResponseReject }
+>(BUDGETS_THUNKS_TYPE.DELETE, async (id, { rejectWithValue }) => {
+  try {
+    const { data } = await axiosInstance.delete<IApiResponseSuccess<IBudget>>(
+      `/budgets/${id}`
+    );
+    console.log(data.data,444);
+    
+    return data;
+  } catch (error) {
+    const err = error as AxiosError<IApiResponseReject>;
+    return rejectWithValue(err.response!.data);
+  }
+});
+export const updateBudgetThunk = createAsyncThunk<
+  IApiResponseSuccess<IBudget>,
+  { id: number; updatedBudget: IRawBudgetData },
+  { rejectValue: IApiResponseReject }
+>(
+  BUDGETS_THUNKS_TYPE.UPDATE,
+  async ({ id, updatedBudget }, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.put<IApiResponseSuccess<IBudget>>(
+        `/budgets/${id}`,
+        updatedBudget
+      );
+      return data;
+    } catch (error) {
+      const err = error as AxiosError<IApiResponseReject>;
+      return rejectWithValue(err.response!.data);
+    }
+  }
+);

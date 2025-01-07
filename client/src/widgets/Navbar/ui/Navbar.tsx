@@ -47,9 +47,13 @@ export function Navbar(): React.ReactElement {
 
 
   return (
+<<<<<<< HEAD
   
+=======
+>>>>>>> 91d16a26a154aa8b496633c81d8c7e085971d40f
     <div className={styles.container}>
 
+<<<<<<< HEAD
       
 {user && (
   <>
@@ -80,6 +84,9 @@ export function Navbar(): React.ReactElement {
     </Dropdown>
   </>
 )}
+=======
+      )}
+>>>>>>> 91d16a26a154aa8b496633c81d8c7e085971d40f
     </div>
   );
 }
