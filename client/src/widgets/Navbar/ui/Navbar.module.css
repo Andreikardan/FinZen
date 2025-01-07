@@ -3,6 +3,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 30px;
+  background: var(--primary-gradient);
   border-bottom: 1px solid white;
-  background-color: #000000;
 }
+
+.button {
+  color: var(--text-muted);
+  background-color:var( --primary-dark-purple);
+}
+
+
+
+
