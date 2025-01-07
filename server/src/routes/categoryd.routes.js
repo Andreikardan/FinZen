@@ -1,5 +1,4 @@
 const CategoryDController = require("../controllers/CategoryD.controller");
-const verifyRefreshToken = require("../middleware/verifeRefreshToken");
 
 const router = require("express").Router();
 

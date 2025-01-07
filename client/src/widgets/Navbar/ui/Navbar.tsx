@@ -23,7 +23,6 @@ export function Navbar(): React.ReactElement {
   };
 
   return (
-
     <div className={styles.container}>
       <Button className = {styles.button} text="Главная"  type="button" onClick={()=>navigate(ROUTES.HOME)} />
       {user ? (
@@ -48,6 +47,6 @@ export function Navbar(): React.ReactElement {
         </>
 
       )}
-    </>
+    </div>
   );
 }
