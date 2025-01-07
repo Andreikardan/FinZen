@@ -1,10 +1,11 @@
 import type { SyntheticEvent } from 'react';
 import React, { useState } from 'react';
 import { message as antMessage } from 'antd';
-import { Button } from '@/shared/ui/Button';
 import { signInThunk, signUpThunk, UserValidator} from '@/entities/user';
 import { useAppDispatch, useAppSelector } from '@/shared/hooks/reduxHooks';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/shared/enums/routes';
 
 type InputsType = {
   email: string;
@@ -23,6 +24,7 @@ export default function AuthForm(): React.ReactElement {
   const [type, setType] = useState<boolean>(true)
   const loading = useAppSelector((state)=>state.user.loading)
   const dispatch = useAppDispatch()
+    const navigate = useNavigate();
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>): void {
     setInputs((prev) => ({ ...prev, [event.target.name]: event.target.value }));
@@ -43,6 +45,7 @@ export default function AuthForm(): React.ReactElement {
       const resultAction = await dispatch(signInThunk({...inputs,email:normalizedEmail}))
       unwrapResult(resultAction)
       setInputs(inputsInitialState)
+      navigate(ROUTES.BUDGETS)
 
     } else {
       const { isValid, error: validationError } = UserValidator.validateSignUp(inputs);
@@ -55,6 +58,7 @@ export default function AuthForm(): React.ReactElement {
      const resultAction = await dispatch(signUpThunk({...inputs,email:normalizedEmail}))
      unwrapResult(resultAction)
      setInputs(inputsInitialState)
+     navigate(ROUTES.BUDGETS)
 
     }
   }
@@ -90,7 +94,7 @@ export default function AuthForm(): React.ReactElement {
         />
       )}
       <button onClick={()=>setType((prev)=>!prev)}>{type? 'Я здесь впервые':'А, нет, уже бывал'}</button>
-      <button type='submit'>{type? 'Войти':'Зарегистрироваться'}</button>
+      <button type='submit'>{type? 'Войти':'Зарегистрироваться'} </button>
     </form>
   );
 }

@@ -1,5 +1,6 @@
 import styles from './Navbar.module.css';
 import { useNavigate } from 'react-router-dom';
+import { Dropdown, MenuProps } from "antd";
 import { signOutThunk} from '@/entities/user';
 import { ROUTES } from '@/shared/enums/routes';
 import { Button } from '@/shared/ui/Button';
@@ -11,6 +12,7 @@ export function Navbar(): React.ReactElement {
   const dispatch = useAppDispatch()
   const user = useAppSelector((state)=>state.user.user)
   const navigate = useNavigate();
+  
 
  const startGameHandler = async() =>{
   dispatch(getAllBudgetsThunk())
@@ -22,32 +24,53 @@ export function Navbar(): React.ReactElement {
     dispatch(signOutThunk())
   };
 
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <a target="_blank" rel=" " href="https:">
+          Редактировать
+        </a>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <a target="_blank" rel=" " href="https:">
+          Категории
+        </a>
+      ),
+    },
+
+  ];
+
+
+
   return (
-
+  
     <div className={styles.container}>
-      <Button className = {styles.button} text="Главная"  type="button" onClick={()=>navigate(ROUTES.HOME)} />
-      {user ? (
-        <>
-          <Button className = {styles.button} text="Бюджеты"  type="button" onClick={startGameHandler} />
-          <Button className = {styles.button} text="Выход"  type="button" onClick={signOutHandler} />
-        </>
-      ) : (
-        <>
-          <Button 
-            className = {styles.button}
-            text="Вход"
-            type="button"
-            onClick={() => navigate(`${ROUTES.AUTH_ROOT}/signin`)}
-          />
-          <Button
-            className = {styles.button}
-            text="Регистрация"
-            type="button"
-            onClick={() => navigate(`${ROUTES.AUTH_ROOT}/signup`)}
-          />
-        </>
 
+      
+      
+      {user && (
+        <>
+          <Button className = {styles.button}   type="button" onClick={()=>navigate(ROUTES.OPERATIONS)} >
+            <img src = "../../../../Операции.png" className={styles.icon}/>
+         
+          </Button>
+          <Button className = {styles.button}  type="button" onClick={startGameHandler}>
+          <img src = "../../../../Бюджет.png" className={styles.icon}/>
+           
+          </Button>
+          <Button className = {styles.button}  type="button" onClick={signOutHandler} />
+          <img src = "../../../../Выход.png" className={styles.icon}/>
+          <Dropdown menu={{items}} trigger={['click']}>
+          <Button  className={styles.burgerButton}  type="submit">
+          ☰ 
+          </Button>
+          </Dropdown>
+        </>
       )}
-    </>
+    </div>
   );
 }

@@ -1,12 +1,13 @@
-import { useAppDispatch } from "@/shared/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import styles from "./Layout.module.css";
 import  { useEffect } from "react";
 import { refreshTokensThunk } from "@/entities/user";
 import { Navbar } from "@/widgets/Navbar";
 import { Outlet } from "react-router-dom";
-import { Footer } from "@/widgets/Footer";
+
 
 function Layout() {
+  const user = useAppSelector((state)=>state.user.user)
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(refreshTokensThunk());
@@ -14,11 +15,11 @@ function Layout() {
 
   return (
     <div>
-      <Navbar />
       <main className={styles.root}>
         <Outlet />
       </main>
-      <Footer />
+      {user && (
+      <Navbar />)}
     </div>
   );
 }
