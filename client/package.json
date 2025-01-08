@@ -8,9 +8,10 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "lint:css":  "stylelint src/**/*.css"
+    "lint:css": "stylelint src/**/*.css"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.5.2",
     "@hookform/resolvers": "^3.9.1",
     "@reduxjs/toolkit": "^2.5.0",
     "antd": "^5.22.5",

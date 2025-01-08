@@ -7,6 +7,9 @@
   justify-content: center;
   width: 100%;
   padding: 10px 30px;
-  background-color: #000;
-  border-top: 1px solid white;
+  background-color: #242424;
+}
+.text {
+  color: #7ee2e9;
+  text-shadow: #7ee2e9 0px 0 5px;
 }

@@ -14,16 +14,18 @@ export function Navbar(): React.ReactElement {
   const navigate = useNavigate();
   
 
+
  const startGameHandler = async() =>{
   dispatch(getAllBudgetsThunk())
 
   navigate(ROUTES.BUDGETS)
  }
 
+
   const signOutHandler = async (): Promise<void> => {
     dispatch(signOutThunk())
+   
   };
-
   const items: MenuProps['items'] = [
     {
       key: '1',

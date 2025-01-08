@@ -4,7 +4,7 @@ import React from 'react';
 export function Footer(): React.ReactElement {
   return (
     <footer className={styles.container}>
-      <p>© Ваще пропсдриллинг полнейший</p>
+      <p className={styles.text}>Вот они слева направо</p>
     </footer>
   );
 }
