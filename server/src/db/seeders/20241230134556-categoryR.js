@@ -9,14 +9,17 @@ module.exports = {
         {
           name: "Бензин",
           icon: "benzUrl",
+          borderColor: 'dfsdfs',
           budget_id: 1,
         },
         { name: "Продукты", 
           icon: "ProduktUrl", 
+          borderColor: 'dfsdfs',
           budget_id: 1 
         },
         { name: "Кредиты", 
           icon: "CreditUrl", 
+          borderColor: 'dfsdfs',
           budget_id: 1 
         },
       ],

@@ -9,16 +9,19 @@ module.exports = {
         {
           name: "Зарплата",
           icon: "ЗарплатаУРЛ",
+          borderColor: 'dfsdfs',
           budget_id: 1,
         },
         {
           name: "Подработка",
           icon: "ПодработкаУРЛ",
+          borderColor: 'dfsdfs',
           budget_id: 1,
         },
         {
           name: "Возврат долга",
           icon: "ДолгУРЛ",
+          borderColor: 'dfsdfs',
           budget_id: 1,
         },
       ],

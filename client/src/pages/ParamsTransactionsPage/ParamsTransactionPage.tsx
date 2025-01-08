@@ -1,3 +1,4 @@
+import { TransactionList } from "@/widgets/TransactionList";
 import { useParams } from "react-router-dom";
 
 export function ParamsTransactionPage():JSX.Element {
@@ -5,9 +6,7 @@ export function ParamsTransactionPage():JSX.Element {
   console.log(id,444);
   
   return (
-    <div>
-       страница транзакции
-    </div>
+  <TransactionList/>
   );
 }
 
