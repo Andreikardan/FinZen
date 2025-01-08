@@ -1,4 +1,4 @@
-const { CategoryD, Budget } = require("../db/models");
+const { CategoryD,  TransactionD } = require("../db/models");
 
 class CategoryDService {
   static async get() {
@@ -8,7 +8,7 @@ class CategoryDService {
   static async getById(id) {
     return await CategoryD.findOne({
       where: { id },
-      include: [{ model: Budget }],  //! убрать include?
+      include: [{ model: TransactionD }],  
     });
   }
 
