@@ -1,15 +1,59 @@
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 30px;
-  background: var(--primary-gradient);
-  border-bottom: 1px solid white;
+    position: fixed; 
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 30px;
+    background: var(--primary-gradient);
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
 }
 
-.button {
-  color: var(--text-muted);
-  background-color:var( --primary-dark-purple);
+.button { 
+  padding: 0;
+  color: var(--text-muted);  
+  cursor: pointer;
+  background: none;
+  border: none; 
+}
+
+.iconContainer {
+  display: flex;
+  flex-direction: column;  
+  align-items: center;  
+}
+
+.icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 45px;  
+  height: 45px;  
+  margin-right: 5px;  
+}
+
+.burgerButton {  
+  padding: 10px;  
+  font-size: 30px;  
+  color: var(--primary-dark-purple);  
+  cursor: pointer;
+  background: none;  
+  border: none;  
+}
+
+
+@media (width <= 500px) { 
+  .container {
+      flex-direction:row;  
+      align-items: stretch;  
+  }
+
+  .button {
+      margin: 5px 0; 
+  }
 }
 
 

@@ -4,6 +4,8 @@ import { message as antMessage, Input } from 'antd';
 import { signInThunk, signUpThunk, UserValidator} from '@/entities/user';
 import { useAppDispatch } from '@/shared/hooks/reduxHooks';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/shared/enums/routes';
 
 type InputsType = {
   email: string;
@@ -22,6 +24,7 @@ export default function AuthForm(): React.ReactElement {
   const [repeat, setRepeat] = useState<string>('')
   const [type, setType] = useState<boolean>(true)
   const dispatch = useAppDispatch()
+    const navigate = useNavigate();
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>): void {
     setInputs((prev) => ({ ...prev, [event.target.name]: event.target.value }));
@@ -46,6 +49,7 @@ export default function AuthForm(): React.ReactElement {
       const resultAction = await dispatch(signInThunk({...inputs,email:normalizedEmail}))
       unwrapResult(resultAction)
       setInputs(inputsInitialState)
+      navigate(ROUTES.BUDGETS)
 
     } else {
       const { isValid, error: validationError } = UserValidator.validateSignUp(inputs);
@@ -63,6 +67,7 @@ export default function AuthForm(): React.ReactElement {
      const resultAction = await dispatch(signUpThunk({...inputs,email:normalizedEmail}))
      unwrapResult(resultAction)
      setInputs(inputsInitialState)
+     navigate(ROUTES.BUDGETS)
     }
   }
 

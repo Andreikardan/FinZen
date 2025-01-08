@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
   CategoryD.init({
     name: DataTypes.STRING,
     icon: DataTypes.STRING,
-    budget_id: DataTypes.INTEGER
+    borderColor: DataTypes.STRING,
+    budget_id: DataTypes.INTEGER 
   }, {
     sequelize,
     modelName: 'CategoryD',
