@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Layout from '../Layout/Layout';
 import { ROUTES } from '@/shared/enums/routes';
-import { AuthPage } from '@/pages';
+import { StartPage } from '@/pages';
 import { BudgetPage } from '@/pages/BudgetPage/BudgetPage';
 import { ParamsTransactionPage } from '@/pages/ParamsTransactionsPage/ParamsTransactionPage';
 
@@ -11,8 +11,8 @@ export const router = createBrowserRouter([
     element: <Layout/>,
     children: [
       {
-        path: ROUTES.AUTH,
-        element: <AuthPage />,
+        path: '/',
+        element: <StartPage />,
         
       },
       {

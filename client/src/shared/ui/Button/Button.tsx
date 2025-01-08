@@ -2,8 +2,9 @@ import type { ReactNode } from 'react';
 import React from 'react';
 
 type Props = {
+  className?: string;
   text?: string;
-  color: string;
+  color?: string;
   disabled?: boolean;
   icon?: string;
   onClick?: () => void;
@@ -12,6 +13,7 @@ type Props = {
 };
 
 export  function Button({
+  className,
   text,
   color,
   disabled,
@@ -23,6 +25,7 @@ export  function Button({
   return (
     <div onClick={onClick}>
       <button
+      className={className}
         type={type}
         style={{ backgroundColor: color }}
         disabled={disabled}
