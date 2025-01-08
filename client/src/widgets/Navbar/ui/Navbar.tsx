@@ -1,10 +1,10 @@
 import styles from './Navbar.module.css';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Dropdown, MenuProps } from "antd";
 import { signOutThunk} from '@/entities/user';
 import { ROUTES } from '@/shared/enums/routes';
 import { Button } from '@/shared/ui/Button';
-import React from 'react';
 import { useAppDispatch, useAppSelector } from '@/shared/hooks/reduxHooks';
 import { getAllBudgetsThunk } from '@/entities/budget';
 
@@ -47,10 +47,10 @@ export function Navbar(): React.ReactElement {
 
 
   return (
-
+    
     <div className={styles.container}>
 
-      
+ 
 {user && (
   <>
     <Button className={styles.button} type="button" onClick={() => navigate(ROUTES.OPERATIONS)}>

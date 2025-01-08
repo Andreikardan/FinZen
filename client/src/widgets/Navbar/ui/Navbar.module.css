@@ -26,7 +26,6 @@
   align-items: center;  
 }
 
-
 .icon {
   display: flex;
   flex-direction: column;
@@ -35,9 +34,6 @@
   height: 45px;  
   margin-right: 5px;  
 }
-
-
-
 
 .burgerButton {  
   padding: 10px;  
