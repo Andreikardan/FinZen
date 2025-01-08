@@ -24,7 +24,6 @@ export function Navbar(): React.ReactElement {
     dispatch(signOutThunk())
   };
 
-
   const items: MenuProps['items'] = [
     {
       key: '1',
@@ -48,31 +47,40 @@ export function Navbar(): React.ReactElement {
 
 
   return (
-  
-
+    
     <div className={styles.container}>
 
-      
-      
-      {user && (
-        <>
-          <Button className = {styles.button}   type="button" onClick={()=>navigate(ROUTES.OPERATIONS)} >
-            <img src = "../../../../Операции.png" className={styles.icon}/>
-         
-          </Button>
-          <Button className = {styles.button}  type="button" onClick={startGameHandler}>
-          <img src = "../../../../Бюджет.png" className={styles.icon}/>
-           
-          </Button>
-          <Button className = {styles.button}  type="button" onClick={signOutHandler} />
-          <img src = "../../../../Выход.png" className={styles.icon}/>
-          <Dropdown menu={{items}} trigger={['click']}>
-          <Button  className={styles.burgerButton}  type="submit">
-          ☰ 
-          </Button>
-          </Dropdown>
-        </>
-      )}
+ 
+{user && (
+  <>
+    <Button className={styles.button} type="button" onClick={() => navigate(ROUTES.OPERATIONS)}>
+      <div className={styles.iconContainer}>
+        <img src="../../../../Операции.png" className={styles.icon} alt="Операции" />
+        <span>Операции</span>
+      </div>
+    </Button>
+    <Button className={styles.button} type="button" onClick={startGameHandler}>
+      <div className={styles.iconContainer}>
+        <img src="../../../../Бюджет.png" className={styles.icon} alt="Бюджет" />
+        <span >Бюджет</span>
+      </div>
+    </Button>
+    <Button className={styles.button} type="button" onClick={signOutHandler}>
+      <div className={styles.iconContainer}>
+        <img src="../../../../Аналитика.png" className={styles.icon} alt="Аналитика" />
+        <span>Аналитика</span>
+      </div>
+    </Button>
+    <Dropdown menu={{ items }} trigger={['click']} placement="top">
+      <Button className={styles.burgerButton} type="submit">
+      <div className={styles.Container}>
+        <img src="../../../../Бургер1.png" className={styles.icon} alt="Аналитика" />
+      </div>
+      </Button>
+    </Dropdown>
+  </>
+)}
+
     </div>
   );
 }

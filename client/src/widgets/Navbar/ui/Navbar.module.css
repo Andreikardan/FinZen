@@ -4,11 +4,10 @@
     left: 0;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 100%;
     padding: 10px 30px;
     background: var(--primary-gradient);
-    background-color: #000;
     border-top: 1px solid white;
     border-bottom: 1px solid white;
 }
@@ -18,34 +17,33 @@
   color: var(--text-muted);  
   cursor: pointer;
   background: none;
-  background-color:var( --primary-dark-purple); 
   border: none; 
 }
 
-.hiddenText {
-  visibility: hidden; 
+.iconContainer {
+  display: flex;
+  flex-direction: column;  
+  align-items: center;  
 }
 
 .icon {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 45px;  
   height: 45px;  
   margin-right: 5px;  
-  vertical-align: middle;  
 }
 
 .burgerButton {  
   padding: 10px;  
   font-size: 30px;  
-  color: var(--primary-light-purple);  
+  color: var(--primary-dark-purple);  
   cursor: pointer;
   background: none;  
   border: none;  
 }
 
-.burgerButton:hover {
-  color: var(--primary-light-purple); 
-}
 
 @media (width <= 500px) { 
   .container {
