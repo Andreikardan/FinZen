@@ -20,6 +20,28 @@ class BudgetController {
         .json(formatResponse(500, "Internal server error", null, message));
     }
   }
+
+  static async getBudgetById(req, res) {
+    const { id } = req.params; 
+
+    try {
+      const budget = await BudgetService.getById(+id);
+
+      if (!budget) {
+        return res
+          .status(404)
+          .json(formatResponse(404, `Budget with id ${id} not found`));
+      }
+
+      res.status(200).json(formatResponse(200, "success", budget));
+    } catch ({ message }) {
+      console.error(message);
+      res
+        .status(500)
+        .json(formatResponse(500, "Internal server error", null, message));
+    }
+  }
+
   static async create(req, res) {
     const { name, sum } = req.body;
 
