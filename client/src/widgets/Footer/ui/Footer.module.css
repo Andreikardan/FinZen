@@ -9,7 +9,8 @@
   padding: 10px 30px;
   background-color: #242424;
 }
+
 .text {
   color: #7ee2e9;
-  text-shadow: #7ee2e9 0px 0 5px;
+  text-shadow: #7ee2e9 0 0 5px;
 }
