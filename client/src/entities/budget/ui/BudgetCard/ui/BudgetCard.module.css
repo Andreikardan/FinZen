@@ -1,0 +1,47 @@
+
+.card {
+  width: 100vw;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  
+  overflow: hidden;
+}
+
+
+
+.listItem {
+  height: 10vw;
+  display: flex;
+
+  background-color: #9f8484;
+  /* justify-content: space-between;
+  align-items: center; */
+}
+/* BudgetCard.module.css */
+.listItem :global(.adm-list-item-content-arrow) {
+ 
+  color: rebeccapurple;
+  
+}
+
+
+.listItemContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.listItemName {
+  font-size: 16px;
+  font-weight: 500;
+  color: #eee0e0;
+}
+
+.listItemSum {
+  font-size: 16px;
+  color: #e7dcdc;
+}
+
+
+

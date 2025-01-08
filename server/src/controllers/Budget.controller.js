@@ -24,6 +24,7 @@ class BudgetController {
     const { name, sum } = req.body;
 
     const { user } = res.locals;
+console.log(name,sum,user);
 
     const { isValid, error } = BudgetValidator.validate({ name, sum });
     if (!isValid) {
