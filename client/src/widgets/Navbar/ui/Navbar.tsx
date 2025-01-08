@@ -1,12 +1,13 @@
 import styles from './Navbar.module.css';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Dropdown, MenuProps } from "antd";
+import { Dropdown, MenuProps, Space } from "antd";
 import { signOutThunk} from '@/entities/user';
 import { ROUTES } from '@/shared/enums/routes';
 import { Button } from '@/shared/ui/Button';
 import { useAppDispatch, useAppSelector } from '@/shared/hooks/reduxHooks';
 import { getAllBudgetsThunk } from '@/entities/budget';
+import { HistoryOutlined, LineChartOutlined, MenuOutlined, WalletOutlined } from '@ant-design/icons';
 
 export function Navbar(): React.ReactElement {
   const dispatch = useAppDispatch()
@@ -57,27 +58,34 @@ export function Navbar(): React.ReactElement {
   <>
     <Button className={styles.button} type="button" onClick={() => navigate(ROUTES.OPERATIONS)}>
       <div className={styles.iconContainer}>
-        <img src="../../../../Операции.png" className={styles.icon} alt="Операции" />
+        <Space>
+        <HistoryOutlined style={{ fontSize: '40px', color:"var(--primary-light-purple)"}}/> 
+        </Space>
+      
         <span>Операции</span>
       </div>
     </Button>
     <Button className={styles.button} type="button" onClick={startGameHandler}>
       <div className={styles.iconContainer}>
-        <img src="../../../../Бюджет.png" className={styles.icon} alt="Бюджет" />
+      <Space>
+      <WalletOutlined  style={{ fontSize: '41px', color:"var(--primary-light-purple)" }}/> 
+        </Space>
         <span >Бюджет</span>
       </div>
     </Button>
     <Button className={styles.button} type="button" onClick={signOutHandler}>
       <div className={styles.iconContainer}>
-        <img src="../../../../Аналитика.png" className={styles.icon} alt="Аналитика" />
+      <Space>
+        <LineChartOutlined style={{ fontSize: '41px', color:"var(--primary-light-purple)" }}/> 
+        </Space>
         <span>Аналитика</span>
       </div>
     </Button>
     <Dropdown menu={{ items }} trigger={['click']} placement="top">
       <Button className={styles.burgerButton} type="submit">
-      <div className={styles.Container}>
-        <img src="../../../../Бургер1.png" className={styles.icon} alt="Аналитика" />
-      </div>
+      <Space>
+        <MenuOutlined style={{ fontSize: '32px' }}/> 
+        </Space>
       </Button>
     </Dropdown>
   </>
