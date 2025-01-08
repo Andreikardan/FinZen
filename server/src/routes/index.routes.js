@@ -10,8 +10,8 @@ router
 
 .use("/auth", userRouter)
 .use('/budgets', budgetRouter)
-.use('/categoryd', categoryDRouter)
-.use('/categoryr', categoryRRouter)
+.use('/categoryds', categoryDRouter)
+.use('/categoryrs', categoryRRouter)
 
  
 
