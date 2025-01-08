@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import { Dialog, List, SwipeAction, Toast } from "antd-mobile";
 import { SwipeActionRef } from "antd-mobile/es/components/swipe-action";
 import { IBudget, IRawBudgetData } from "@/entities/budget/model/type";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "@/shared/enums/routes";
 
 type Props = {
   budget: IBudget;
@@ -10,6 +12,7 @@ type Props = {
 };
 export const BudgetCard: React.FC<Props> = React.memo(({ budget,onDelete, onUpdate}) => {
   const ref = useRef<SwipeActionRef>(null);
+  const navigate = useNavigate()
 
   return (
     <div>
@@ -39,7 +42,7 @@ export const BudgetCard: React.FC<Props> = React.memo(({ budget,onDelete, onUpda
         >
           <List.Item
             onClick={() => {
-              Toast.show(`${budget.id}`);
+              navigate(`/transaction/${budget.id}`);
             }}
           >
             {budget.name}
