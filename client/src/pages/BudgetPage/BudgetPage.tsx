@@ -1,25 +1,32 @@
-import { Button } from '@/shared/ui/Button';
-import { BudgetAddButton, BudgetAddModal } from '@/widgets/BudgetAddModal/ui/BudgetAddModal';
-import { BudgetForm } from '@/widgets/BudgetForm';
-import { BudgetList } from '@/widgets/BudgetList/ui/BudgetList';
-import { PlusSquareOutlined } from '@ant-design/icons';
-import { Space } from 'antd';
-import { useState } from 'react';
-
+import styles from "./BudgetPage.module.css";
+import { useState } from "react";
+import { Space } from "antd";
+import { PlusSquareOutlined } from "@ant-design/icons";
+import { Button } from "@/shared/ui/Button";
+import { BudgetAddModal } from "@/widgets/BudgetAddModal";
+import { BudgetList } from "@/widgets/BudgetList/ui/BudgetList";
 
 export function BudgetPage() {
-  const [isModalVisible,setIsModalVisible] = useState(false)
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   return (
     <div>
-      <BudgetList/>
-      <Button color='var(--primary-light-purple)'  onClick={()=>setIsModalVisible(true)}>
-        <Space>
-        <PlusSquareOutlined style={{fontSize: '32px'}} />
-        </Space>
-      </Button>
-    {isModalVisible && <BudgetAddModal isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible}/>}
-
+      <BudgetList />
+      <div className={styles.buttonContainer}>
+        <Button
+          color="var(--primary-light-purple)"
+          onClick={() => setIsModalVisible(true)}
+        >
+          <Space>
+            <PlusSquareOutlined style={{ fontSize: "32px" }} />
+          </Space>
+        </Button>
+      </div>
+      {isModalVisible && (
+        <BudgetAddModal
+          isModalVisible={isModalVisible}
+          setIsModalVisible={setIsModalVisible}
+        />
+      )}
     </div>
   );
 }
-

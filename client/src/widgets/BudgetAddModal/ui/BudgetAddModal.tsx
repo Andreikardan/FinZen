@@ -1,16 +1,19 @@
-import { createBudgetThunk } from "@/entities/budget";
-import { IRawBudgetData } from "@/entities/budget/model/type";
-import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
-import { useBudgetList } from "@/widgets/BudgetList/useBudgetList";
+import  { useState } from "react";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { Dialog, Input, Toast } from "antd-mobile";
-import React, { useState } from "react";
+import { createBudgetThunk } from "@/entities/budget";
+import { IRawBudgetData } from "@/entities/budget/model/type";
+import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 
-export function BudgetAddModal({ isModalVisible, setIsModalVisible }) {
-  // const { budgets } = useBudgetList();
+
+type Props = {
+  isModalVisible: boolean;
+  setIsModalVisible: (value:boolean) => void
+} 
+export function BudgetAddModal({ isModalVisible, setIsModalVisible }:Props) {
   const dispatch = useAppDispatch()
-  const initialInputsState = {name:'',sum:''}
-  const [inputs,setInputs] = useState(initialInputsState)
+  const initialInputsState = {name:'',sum:null}
+  const [inputs,setInputs] = useState<IRawBudgetData>(initialInputsState)
 
   const onChangeHandler = (value: string, name: string) => {
     setInputs((prev) => ({ ...prev, [name]: value }));

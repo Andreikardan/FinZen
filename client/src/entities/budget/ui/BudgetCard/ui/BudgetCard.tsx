@@ -1,12 +1,11 @@
+import styles from "./BudgetCard.module.css";
 import React, { useRef, useState } from "react";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Dialog, List, SwipeAction, Toast, Input } from "antd-mobile";
 import { SwipeActionRef } from "antd-mobile/es/components/swipe-action";
-import { IBudget, IRawBudgetData } from "@/entities/budget/model/type";
 import { useNavigate } from "react-router-dom";
+import { IBudget, IRawBudgetData } from "@/entities/budget/model/type";
 import { IApiResponseSuccess } from "@/shared/types";
-
-import styles from "./BudgetCard.module.css"; // Импортируем стили
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 type Props = {
   budget: IBudget;
@@ -20,7 +19,6 @@ export const BudgetCard: React.FC<Props> = React.memo(
     const navigate = useNavigate();
 
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [isDeleted, setIsDeleted] = useState(false); // Состояние для анимации удаления
     const [updatedBudgetData, setUpdatedBudgetData] = useState({
       name: budget.name,
       sum: budget.sum,
@@ -35,14 +33,14 @@ export const BudgetCard: React.FC<Props> = React.memo(
       setIsModalVisible(false);
       Toast.show({
         content: "Бюджет обновлен",
-        icon:'success',
+        icon: "success",
         position: "bottom",
       });
     };
 
     return (
       <div className={styles.card}>
-        <List >
+        <List>
           <SwipeAction
             ref={ref}
             closeOnAction={false}
@@ -50,8 +48,7 @@ export const BudgetCard: React.FC<Props> = React.memo(
             rightActions={[
               {
                 key: "update",
-                text: <EditOutlined/>,
-                
+                text: <EditOutlined />,
                 color: "warning",
                 onClick: async () => {
                   setIsModalVisible(true);
@@ -60,29 +57,26 @@ export const BudgetCard: React.FC<Props> = React.memo(
               },
               {
                 key: "delete",
-                text: <DeleteOutlined/>,
+                text: <DeleteOutlined />,
                 color: "danger",
                 onClick: async () => {
                   await Dialog.confirm({
                     content: "Будем удалять？",
                     confirmText: "Да",
                     async onConfirm() {
-                      setIsDeleted(true); // Запускаем анимацию исчезания
-                      setTimeout(async () => {
-                        const result = await onDelete(); // Удаляем бюджет после завершения анимации
-                        if (result.statusCode === 200) {
-                          Toast.show({
-                            content: "Бюджет удален",
-                            icon:'success',
-                            position: "bottom",
-                          });
-                        } else {
-                          Toast.show({
-                            content: "Кажется у нас проблемы",
-                            position: "bottom",
-                          });
-                        }
-                      }, 500); // Задержка, равная длительности анимации
+                      const result = await onDelete();
+                      if (result.statusCode === 200) {
+                        Toast.show({
+                          content: "Бюджет удален",
+                          icon: "success",
+                          position: "bottom",
+                        });
+                      } else {
+                        Toast.show({
+                          content: "Кажется у нас проблемы",
+                          position: "bottom",
+                        });
+                      }
                     },
                     cancelText: "Нет",
                   });
@@ -92,12 +86,10 @@ export const BudgetCard: React.FC<Props> = React.memo(
             ]}
           >
             <List.Item
-            arrowIcon={false}
-              className={`${styles.listItem} ${isDeleted ? styles.fadeOut : ""}`} // Применяем класс fadeOut, если isDeleted === true
+              arrow={false}
+              className={`${styles.listItem}`}
               onClick={() => {
-                if (!isDeleted) {
-                  navigate(`/transaction/${budget.id}`);
-                }
+                navigate(`/transaction/${budget.id}`);
               }}
             >
               <div className={styles.listItemContent}>
@@ -112,7 +104,7 @@ export const BudgetCard: React.FC<Props> = React.memo(
           visible={isModalVisible}
           title="Редактировать бюджет"
           content={
-            <div >
+            <div>
               <Input
                 name="name"
                 value={updatedBudgetData.name}
