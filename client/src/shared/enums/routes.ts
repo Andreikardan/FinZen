@@ -4,5 +4,6 @@ export enum ROUTES {
   AUTH ='/auth/:type',
   BUDGETS = '/budgets',
   PARAMS_TRANSACTION = `/transaction/:id`,
-  OPERATIONS = "/operations"
+  OPERATIONS = "/operations",
+  ANALYTICS = "/goals"
 }

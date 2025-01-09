@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { budgetReducer } from "@/entities/budget";
 import { categoryDReducer } from "@/entities/categoryD";
 import { categoryRReducer } from "@/entities/categoryR/slice";
+import { goalReducer } from "@/entities/goal";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     user: userReducer,
     categoryD: categoryDReducer,
     categoryR: categoryRReducer,
+    goal: goalReducer,
 
   },
 });
