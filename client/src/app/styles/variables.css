@@ -10,11 +10,12 @@
   --primary-gray-2: rgb(209 209 209 / 100%);
   --primary-black-50:rgb(37 37 50 / 100%);
   --primary-black-100: rgb(24 24 27 / 100%);
+  --primary-translucent-blue: rgb(18 18 45 / 90%);
 
 
   /* color-gradient */
-  --primary-gradient: linear-gradient(90deg, rgb(48 25 52 / 100%), rgb(158 124 219 / 100%));
-  --secondary-gradient: linear-gradient(90deg, rgb(18 18 45 / 100%), rgb(0 123 255 / 50%));
+ --primary-gradient: linear-gradient(97deg, rgb(48 25 52 / 100%), rgb(107 84 150 / 90%));
+  --secondary-gradient: linear-gradient(97deg, rgb(18 18 45 / 100%), rgb(0 123 255 / 50%)); 
 
     /* text colors */
     --text-primary: rgb(31 31 31);

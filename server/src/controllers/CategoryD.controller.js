@@ -22,7 +22,7 @@ class CategoryDController {
   }
 
   static async getCategoryDById(req, res) {
-    const { id } = req.params; //!
+    const { id } = req.params; 
 
     try {
       const categoryD = await CategoryDService.getById(+id);
@@ -85,7 +85,6 @@ class CategoryDController {
 
     try {
     //!   const categoryDToUpdate = await CategoryDService.getById(+id);
-
     //   if (categoryDToUpdate.budget_id !== budget.id) {
     //     
     //     return res

@@ -14,7 +14,7 @@
 
 .button { 
   padding: 0;
-  color: var(--text-muted);  
+  color:var( --primary-gray-2);;  
   cursor: pointer;
   background: none;
   border: none; 
@@ -26,6 +26,10 @@
   align-items: center;  
 }
 
+.iconContainer span {
+  margin-top: 8px; 
+}
+
 .icon {
   display: flex;
   flex-direction: column;
@@ -35,9 +39,12 @@
   margin-right: 5px;  
 }
 
-.burgerButton {  
-  padding: 10px;  
-  font-size: 30px;  
+
+
+.burgerButton {
+  padding: 0;  
+  margin-top: 17px;
+  font-size: 35px;  
   color: var(--primary-dark-purple);  
   cursor: pointer;
   background: none;  
