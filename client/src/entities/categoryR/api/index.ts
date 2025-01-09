@@ -4,8 +4,9 @@ import { IRawCategoryRData, ICategoryR, ArrayCategoryRsType } from "../model";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { AxiosError } from "axios";
 
-enum CATEGORYDS_THUNKS_TYPE {
+enum CATEGORYRS_THUNKS_TYPE {
   GET_ALL = "categoryr/getAll",
+  GET_BY_ID = "categoryr/getById",
   CREATE = "categoryr/create",
   DELETE = "categoryr/delete",
   UPDATE = "categoryr/update",
@@ -15,7 +16,7 @@ export const getAllCategoryRsThunk = createAsyncThunk<
   IApiResponseSuccess<ArrayCategoryRsType>,
   void,
   { rejectValue: IApiResponseReject }
->(CATEGORYDS_THUNKS_TYPE.GET_ALL, async (_, { rejectWithValue }) => {
+>(CATEGORYRS_THUNKS_TYPE.GET_ALL, async (_, { rejectWithValue }) => {
   try {
     const { data } = await axiosInstance.get<
       IApiResponseSuccess<ArrayCategoryRsType>
@@ -36,11 +37,29 @@ export const getAllCategoryRsThunk = createAsyncThunk<
   }
 });
 
+
+export const getCategoryRByIdThunk = createAsyncThunk<
+  IApiResponseSuccess<ICategoryR>,
+  number,
+  { rejectValue: IApiResponseReject }
+>(CATEGORYRS_THUNKS_TYPE.GET_BY_ID, async (id, { rejectWithValue }) => {
+  try {
+    const { data } = await axiosInstance.get<IApiResponseSuccess<ICategoryR>>(
+      `/categoryrs/${id}`
+    );
+    
+    return data;
+  } catch (error) {
+    const err = error as AxiosError<IApiResponseReject>;
+    return rejectWithValue(err.response!.data);
+  }
+});
+
 export const createCategoryRThunk = createAsyncThunk<
   IApiResponseSuccess<ICategoryR>,
   IRawCategoryRData,
   { rejectValue: IApiResponseReject }
->(CATEGORYDS_THUNKS_TYPE.CREATE, async (newCategoryR, { rejectWithValue }) => {
+>(CATEGORYRS_THUNKS_TYPE.CREATE, async (newCategoryR, { rejectWithValue }) => {
   try {
     const { data } = await axiosInstance.post<IApiResponseSuccess<ICategoryR>>(
       "/categoryrs",
@@ -64,7 +83,7 @@ export const deleteCategoryRThunk = createAsyncThunk<
   IApiResponseSuccess<ICategoryR>,
   number,
   { rejectValue: IApiResponseReject }
->(CATEGORYDS_THUNKS_TYPE.DELETE, async (id, { rejectWithValue }) => {
+>(CATEGORYRS_THUNKS_TYPE.DELETE, async (id, { rejectWithValue }) => {
   try {
     const { data } = await axiosInstance.delete<IApiResponseSuccess<ICategoryR>>(
       `/categoryrs/${id}`
@@ -82,7 +101,7 @@ export const updateCategoryRThunk = createAsyncThunk<
   { id: number; updatedCategoryR: IRawCategoryRData },
   { rejectValue: IApiResponseReject }
 >(
-    CATEGORYDS_THUNKS_TYPE.UPDATE,
+    CATEGORYRS_THUNKS_TYPE.UPDATE,
   async ({ id, updatedCategoryR }, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.put<IApiResponseSuccess<ICategoryR>>(

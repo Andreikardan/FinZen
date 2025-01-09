@@ -7,7 +7,7 @@ type IValidationResult = {
 };
 
 export class CategoryRValidator {
-  static validateSignUp(data: IRawCategoryRData): IValidationResult {
+  static validateCategoryR(data: IRawCategoryRData): IValidationResult {
     const { name, icon } = data;
     if (!name || typeof name !== "string" || name.trim() === "") {
       return {

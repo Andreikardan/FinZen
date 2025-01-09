@@ -6,6 +6,7 @@ import { AxiosError } from "axios";
 
 enum CATEGORYDS_THUNKS_TYPE {
   GET_ALL = "categoryd/getAll",
+  GET_BY_ID = "categoryd/getById",
   CREATE = "categoryd/create",
   DELETE = "categoryd/delete",
   UPDATE = "categoryd/update",
@@ -35,6 +36,24 @@ export const getAllCategoryDsThunk = createAsyncThunk<
     return rejectWithValue(err.response!.data);
   }
 });
+
+export const getCategoryDByIdThunk = createAsyncThunk<
+  IApiResponseSuccess<ICategoryD>,
+  number,
+  { rejectValue: IApiResponseReject }
+>(CATEGORYDS_THUNKS_TYPE.GET_BY_ID, async (id, { rejectWithValue }) => {
+  try {
+    const { data } = await axiosInstance.get<IApiResponseSuccess<ICategoryD>>(
+      `/categoryds/${id}`
+    );
+    
+    return data;
+  } catch (error) {
+    const err = error as AxiosError<IApiResponseReject>;
+    return rejectWithValue(err.response!.data);
+  }
+});
+
 
 export const createCategoryDThunk = createAsyncThunk<
   IApiResponseSuccess<ICategoryD>,
@@ -66,11 +85,11 @@ export const deleteCategoryDThunk = createAsyncThunk<
   { rejectValue: IApiResponseReject }
 >(CATEGORYDS_THUNKS_TYPE.DELETE, async (id, { rejectWithValue }) => {
   try {
-    const { data } = await axiosInstance.delete<IApiResponseSuccess<ICategoryD>>(
-      `/categoryds/${id}`
-    );
-    console.log(data.data,444);
-    
+    const { data } = await axiosInstance.delete<
+      IApiResponseSuccess<ICategoryD>
+    >(`/categoryds/${id}`);
+    console.log(data.data, 444);
+
     return data;
   } catch (error) {
     const err = error as AxiosError<IApiResponseReject>;
@@ -82,7 +101,7 @@ export const updateCategoryDThunk = createAsyncThunk<
   { id: number; updatedCategoryD: IRawCategoryDData },
   { rejectValue: IApiResponseReject }
 >(
-    CATEGORYDS_THUNKS_TYPE.UPDATE,
+  CATEGORYDS_THUNKS_TYPE.UPDATE,
   async ({ id, updatedCategoryD }, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.put<IApiResponseSuccess<ICategoryD>>(

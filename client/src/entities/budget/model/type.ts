@@ -1,6 +1,9 @@
+import { ArrayCategoryDsWithTransactions } from "@/entities/categoryD/model";
+import { ArrayCategoryRsWithTransactions } from "@/entities/categoryR/model";
+
 export interface IRawBudgetData {
   name: string;
-  sum: number;
+  sum: number | null;
 }
 export interface IBudget extends IRawBudgetData {
   id: number;
@@ -9,4 +12,9 @@ export interface IBudget extends IRawBudgetData {
   updatedAt: Date;
 }
 
-export type ArrayBudgetsType = Array<IBudget>
+export interface IOneBudgetTransactions extends IBudget {
+  CategoryDs: ArrayCategoryDsWithTransactions
+  CategoryRs: ArrayCategoryRsWithTransactions
+}
+
+export type ArrayBudgetsType = Array<IBudget>;

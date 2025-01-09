@@ -19,12 +19,6 @@ router
 .use('/transactionrs', transactionRRouter)
 .use('/goals', goalRouter)
 
- 
-
-
- 
- 
-
 
 router.use("*", (req, res) => {
   res
