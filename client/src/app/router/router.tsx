@@ -4,6 +4,7 @@ import { ROUTES } from '@/shared/enums/routes';
 import { StartPage } from '@/pages';
 import { BudgetPage } from '@/pages/BudgetPage/BudgetPage';
 import { ParamsTransactionPage } from '@/pages/ParamsTransactionsPage/ParamsTransactionPage';
+import AuthGuard from './AuthGuard';
 
 export const router = createBrowserRouter([
   {
@@ -12,7 +13,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <StartPage />,
+        element: (<AuthGuard><StartPage /></AuthGuard>),
         
       },
       {
