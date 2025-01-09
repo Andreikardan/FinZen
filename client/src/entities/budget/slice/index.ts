@@ -1,19 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ArrayBudgetsType } from "../model/type";
+import { ArrayBudgetsType, IBudget } from "../model/type";
 import {
   createBudgetThunk,
   deleteBudgetThunk,
   getAllBudgetsThunk,
   updateBudgetThunk,
+  getBudgetByIdThunk
 } from "../api";
 
 type BudgetsState = {
   budgets: ArrayBudgetsType | [];
+  currentBudget: IBudget | null;
   error: string | null;
   loading: boolean;
 };
 const initialState: BudgetsState = {
   budgets: [],
+  currentBudget: null,
   error: null,
   loading: false,
 };
@@ -32,6 +35,18 @@ const budgetSlice = createSlice({
         state.error = null;
       })
       .addCase(getAllBudgetsThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.budgets = [];
+        state.error = action.payload!.error;
+      })
+      .addCase(getBudgetByIdThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getBudgetByIdThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentBudget = action.payload.data
+      })
+      .addCase(getBudgetByIdThunk.rejected, (state, action) => {
         state.loading = false;
         state.budgets = [];
         state.error = action.payload!.error;
