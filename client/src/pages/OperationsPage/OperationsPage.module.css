@@ -9,3 +9,7 @@
   border-radius: 20px;
   overflow: hidden;
 }
+.operationsList {
+  margin-top: 240px; /* Отступ сверху (высота слайдера + отступ) */
+  padding: 20px; /* Дополнительные отступы для контента */
+}
