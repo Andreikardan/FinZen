@@ -14,7 +14,7 @@ router
   .use("/categoryds", categoryDRouter)
   .use("/categoryrs", categoryRRouter)
   .use("/transactionds", transactionDRouter)
-  .use("/transactionds", transactionRRouter);
+  .use("/transactionrs", transactionRRouter);
 
 router.use("*", (req, res) => {
   res
