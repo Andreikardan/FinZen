@@ -2,7 +2,7 @@ import { useBudgetList } from "../useBudgetList";
 import { BudgetCard } from "@/entities/budget";
 import { IBudget } from "@/entities/budget/model/type";
 
-export function BudgetList(): JSX.Element {
+export function BudgetsList(): JSX.Element {
   const { budgets, deleteBudget, updateBudget } = useBudgetList();
   
   return (

@@ -4,8 +4,9 @@ const formatResponse = require("../utils/formatResponse");
 
 class BudgetController {
   static async get(req, res) {
+    const { user } = res.locals;
     try {
-      const budgets = await BudgetService.get();
+      const budgets = await BudgetService.get(user.id);
       if (budgets.length === 0 || !budgets) {
         return res
           .status(200)
@@ -22,7 +23,7 @@ class BudgetController {
   }
 
   static async getBudgetById(req, res) {
-    const { id } = req.params; 
+    const { id } = req.params;
 
     try {
       const budget = await BudgetService.getById(+id);
@@ -46,7 +47,6 @@ class BudgetController {
     const { name, sum } = req.body;
 
     const { user } = res.locals;
-console.log(name,sum,user);
 
     const { isValid, error } = BudgetValidator.validate({ name, sum });
     if (!isValid) {
@@ -95,7 +95,7 @@ console.log(name,sum,user);
       if (!deleteBudget) {
         return res.status(404).json(formatResponse(404, "Budget not found"));
       }
-      
+
       res
         .status(200)
         .json(formatResponse(200, "success deleted", deleteBudget));
@@ -123,6 +123,45 @@ console.log(name,sum,user);
       return res
         .status(200)
         .json(formatResponse(200, "Success updated", updateBudget));
+    } catch ({ message }) {
+      console.error(message);
+      res
+        .status(500)
+        .json(formatResponse(500, "Internal server error", null, message));
+    }
+  }
+  static async getAllTransaction(req, res) {
+    const { user } = res.locals;
+    try {
+      const allTransactions = await BudgetService.getAllTransactions(1);
+      if (allTransactions.length === 0 || !allTransactions) {
+        return res
+          .status(200)
+          .json(formatResponse(200, "No transactions found", []));
+      }
+      let clearAllTransactions = [];
+
+      allTransactions.forEach((budget) => {
+        budget.CategoryDs.forEach((categoryD) => {
+          clearAllTransactions = [
+            ...clearAllTransactions,
+            ...categoryD.TransactionDs,
+          ];
+        });
+        budget.CategoryRs.forEach((categoryR) => {
+          clearAllTransactions = [
+            ...clearAllTransactions,
+            ...categoryR.TransactionRs,
+          ];
+        });
+      });
+      const sortTransaction = clearAllTransactions.toSorted(
+        (a, b) => b.createdAt - a.createdAt
+      );
+
+      return res
+        .status(200)
+        .json(formatResponse(200, "success", sortTransaction));
     } catch ({ message }) {
       console.error(message);
       res
