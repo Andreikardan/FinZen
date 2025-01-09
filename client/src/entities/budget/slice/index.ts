@@ -1,22 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ArrayBudgetsType, IOneBudgetTransactions } from "../model/type";
+
 import {
   createBudgetThunk,
   deleteBudgetThunk,
   getAllBudgetsThunk,
   updateBudgetThunk,
-  getBudgetByIdThunk
+  getBudgetByIdThunk,
+  getAllTransactionsThunk,
 } from "../api";
+import { ArrayTransactionRsType } from "@/entities/transactionR/model";
 
 type BudgetsState = {
   budgets: ArrayBudgetsType | [];
   currentBudget: IOneBudgetTransactions | null;
+  allTransactionsArray: ArrayTransactionRsType | [];
   error: string | null;
   loading: boolean;
 };
 const initialState: BudgetsState = {
   budgets: [],
   currentBudget: null,
+  allTransactionsArray: [],
   error: null,
   loading: false,
 };
@@ -44,7 +49,7 @@ const budgetSlice = createSlice({
       })
       .addCase(getBudgetByIdThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.currentBudget = action.payload.data
+        state.currentBudget = action.payload.data;
       })
       .addCase(getBudgetByIdThunk.rejected, (state, action) => {
         state.loading = false;
@@ -86,9 +91,22 @@ const budgetSlice = createSlice({
           (budget) => budget.id !== action.payload.data.id
         );
       })
-      .addCase(deleteBudgetThunk.rejected,(state,action)=>{
+      .addCase(deleteBudgetThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload!.error
+        state.error = action.payload!.error;
+      })
+      .addCase(getAllTransactionsThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getAllTransactionsThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.allTransactionsArray = action.payload.data;
+        state.error = null;
+      })
+      .addCase(getAllTransactionsThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.allTransactionsArray = []
+        state.error = action.payload!.error;
       });
   },
 });

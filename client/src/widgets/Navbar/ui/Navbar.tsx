@@ -73,7 +73,7 @@ export function Navbar(): React.ReactElement {
         <span >Бюджет</span>
       </div>
     </Button>
-    <Button className={styles.button} type="button" onClick={signOutHandler}>
+    <Button className={styles.button} type="button" onClick= {() => navigate(ROUTES.ANALYTICS)} >
       <div className={styles.iconContainer}>
       <Space>
         <LineChartOutlined style={{ fontSize: '41px', color:"var(--primary-light-purple)" }}/> 

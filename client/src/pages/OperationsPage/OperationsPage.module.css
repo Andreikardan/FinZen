@@ -3,9 +3,12 @@
   position: fixed;
   top: 20px; 
   left: 50%; 
-  transform: translateX(-50%); 
   width: 90%; 
   max-width: 1200px; 
   border-radius: 20px;
   overflow: hidden;
+}
+.operationsList {
+  margin-top: 240px; 
+  padding: 20px; 
 }
