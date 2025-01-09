@@ -11,7 +11,11 @@ export const useBudgetList = () => {
 
   const deleteBudget = useCallback(
     async (id: number) => {
-      dispatch(deleteBudgetThunk(id));
+      
+      const result = dispatch(deleteBudgetThunk(id)).unwrap()
+      
+      return result
+
     },
     [dispatch]
   );

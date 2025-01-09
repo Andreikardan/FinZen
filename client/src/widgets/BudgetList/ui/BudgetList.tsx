@@ -4,7 +4,6 @@ import { IBudget } from "@/entities/budget/model/type";
 
 export function BudgetList(): JSX.Element {
   const { budgets, deleteBudget, updateBudget } = useBudgetList();
-  console.log(budgets);
   
   return (
     <div>

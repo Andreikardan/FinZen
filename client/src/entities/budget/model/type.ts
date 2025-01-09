@@ -1,6 +1,6 @@
 export interface IRawBudgetData {
   name: string;
-  sum: number;
+  sum: number | null;
 }
 export interface IBudget extends IRawBudgetData {
   id: number;
