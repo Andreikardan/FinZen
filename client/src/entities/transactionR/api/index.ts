@@ -47,7 +47,7 @@ export const getTransactionRByIdThunk = createAsyncThunk<
   { rejectValue: IApiResponseReject }
 >(TRANSACTIONRS_THUNKS_TYPE.GET_BY_ID, async (id, { rejectWithValue }) => {
   try {
-    const { data } = await axiosInstance.delete<
+    const { data } = await axiosInstance.get<
       IApiResponseSuccess<ITransactionR>
     >(`/transactionrs/${id}`);
 

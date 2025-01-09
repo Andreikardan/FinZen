@@ -26,6 +26,7 @@ class BudgetController {
 
     try {
       const budget = await BudgetService.getById(+id);
+console.log(budget);
 
       if (!budget) {
         return res

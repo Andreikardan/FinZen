@@ -43,7 +43,7 @@ export const getCategoryDByIdThunk = createAsyncThunk<
   { rejectValue: IApiResponseReject }
 >(CATEGORYDS_THUNKS_TYPE.GET_BY_ID, async (id, { rejectWithValue }) => {
   try {
-    const { data } = await axiosInstance.delete<IApiResponseSuccess<ICategoryD>>(
+    const { data } = await axiosInstance.get<IApiResponseSuccess<ICategoryD>>(
       `/categoryds/${id}`
     );
     

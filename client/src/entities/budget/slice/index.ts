@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ArrayBudgetsType, IBudget } from "../model/type";
+import { ArrayBudgetsType, IBudget, IOneBudgetTransactions } from "../model/type";
 import {
   createBudgetThunk,
   deleteBudgetThunk,
@@ -10,7 +10,7 @@ import {
 
 type BudgetsState = {
   budgets: ArrayBudgetsType | [];
-  currentBudget: IBudget | null;
+  currentBudget: IOneBudgetTransactions | null;
   error: string | null;
   loading: boolean;
 };
