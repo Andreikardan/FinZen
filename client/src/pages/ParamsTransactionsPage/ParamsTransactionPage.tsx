@@ -5,7 +5,7 @@ export function ParamsTransactionPage():JSX.Element {
   const {id} = useParams()
   
   return (
-  <OneBudgetTransactionsList/>
+  <OneBudgetTransactionsList budgetId={id}/>
   );
 }
 

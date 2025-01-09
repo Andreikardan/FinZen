@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ArrayBudgetsType,  IOneBudgetTransactions } from "../model/type";
+import { ArrayBudgetsType, IOneBudgetTransactions } from "../model/type";
+
 import {
   createBudgetThunk,
   deleteBudgetThunk,

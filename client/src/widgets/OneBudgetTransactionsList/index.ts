@@ -1,1 +1,1 @@
-export {TransactionList} from './ui/OneBudgetTransactionsList'
+export { OneBudgetTransactionsList } from "./ui/OneBudgetTransactionsList";
