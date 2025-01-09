@@ -6,6 +6,8 @@ import { BudgetPage } from '@/pages/BudgetPage/BudgetPage';
 import { ParamsTransactionPage } from '@/pages/ParamsTransactionsPage/ParamsTransactionPage';
 import AuthGuard from './AuthGuard';
 
+//dfgh
+
 export const router = createBrowserRouter([
   {
     path: ROUTES.HOME,
