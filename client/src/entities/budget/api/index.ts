@@ -6,6 +6,7 @@ import { AxiosError } from "axios";
 
 enum BUDGETS_THUNKS_TYPE {
   GET_ALL = "budget/getAll",
+  GET_BY_ID = "budget/getById",
   CREATE = "budget/create",
   DELETE = "budget/delete",
   UPDATE = "budget/update",
@@ -35,6 +36,25 @@ export const getAllBudgetsThunk = createAsyncThunk<
     return rejectWithValue(err.response!.data);
   }
 });
+
+
+export const getBudgetByIdThunk = createAsyncThunk<
+  IApiResponseSuccess<IBudget>,
+  number,
+  { rejectValue: IApiResponseReject }
+>(BUDGETS_THUNKS_TYPE.GET_BY_ID, async (id, { rejectWithValue }) => {
+  try {
+    const { data } = await axiosInstance.delete<IApiResponseSuccess<IBudget>>(
+      `/budgets/${id}`
+    );
+    
+    return data;
+  } catch (error) {
+    const err = error as AxiosError<IApiResponseReject>;
+    return rejectWithValue(err.response!.data);
+  }
+});
+
 
 export const createBudgetThunk = createAsyncThunk<
   IApiResponseSuccess<IBudget>,

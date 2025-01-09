@@ -1,19 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ArrayCategoryRsType } from "../model";
+import { ArrayCategoryRsType, ICategoryR } from "../model";
 import {
   createCategoryRThunk,
   deleteCategoryRThunk,
   getAllCategoryRsThunk,
   updateCategoryRThunk,
+  getCategoryRByIdThunk,
 } from "../api";
 
 type CategoryRsState = {
   categoryRs: ArrayCategoryRsType | [];
+  currentCategoryR: ICategoryR | null;
   error: string | null;
   loading: boolean;
 };
 const initialState: CategoryRsState = {
   categoryRs: [],
+  currentCategoryR: null,
   error: null,
   loading: false,
 };
@@ -32,6 +35,18 @@ const categoryRSlice = createSlice({
         state.error = null;
       })
       .addCase(getAllCategoryRsThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.categoryRs = [];
+        state.error = action.payload!.error;
+      })
+      .addCase(getCategoryRByIdThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getCategoryRByIdThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentCategoryR = action.payload.data;
+      })
+      .addCase(getCategoryRByIdThunk.rejected, (state, action) => {
         state.loading = false;
         state.categoryRs = [];
         state.error = action.payload!.error;
