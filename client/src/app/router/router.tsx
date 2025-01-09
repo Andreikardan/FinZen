@@ -1,8 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Layout from '../Layout/Layout';
 import { ROUTES } from '@/shared/enums/routes';
+import { BudgetPage } from '@/pages/BudgetPage/BudgetPage';
+import AuthGuard from './AuthGuard';
+
 import { GoalPage } from '@/pages/GoalPage/GoalPage';
 import { OperationsPage, StartPage,ParamsTransactionPage,BudgetsPage } from '@/pages';
+
 
 
 export const router = createBrowserRouter([
@@ -12,7 +16,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <StartPage />,
+        element: (<AuthGuard><StartPage /></AuthGuard>),
         
       },
       {
