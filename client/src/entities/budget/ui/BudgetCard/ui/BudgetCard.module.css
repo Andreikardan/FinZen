@@ -1,0 +1,41 @@
+.card {
+  width: 100vw;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  
+}
+
+.listItem {
+  height: 10vw;
+  display: flex;
+  background-color: #030202;
+  
+}
+
+/* .listItem :global(.adm-list-item-content-arrow) {
+   color: rebeccapurple;
+  } */
+
+
+.listItemContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  
+}
+
+.listItemName {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1c1010;
+}
+
+.listItemSum {
+  font-size: 16px;
+  color: #201717;
+  
+}
+
+
+
