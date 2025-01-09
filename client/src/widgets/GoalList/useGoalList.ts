@@ -1,7 +1,8 @@
-import { deleteGoalThunk, getAllGoalsThunk, IRawGoalData, updateGoalThunk } from "@/entities/goal";
-import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useCallback, useEffect } from "react";
+import { deleteGoalThunk, getAllGoalsThunk, IRawGoalData, updateGoalThunk } from "@/entities/goal";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
+
 
   
   export const useGoalList = () => {

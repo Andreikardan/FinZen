@@ -7,7 +7,7 @@ export function useOneBudgetTransactionsList() {
   const dispatch = useAppDispatch();
   const budget = useAppSelector((state) => state.budget.currentBudget);
   const { id } = useParams();
-console.log(budget);
+
 
   useEffect(() => {
     dispatch(getBudgetByIdThunk(1));

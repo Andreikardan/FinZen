@@ -1,13 +1,13 @@
 .card {
   width: 100vw;
-  border-radius: 4px;
   margin-bottom: 5px;
+  border-radius: 4px;
   
 }
 
 .listItem {
-  height: 10vw;
   display: flex;
+  height: 10vw;
   background-color: #030202;
   
 }

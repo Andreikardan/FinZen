@@ -1,2 +1,2 @@
-export { memorizedGoalForm as GoalForm} from "./ui/GoalForm";
+export { GoalForm} from "./ui/GoalForm";
 
