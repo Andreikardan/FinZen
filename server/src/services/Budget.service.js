@@ -1,12 +1,23 @@
-const { raw } = require("express");
-const { Budget } = require("../db/models");
+const {
+  Budget,
+  CategoryD,
+  CategoryR,
+  TransactionD,
+  TransactionR,
+} = require("../db/models");
 
 class BudgetService {
   static async get() {
     return await Budget.findAll();
   }
   static async getById(id) {
-    return await Budget.findByPk(id);
+    return await Budget.findOne({
+      where: { id },
+      include: [
+        { model: CategoryD, include: [{ model: TransactionD }] },
+        { model: CategoryR, include: [{ model: TransactionR }] },
+      ],
+    });
   }
   static async create(data) {
     return await Budget.create(data);
