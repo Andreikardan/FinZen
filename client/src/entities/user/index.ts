@@ -1,5 +1,3 @@
-export { UserValidator } from "./model/User.Validator";
-
 export {
   signUpThunk,
   signInThunk,
