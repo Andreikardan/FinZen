@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { budgetReducer } from "@/entities/budget";
 import { categoryDReducer } from "@/entities/categoryD";
 import { categoryRReducer } from "@/entities/categoryR/slice";
+import { goalReducer } from "@/entities/goal";
 import { transactionDReducer } from "@/entities/transactionD";
 import { transactionRReducer } from "@/entities/transactionR";
 
@@ -12,9 +13,9 @@ const store = configureStore({
     user: userReducer,
     categoryD: categoryDReducer,
     categoryR: categoryRReducer,
+    goal: goalReducer,
     transactionD: transactionDReducer,
     transactionR: transactionRReducer,
-
   },
 });
 
