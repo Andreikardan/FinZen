@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Form, Input } from 'antd';
-import { Toast } from 'antd-mobile';
-import { useNavigate } from 'react-router-dom';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { signInThunk, signUpThunk} from '@/entities/user';
-import { useAppDispatch, ROUTES } from '@/shared';
-import { ISignInData, ISignUpData } from '@/entities/user/model/types';
+import { useNavigate } from 'react-router-dom';
+import { Toast } from 'antd-mobile';
+import { useAppDispatch, ROUTES, isEmailExistsChecker } from '@/shared';
+import { ISignInData, ISignUpData , signInThunk, signUpThunk} from '@/entities/user';
+
 
 export default function AuthForm(): React.ReactElement {
   const [type, setType] = useState<boolean>(true)
@@ -20,6 +20,11 @@ export default function AuthForm(): React.ReactElement {
       const payload = { email: normalizedEmail, password: values.password, } as ISignInData;
       result = await dispatch(signInThunk(payload));
     } else {
+      const isEmailExistsData = await isEmailExistsChecker(normalizedEmail);
+      if (!isEmailExistsData.data?.exists) {
+        Toast.show({ content: isEmailExistsData.message, position: "bottom" });
+        return;
+      }
       const payload = { email: normalizedEmail, password: values.password, username: values.username, } as ISignUpData;
       result = await dispatch(signUpThunk(payload))
     }
@@ -63,7 +68,7 @@ export default function AuthForm(): React.ReactElement {
             return Promise.reject('Поле не может быть пустым');
           }
           if (!passwordRegex.test(value)) {
-            return Promise.reject('Пароль должен быть минимум 8 символов. Должен содержать спецсимвол, заглавную букву, и только английские буквы');
+            return Promise.reject('От 8 символов. Содержит спецсимвол, заглавную букву, цифры, и английские буквы');
           }
           return Promise.resolve();
       }}]}>

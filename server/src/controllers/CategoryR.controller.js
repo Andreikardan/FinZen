@@ -22,7 +22,7 @@ class CategoryRController {
   }
 
   static async getCategoryRById(req, res) {
-    const { id } = req.params; //!
+    const { id } = req.params;
 
     try {
       const categoryR = await CategoryRService.getById(+id);
@@ -74,7 +74,7 @@ class CategoryRController {
 
   static async updateCategoryR(req, res) {
     const { id } = req.params; 
-    const { name, icon, borderColor, budget_id } = req.body; //!
+    const { name, icon, borderColor, budget_id } = req.body;
 
     const { isValid, error } = CategoryRValidator.validate({ name, icon });
     if (!isValid) {
