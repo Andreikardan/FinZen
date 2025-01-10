@@ -1,10 +1,10 @@
 export interface IRawTransactionRData {
-    sum: number;
+    sum: number | null;
     description: string;
+    category_id: number;
   }
   export interface ITransactionR extends IRawTransactionRData {
     id: number;
-    category_id: number;
     createdAt: Date;
     updatedAt: Date;
   }
