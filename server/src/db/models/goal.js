@@ -4,7 +4,9 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Goal extends Model {
-
+    static associate({GoalTransaction}) {
+      this.hasMany(GoalTransaction,{foreignKey:'goal_id'})
+    }
   }
   Goal.init({
     title: DataTypes.STRING,
