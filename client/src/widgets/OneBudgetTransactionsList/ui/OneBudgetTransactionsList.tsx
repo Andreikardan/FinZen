@@ -30,25 +30,27 @@ export function OneBudgetTransactionsList({ budgetId }: Props): JSX.Element {
   const budget = useAppSelector((state) => state.budget.currentBudget);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
-  const transactionDs: ArrayOfTransactionDsWithCategoryIcon =
-    budget?.CategoryDs.flatMap((category) =>
+  const transactionDs: ArrayOfTransactionDsWithCategoryIcon | []  =
+    budget ?  budget.CategoryDs.flatMap((category) =>
+
       category.TransactionDs.map((transactionD) => ({
         ...transactionD,
         category_icon: category.icon,
       }))
-    );
+    ) : [];
 
-  const transactionRs: Array<ITransactionRsWithCategoryIcon> =
-    budget?.CategoryRs.flatMap((category) =>
+  const transactionRs: Array<ITransactionRsWithCategoryIcon>  =
+  budget ? budget?.CategoryRs.flatMap((category) =>
+
       category.TransactionRs.map((transactionR) => ({
         ...transactionR,
         category_icon: category.icon,
       }))
-    );
+    )  : [];
 
   useEffect(() => {
     dispatch(getBudgetByIdThunk(budgetId));
-  }, [dispatch]);
+  }, [dispatch,budgetId]);
 
   return (
     <>

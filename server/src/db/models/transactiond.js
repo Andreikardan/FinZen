@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
   TransactionD.init({
     category_id: DataTypes.INTEGER,
     sum: DataTypes.INTEGER,
-    description: DataTypes.STRING
+    description: DataTypes.STRING,
+    type:DataTypes.STRING
   }, {
     sequelize,
     modelName: 'TransactionD',

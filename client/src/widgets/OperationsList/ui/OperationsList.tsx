@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { getAllTransactionsThunk } from "@/entities/budget/api";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { OperationsCard } from "./OperationsCard";
-import { ITransactionR } from "@/entities/transactionR";
+import { IAllTransaction } from "@/entities/transactionR";
 
 export function OperationsList() {
   const dispatch = useAppDispatch();
@@ -17,7 +17,7 @@ export function OperationsList() {
     <div>
       <h1>Все транзакции</h1>
       {allTransactions.length > 0 ? (
-        allTransactions.map((el: ITransactionR) => (
+        allTransactions.map((el: IAllTransaction) => (
           <OperationsCard transaction={el} key={el.id} />
         ))
       ) : (

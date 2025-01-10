@@ -9,12 +9,12 @@ import {
   getBudgetByIdThunk,
   getAllTransactionsThunk,
 } from "../api";
-import { ArrayTransactionRsType } from "@/entities/transactionR/model";
+import {  AllTransactionArray } from "@/entities/transactionR/model";
 
 type BudgetsState = {
   budgets: ArrayBudgetsType | [];
   currentBudget: IOneBudgetTransactions | null;
-  allTransactionsArray: ArrayTransactionRsType | [];
+  allTransactionsArray: AllTransactionArray | [];
   error: string | null;
   loading: boolean;
 };
