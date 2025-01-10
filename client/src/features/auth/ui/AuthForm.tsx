@@ -6,6 +6,7 @@ import { Toast } from 'antd-mobile';
 import { useAppDispatch, ROUTES, isEmailExistsChecker } from '@/shared';
 import { ISignInData, ISignUpData , signInThunk, signUpThunk} from '@/entities/user';
 
+
 export default function AuthForm(): React.ReactElement {
   const [type, setType] = useState<boolean>(true)
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);

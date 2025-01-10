@@ -14,7 +14,7 @@
 
 
   /* color-gradient */
- --primary-gradient: linear-gradient(97deg, rgb(48 25 52 / 100%), rgb(107 84 150 / 90%));
+ --primary-gradient: linear-gradient(97deg, rgb(48 25 52 / 100%), rgb(107 84 150 / 90.2%));
   --secondary-gradient: linear-gradient(97deg, rgb(18 18 45 / 100%), rgb(0 123 255 / 50%)); 
 
     /* text colors */

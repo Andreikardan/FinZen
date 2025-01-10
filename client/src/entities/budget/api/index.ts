@@ -1,5 +1,6 @@
-import { IApiResponseReject, IApiResponseSuccess } from "@/shared/types";
+import { AxiosError } from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { IApiResponseReject, IApiResponseSuccess } from "@/shared/types";
 import {
   ArrayBudgetsType,
   IBudget,
@@ -7,7 +8,7 @@ import {
   IRawBudgetData,
 } from "../model/type";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
-import { AxiosError } from "axios";
+import { AllTransactionArray } from "@/entities/transactionR/model";
 
 enum BUDGETS_THUNKS_TYPE {
   GET_ALL = "budget/getAll",
@@ -15,6 +16,7 @@ enum BUDGETS_THUNKS_TYPE {
   CREATE = "budget/create",
   DELETE = "budget/delete",
   UPDATE = "budget/update",
+  GET_ALL_TRANSACTIONS = "budget/allTransactions",
 }
 
 export const getAllBudgetsThunk = createAsyncThunk<
@@ -119,3 +121,18 @@ export const updateBudgetThunk = createAsyncThunk<
     }
   }
 );
+export const getAllTransactionsThunk = createAsyncThunk<
+  IApiResponseSuccess<AllTransactionArray>,
+  void,
+  { rejectValue: IApiResponseReject }
+>(BUDGETS_THUNKS_TYPE.GET_ALL_TRANSACTIONS, async (_, { rejectWithValue }) => {
+  try {
+    const { data } = await axiosInstance.get<
+      IApiResponseSuccess<AllTransactionArray>
+    >("/budgets/allTransactions");
+    return data;
+  } catch (error) {
+    const err = error as AxiosError<IApiResponseReject>;
+    return rejectWithValue(err.response!.data);
+  }
+});

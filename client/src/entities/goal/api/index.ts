@@ -1,8 +1,9 @@
-import { IApiResponseSuccess, IApiResponseReject } from "@/shared/types";
+import { AxiosError } from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ArrayGoalsType,  IGoal,  IRawGoalData } from "../model";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
-import { AxiosError } from "axios";
+import { IApiResponseSuccess, IApiResponseReject } from "@/shared/types";
+
 
 enum GOAL_THUNKS_TYPES {
     GET_ALL = "goal/getAll",

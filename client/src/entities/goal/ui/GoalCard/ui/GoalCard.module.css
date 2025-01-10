@@ -1,0 +1,29 @@
+.wrapper {
+    border: 2px solid var(--primary-dark-purple);
+  }
+  
+  .container {
+    width: 100%;
+    background-color:rgb(139 110 192 / 90.2%);
+    border-radius: 6px;
+}
+  
+  .barCompleted {
+    background-color: var(--primary-light-purple);
+  }
+  
+
+  
+  .button {
+    display: flex;
+    justify-content: space-between;
+
+  }
+
+  .goalCard {
+    width: 340px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 10%); 
+  }
+

@@ -1,65 +1,82 @@
+import { useState } from "react";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { message as antMessage } from 'antd'
-import React, { useState } from "react";
+import { Input } from "antd";
+import { Dialog, Toast } from "antd-mobile";
 import { createGoalThunk, IRawGoalData } from "@/entities/goal";
-import { useAppDispatch  } from "@/shared/hooks/reduxHooks";
+import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 
 
-const initialInputsState = {title:"", goal: 0, accumulator: 0}
+type Props = {
+  isModalVisible: boolean;
+  setIsModalVisible: (value: boolean) => void;
+};
 
-export const GoalForm: React.FC = () => {
-    const [inputs, setInputs] = useState<IRawGoalData>(initialInputsState);
-    const dispatch = useAppDispatch();
-  
-    function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>): void {
-      setInputs((prev) => ({ ...prev, [event.target.name]: event.target.value }));
-    }
+export function GoalForm({ isModalVisible, setIsModalVisible }: Props) {
+  const dispatch = useAppDispatch();
+  const initialInputsState = { title: '', goal: 0, accumulator: 0 };
+  const [inputs, setInputs] = useState<IRawGoalData>(initialInputsState);
 
-    const isEmptyFormData =
-      inputs.title.trim().length === 0 ||  !isFinite(inputs.goal) || !isFinite(inputs.accumulator)
-  
-    const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
-  
-      if (isEmptyFormData) {
-        antMessage.error('Все поля обязательны к заполнению');
-        return;
-      }
-  
-      const resultAction = await dispatch(createGoalThunk(inputs));
-      unwrapResult(resultAction);
-      setInputs(initialInputsState);
-    };
-  
-    return (
-        <form  onSubmit={handleSubmit}>
-          <input
-            type='text'
-            value={inputs.title}
-            name='title'
-            onChange={onChangeHandler}
-            placeholder='Название цели'
-          />
-          <input
-            type='number'
-            value={inputs.goal}
-            name='goal'
-            onChange={onChangeHandler}
-            placeholder='Вся сумма на цель'
-          />
-        <input
-            type='number'
-            value={inputs.accumulator}
-            name='accumulator'
-            onChange={onChangeHandler}
-            placeholder='Сумма для изменения'
-          />
-          <button type="submit">
-            Добавь цель
-          </button>
-        </form>
-
-    );
+  const onChangeHandler = (value: string, name: string) => {
+    setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
-  export const memorizedGoalForm = React.memo(GoalForm)
+  const onUpdate = async (data: IRawGoalData) => {
+    const resultAction = await dispatch(createGoalThunk(data));
+    unwrapResult(resultAction);
+    setIsModalVisible(false);
+    Toast.show({
+      content: "Цель добавлена",
+      position: "bottom",
+      icon: 'success'
+    });
+  };
+
+  return (
+    <div>
+      <Dialog
+        visible={isModalVisible}
+        title="Добавить цель"
+        content={
+          <div>
+            <Input
+              name="title"
+              value={inputs.title}
+              onChange={(e) => onChangeHandler(e.target.value, "title")}
+              placeholder="Название"
+            />
+            <Input
+              type="number"
+              name="goal"
+              value={inputs.goal !== null ? String(inputs.goal) : ''}
+              onChange={(e) => onChangeHandler(e.target.value, "goal")}
+              placeholder="Сумма на цель"
+            />
+            <Input
+              type="number"
+              name="accumulator"
+              value={inputs.accumulator !== null ? String(inputs.accumulator) : ''}
+              onChange={(e) => onChangeHandler(e.target.value, "accumulator")}
+              placeholder="Сумма добавления"
+            />
+          </div>
+        }
+        actions={[
+          [
+            {
+              key: "cancel",
+              text: "Отмена",
+              onClick: () => setIsModalVisible(false),
+            },
+            {
+              key: "confirm",
+              text: "Добавить",
+              bold: true,
+              onClick: () => onUpdate(inputs),
+            },
+          ],
+        ]}
+      />
+    </div>
+  );
+}
+

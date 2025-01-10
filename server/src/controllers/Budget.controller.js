@@ -27,7 +27,6 @@ class BudgetController {
 
     try {
       const budget = await BudgetService.getById(+id);
-console.log(budget);
 
       if (!budget) {
         return res
@@ -140,22 +139,26 @@ console.log(budget);
           .status(200)
           .json(formatResponse(200, "No transactions found", []));
       }
+
       let clearAllTransactions = [];
 
       allTransactions.forEach((budget) => {
         budget.CategoryDs.forEach((categoryD) => {
-          clearAllTransactions = [
-            ...clearAllTransactions,
-            ...categoryD.TransactionDs,
-          ];
+          categoryD.TransactionDs.forEach((transaction) => {
+            transaction.icon = categoryD.icon;
+            transaction.borderColor=categoryD.borderColor
+            clearAllTransactions.push(transaction);
+          });
         });
+
         budget.CategoryRs.forEach((categoryR) => {
-          clearAllTransactions = [
-            ...clearAllTransactions,
-            ...categoryR.TransactionRs,
-          ];
+          categoryR.TransactionRs.forEach((transaction) => {
+            transaction.icon = categoryR.icon;
+            clearAllTransactions.push(transaction);
+          });
         });
       });
+
       const sortTransaction = clearAllTransactions.toSorted(
         (a, b) => b.createdAt - a.createdAt
       );

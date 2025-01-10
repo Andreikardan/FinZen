@@ -13,7 +13,7 @@ export interface ICategoryR extends IRawCategoryRData {
 }
 
 export interface ICategoryRWithTransactions extends ICategoryR {
-  TransactionDs: Array<ITransactionR>;
+  TransactionRs: Array<ITransactionR>;
 }
 
 export type ArrayCategoryRsWithTransactions = Array<ICategoryRWithTransactions>;

@@ -1,5 +1,5 @@
 export { transactionRReducer } from "./slice";
-export type { ITransactionR } from "./model";
+export type { ITransactionR, IAllTransaction,AllTransactionArray } from "./model";
 export {
   createTransactionRThunk,
   getAllTransactionRsThunk,

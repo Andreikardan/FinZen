@@ -1,0 +1,47 @@
+import React from "react";
+import styles from "./OneBudgetTransactionCard.module.css";
+import { List, Image } from "antd-mobile";
+import {
+  ITransactionDsWithCategoryIcon,
+  ITransactionRsWithCategoryIcon,
+} from "../OneBudgetTransactionsList";
+import { Flex } from "antd";
+
+interface OneBudgetTransactionCardProps {
+  transaction: ITransactionDsWithCategoryIcon | ITransactionRsWithCategoryIcon;
+}
+
+export const OneBudgetTransactionCard: React.FC<
+  OneBudgetTransactionCardProps
+> = ({ transaction }) => {
+  return (
+    <List.Item>
+      <Flex align="center" justify="between">
+        <Image
+          src={transaction.category_icon}
+          alt="категория транзакции"
+          width={32}
+          height={32}
+          className={styles.categoryIcon}
+        />
+
+        <Flex
+          align="flex-start"
+          justify="center"
+          className={styles.descriptionBlock}
+        >
+          <p className={styles.description}>{transaction.description}</p>
+          <p className={styles.date}>
+            {new Date(transaction.createdAt).toLocaleDateString("ru-RU", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })}
+          </p>
+        </Flex>
+
+        <p className={styles.sum}>{transaction.sum} ₽</p>
+      </Flex>
+    </List.Item>
+  );
+};
