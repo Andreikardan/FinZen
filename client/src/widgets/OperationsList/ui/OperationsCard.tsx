@@ -1,15 +1,17 @@
+import styles from "./OperationsCard.module.css";
 import { useState } from "react";
-import { AntCloudOutlined } from "@ant-design/icons";
-import { ActionSheet, Card, Dialog, Toast } from "antd-mobile";
+import { Flex } from "antd";
 import { Action } from "antd-mobile/es/components/action-sheet";
-import { ITransactionR } from "@/entities/transactionR";
+import { ActionSheet, Dialog, List, Toast, Image } from "antd-mobile";
+import { IAllTransaction } from "@/entities/transactionR";
 
 type Props = {
-  transaction: ITransactionR;
+  transaction: IAllTransaction;
 };
 
 export function OperationsCard({ transaction }: Props) {
   const [visible, setVisible] = useState(false);
+
   const actions: Action[] = [
     { text: `${transaction.description}`, key: "copy" },
     { text: `${transaction.sum}`, key: "edit" },
@@ -32,24 +34,47 @@ export function OperationsCard({ transaction }: Props) {
 
   return (
     <>
-      <Card
-        style={{ width: "90vw", height: "20vw" }}
-        onClick={() => setVisible(true)}
-        title={transaction.description}
-        extra={<AntCloudOutlined style={{ color: "#1677ff" }} />}
-      >
-        {transaction.description}
-        {transaction.sum}
-      </Card>
-      {/* <div style={{fontSize:''}}>
-      {transaction.description}
       
-    </div> */}
+      <List.Item onClick={() => setVisible(true)}>
+        <Flex align="center" justify="between" style={{ width: "90vw" }}>
+          <Flex align="center" gap={8}>
+            <Image
+              src={transaction.icon}
+              alt="категория транзакции"
+              width={32}
+              height={32}
+              className={styles.categoryIcon}
+            />
+            <div>
+              <p className={styles.description}>{transaction.description}</p>
+              <p className={styles.date}>
+                {new Date(transaction.createdAt).toLocaleDateString()}
+              </p>
+            </div>
+          </Flex>
+          <p
+            className={styles.sum}
+            style={{
+              color:
+                transaction.type === "трата"
+                  ? "red"
+                  : transaction.type === "доход"
+                  ? "green"
+                  : "blue",
+            }}
+          >
+            {transaction.sum} ₽
+          </p>
+        </Flex>
+      </List.Item>
 
       <ActionSheet
         visible={visible}
         actions={actions}
-        onClose={() => setVisible(false)}
+        onClose={() => setVisible(false)} 
+        onAction={() => {
+          setVisible(false); 
+        }}
       />
     </>
   );

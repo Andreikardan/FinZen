@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { Button, Form, FormInstance, Input } from 'antd';
+import { Button, Form, Input } from 'antd';
+import { Toast } from 'antd-mobile';
+import { useNavigate } from 'react-router-dom';
+import { unwrapResult } from '@reduxjs/toolkit';
 import { signInThunk, signUpThunk} from '@/entities/user';
 import { useAppDispatch, ROUTES } from '@/shared';
-import { unwrapResult } from '@reduxjs/toolkit';
-import { useNavigate } from 'react-router-dom';
-import { Toast } from 'antd-mobile';
 import { ISignInData, ISignUpData } from '@/entities/user/model/types';
 
 export default function AuthForm(): React.ReactElement {
   const [type, setType] = useState<boolean>(true)
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [form] = Form.useForm<FormInstance<{email: string; pasword:string; repeat:string; username:string}>>();
   const dispatch = useAppDispatch()
   const navigate = useNavigate();
 
