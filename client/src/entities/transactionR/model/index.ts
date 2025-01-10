@@ -21,3 +21,4 @@ export interface IAllTransaction extends ITransactionR {
 }
 export type AllTransactionArray = Array<IAllTransaction>;
 export type ArrayTransactionRsType = Array<ITransactionR>;
+

@@ -105,10 +105,47 @@ const budgetSlice = createSlice({
       })
       .addCase(getAllTransactionsThunk.rejected, (state, action) => {
         state.loading = false;
-        state.allTransactionsArray = []
+        state.allTransactionsArray = [];
         state.error = action.payload!.error;
       });
   },
 });
 
 export const budgetReducer = budgetSlice.reducer;
+
+// export const { changeBudgetSum } = budgetSlice.actions;
+
+
+//функция для изменения стейта бюджета, в reducer
+
+
+// changeBudgetSum: (state, action) => {
+//   if (!state.currentBudget) {
+//     console.error("currentBudget is not defined");
+//     return;
+//   }
+
+//   const { transactionType, sum } = action.payload.data;
+
+//   if (transactionType !== "plus" && transactionType !== "minus") {
+//     console.error("Invalid transactionType");
+//     return;
+//   }
+
+//   state.budgets = state.budgets.map((budget) => {
+//     if (budget.id === state.currentBudget?.id) {
+//       const newSum = transactionType === "plus" ? budget.sum + sum : budget.sum - sum;
+
+//       if (newSum < 0) {
+//         console.error("Budget sum cannot be negative");
+//         return budget;
+//       }
+
+//       return {
+//         ...budget,
+//         sum: newSum,
+//       };
+//     }
+//     return budget;
+//   });
+// },

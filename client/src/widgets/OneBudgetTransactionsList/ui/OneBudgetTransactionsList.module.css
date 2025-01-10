@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 3vh
+    gap: 3vh;
 }
 
 .transactionDCard {
@@ -13,4 +13,20 @@
     align-items: center;
     gap: 2vw;
     margin: 1vh
+}
+
+.income {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1vh;
+    font-size: medium;
 }
