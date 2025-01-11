@@ -7,6 +7,7 @@ import { OneBudgetTransactionCard } from "./OneBudgetTransactionCard/OneBudgetTr
 import { Button, Space } from "antd";
 import { PlusSquareOutlined } from "@ant-design/icons";
 import { TransactionDForm } from "@/widgets/TransactionDForm/ui/TransactionDForm";
+import { TransactionRForm } from "@/widgets/TransactionRForm/ui/TransactionRForm";
 
 type Props = {
   budgetId: number;
@@ -29,28 +30,29 @@ export function OneBudgetTransactionsList({ budgetId }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const budget = useAppSelector((state) => state.budget.currentBudget);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [isModalVisibleR, setIsModalVisibleR] = useState<boolean>(false);
 
-  const transactionDs: ArrayOfTransactionDsWithCategoryIcon | []  =
-    budget ?  budget.CategoryDs.flatMap((category) =>
+  const transactionDs: ArrayOfTransactionDsWithCategoryIcon | [] = budget
+    ? budget.CategoryDs.flatMap((category) =>
+        category.TransactionDs.map((transactionD) => ({
+          ...transactionD,
+          category_icon: category.icon,
+        }))
+      )
+    : [];
 
-      category.TransactionDs.map((transactionD) => ({
-        ...transactionD,
-        category_icon: category.icon,
-      }))
-    ) : [];
-
-  const transactionRs: Array<ITransactionRsWithCategoryIcon>  =
-  budget ? budget?.CategoryRs.flatMap((category) =>
-
-      category.TransactionRs.map((transactionR) => ({
-        ...transactionR,
-        category_icon: category.icon,
-      }))
-    )  : [];
+  const transactionRs: Array<ITransactionRsWithCategoryIcon> = budget
+    ? budget?.CategoryRs.flatMap((category) =>
+        category.TransactionRs.map((transactionR) => ({
+          ...transactionR,
+          category_icon: category.icon,
+        }))
+      )
+    : [];
 
   useEffect(() => {
     dispatch(getBudgetByIdThunk(budgetId));
-  }, [dispatch,budgetId]);
+  }, [dispatch, budgetId]);
 
   return (
     <>
@@ -63,10 +65,7 @@ export function OneBudgetTransactionsList({ budgetId }: Props): JSX.Element {
           <div className={styles.income}>
             <h1>Доходы</h1>
             <div className={styles.buttonContainer}>
-              <Button
-                color="var(--primary-light-purple)"
-                onClick={() => setIsModalVisible(true)}
-              >
+              <Button color="purple" onClick={() => setIsModalVisible(true)}>
                 <Space>
                   <PlusSquareOutlined style={{ fontSize: "22px" }} />
                 </Space>
@@ -91,6 +90,21 @@ export function OneBudgetTransactionsList({ budgetId }: Props): JSX.Element {
         </div>
         <div>
           <h1>Расходы</h1>
+          <div className={styles.buttonContainer}>
+            <Button color="purple" onClick={() => setIsModalVisibleR(true)}>
+              <Space>
+                <PlusSquareOutlined style={{ fontSize: "22px" }} />
+              </Space>
+            </Button>
+          </div>
+          {isModalVisibleR && (
+            <TransactionRForm
+              isModalVisibleR={isModalVisibleR}
+              setIsModalVisibleR={setIsModalVisibleR}
+              budget={budget}
+            />
+          )}
+
           {transactionRs?.length > 0 ? (
             transactionRs.map((el) => (
               <OneBudgetTransactionCard transaction={el} key={el.id} />

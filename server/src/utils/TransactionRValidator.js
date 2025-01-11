@@ -1,7 +1,7 @@
 class TransactionRValidator {
     static validate(data) {
       const { sum, description } = data;
-      if (!sum || typeof sum !== "number" || sum > 0) {
+      if (!sum || typeof sum !== "number" || sum < 0) {
         return {
           isValid: false,
           error: "Sum is required and must be a positive number.",

@@ -24,7 +24,7 @@ class TransactionDController {
   }
 
   static async getTransactionDById(req, res) {
-    const { id } = req.params;
+    const { id } = req.params; //!
 
     try {
       const transactionD = await TransactionDService.getById(+id);
@@ -45,7 +45,7 @@ class TransactionDController {
   }
 
   static async createTransactionD(req, res) {
-    const { sum, description, category_id } = req.body; //!
+    const { sum, description, category_id } = req.body; 
 
     const { isValid, error } = TransactionDValidator.validate({
       sum,
@@ -60,7 +60,7 @@ class TransactionDController {
       const newTransactionD = await TransactionDService.create({
         sum,
         description,
-        category_id, //!
+        category_id, 
       });
       if (!newTransactionD) {
         return res
