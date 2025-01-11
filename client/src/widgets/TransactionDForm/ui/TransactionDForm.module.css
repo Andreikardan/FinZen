@@ -8,7 +8,7 @@
   
   .iconItem {
     width: 100%;
-    height: 80px; /* Высота иконки */
+    height: 80px; 
     display: flex;
     justify-content: center;
     align-items: center;
