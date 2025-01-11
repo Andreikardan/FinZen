@@ -1,3 +1,4 @@
+const goaltransaction = require("../db/models/goaltransaction");
 const BudgetService = require("../services/Budget.service");
 const BudgetValidator = require("../utils/BudgetValidator");
 const formatResponse = require("../utils/formatResponse");
@@ -134,31 +135,39 @@ class BudgetController {
     const { user } = res.locals;
     try {
       const allTransactions = await BudgetService.getAllTransactions(1);
+
       if (allTransactions.length === 0 || !allTransactions) {
         return res
           .status(200)
           .json(formatResponse(200, "No transactions found", []));
       }
 
-      let clearAllTransactions = [];
+      let clearAllTransactions = allTransactions.flatMap((budget) => [
+        ...budget.CategoryDs.flatMap((categoryD) =>
+          categoryD.TransactionDs.map((transaction) => ({
+            budgetName: budget.name,
+            ...transaction,
+            icon: categoryD.icon,
+            borderColor: categoryD.borderColor,
+          }))
+        ),
+        ...budget.CategoryRs.flatMap((categoryR) =>
+          categoryR.TransactionRs.map((transaction) => ({
+            budgetName: budget.name,
+            ...transaction,
+            icon: categoryR.icon,
+          }))
+        ),
+        ...budget.GoalTransactions.map((goalTransaction) => {
+          const { Goal, id,budget_id,goal_id,...rest } = goalTransaction;
 
-      allTransactions.forEach((budget) => {
-        budget.CategoryDs.forEach((categoryD) => {
-          categoryD.TransactionDs.forEach((transaction) => {
-            transaction.icon = categoryD.icon;
-            transaction.borderColor=categoryD.borderColor
-            clearAllTransactions.push(transaction);
-          });
-        });
-
-        budget.CategoryRs.forEach((categoryR) => {
-          categoryR.TransactionRs.forEach((transaction) => {
-            transaction.icon = categoryR.icon;
-            clearAllTransactions.push(transaction);
-          });
-        });
-      });
-
+          return {
+            budgetName: budget.name,
+            goalTitle: Goal.title,
+            ...rest,
+          };
+        }),
+      ]);
       const sortTransaction = clearAllTransactions.toSorted(
         (a, b) => b.createdAt - a.createdAt
       );

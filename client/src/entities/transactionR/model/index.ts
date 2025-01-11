@@ -16,8 +16,11 @@ export interface IAllTransaction extends ITransactionR {
   type: string;
   icon: string;
   borderColor: string;
-  comments: ArrayCommentsType;
-  photos: ArrayPhotoType;
+  TransactionComments: ArrayCommentsType;
+  TransactionRPhotos: ArrayPhotoType;
+  budgetName:string | null,
+  goalTitle:string | null,
+  sumGoal:string | null,
 }
 export type AllTransactionArray = Array<IAllTransaction>;
 export type ArrayTransactionRsType = Array<ITransactionR>;

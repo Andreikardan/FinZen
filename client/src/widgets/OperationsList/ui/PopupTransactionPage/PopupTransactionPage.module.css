@@ -1,0 +1,67 @@
+.popupContent {
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.amount {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.date {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.commentsSection {
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.commentsText {
+  font-size: 14px;
+  color: #666;
+}
+
+.gallerySection {
+  margin-bottom: 20px;
+}
+
+.gallery {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+}
+
+.photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  object-fit: cover;
+}

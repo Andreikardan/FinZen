@@ -1,4 +1,3 @@
-const { where } = require("sequelize");
 const {
   Budget,
   CategoryD,
@@ -7,6 +6,8 @@ const {
   TransactionR,
   TransactionRPhoto,
   TransactionComment,
+  Goal,
+  GoalTransaction,
 } = require("../db/models");
 
 class BudgetService {
@@ -46,6 +47,8 @@ class BudgetService {
       where: { user_id: id },
       include: [
         { model: CategoryD, include: [{ model: TransactionD }] },
+      { model: GoalTransaction,  include: { model: Goal, attributes:['title'] },  },
+
         {
           model: CategoryR,
           include: [

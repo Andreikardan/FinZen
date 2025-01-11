@@ -1,40 +1,40 @@
 import styles from "./OperationsCard.module.css";
 import { useState } from "react";
 import { Flex } from "antd";
-import { Action } from "antd-mobile/es/components/action-sheet";
-import { ActionSheet, Dialog, List, Toast, Image } from "antd-mobile";
+import { List, Image } from "antd-mobile";
 import { IAllTransaction } from "@/entities/transactionR";
+import { PopupTransactionPage } from "./PopupTransactionPage/PopupTransactionPage";
 
 type Props = {
   transaction: IAllTransaction;
 };
 
 export function OperationsCard({ transaction }: Props) {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState<boolean>(false);
 
-  const actions: Action[] = [
-    { text: `${transaction.description}`, key: "copy" },
-    { text: `${transaction.sum}`, key: "edit" },
-    {
-      text: `Удалить`,
-      key: "delete",
-      onClick: async () => {
-        const result = await Dialog.confirm({
-          content: "Что то делаем？",
-          confirmText: "Да",
-          cancelText: "Нет",
-        });
-        if (result) {
-          setVisible(false);
-          Toast.show("Готово");
-        }
-      },
-    },
-  ];
+  // const actions: Action[] = [
+  //   { text: `${transaction.description}`, key: "copy" },
+  //   { text: `${transaction.sum}`, key: "edit" },
+  //   {
+  //     text: `Удалить`,
+  //     key: "delete",
+  //     onClick: async () => {
+  //       const result = await Dialog.confirm({
+  //         content: "Что то делаем？",
+  //         confirmText: "Да",
+  //         cancelText: "Нет",
+  //       });
+  //       if (result) {
+  //         setVisible(false);
+  //         Toast.show("Готово");
+  //       }
+  //     },
+  //   },
+  // ];
+  console.log(transaction.TransactionComments, 555);
 
   return (
     <>
-      
       <List.Item onClick={() => setVisible(true)}>
         <Flex align="center" justify="between" style={{ width: "90vw" }}>
           <Flex align="center" gap={8}>
@@ -46,9 +46,15 @@ export function OperationsCard({ transaction }: Props) {
               className={styles.categoryIcon}
             />
             <div>
-              <p className={styles.description}>{transaction.description}</p>
+              {transaction.type !== "перевод" ? (
+                <p className={styles.description}>{transaction.description}</p>
+              ) : (
+                <p
+                  className={styles.description}
+                >{`${transaction.budgetName}-->${transaction.goalTitle}`}</p>
+              )}
               <p className={styles.date}>
-                {new Date(transaction.createdAt).toLocaleDateString()}
+                {new Date(transaction.createdAt).toLocaleTimeString()}
               </p>
             </div>
           </Flex>
@@ -63,18 +69,18 @@ export function OperationsCard({ transaction }: Props) {
                   : "blue",
             }}
           >
-            {transaction.sum} ₽
+            {transaction.type !== "перевод"
+              ? transaction.sum
+              : transaction.sumGoal}{" "}
+            ₽
           </p>
         </Flex>
       </List.Item>
-
-      <ActionSheet
+      
+      <PopupTransactionPage
+        transaction={transaction}
         visible={visible}
-        actions={actions}
-        onClose={() => setVisible(false)} 
-        onAction={() => {
-          setVisible(false); 
-        }}
+        setVisible={setVisible}
       />
     </>
   );
