@@ -7,6 +7,7 @@ import { OneBudgetTransactionCard } from "./OneBudgetTransactionCard/OneBudgetTr
 import { Button, Space } from "antd";
 import { PlusSquareOutlined } from "@ant-design/icons";
 import { TransactionDForm } from "@/widgets/TransactionDForm/ui/TransactionDForm";
+import { TransactionRForm } from "@/widgets/TransactionRForm/ui/TransactionRForm";
 
 type Props = {
   budgetId: number;
@@ -20,57 +21,60 @@ export interface ITransactionRsWithCategoryIcon extends ITransactionD {
   category_icon: string;
 }
 
-export type ArrayOfTransactionDsWithCategoryIcon =
-  Array<ITransactionDsWithCategoryIcon>;
-export type ArrayOfTransactionRsWithCategoryIcon =
-  Array<ITransactionRsWithCategoryIcon>;
+export type ArrayOfTransactionDsWithCategoryIcon = Array<ITransactionDsWithCategoryIcon>;
+export type ArrayOfTransactionRsWithCategoryIcon = Array<ITransactionRsWithCategoryIcon>;
 
 export function OneBudgetTransactionsList({ budgetId }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const budget = useAppSelector((state) => state.budget.currentBudget);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [isModalVisibleR, setIsModalVisibleR] = useState<boolean>(false);
+  const [showAllIncomes, setShowAllIncomes] = useState<boolean>(false);
+  const [showAllExpenses, setShowAllExpenses] = useState<boolean>(false);
 
-  const transactionDs: ArrayOfTransactionDsWithCategoryIcon | []  =
-    budget ?  budget.CategoryDs.flatMap((category) =>
+  const transactionDs: ArrayOfTransactionDsWithCategoryIcon | [] = budget
+    ? budget.CategoryDs.flatMap((category) =>
+        category.TransactionDs.map((transactionD) => ({
+          ...transactionD,
+          category_icon: category.icon,
+        }))
+      )
+    : [];
 
-      category.TransactionDs.map((transactionD) => ({
-        ...transactionD,
-        category_icon: category.icon,
-      }))
-    ) : [];
+  const transactionRs: Array<ITransactionRsWithCategoryIcon> = budget
+    ? budget?.CategoryRs.flatMap((category) =>
+        category.TransactionRs.map((transactionR) => ({
+          ...transactionR,
+          category_icon: category.icon,
+        }))
+      )
+    : [];
 
-  const transactionRs: Array<ITransactionRsWithCategoryIcon>  =
-  budget ? budget?.CategoryRs.flatMap((category) =>
-
-      category.TransactionRs.map((transactionR) => ({
-        ...transactionR,
-        category_icon: category.icon,
-      }))
-    )  : [];
+  const displayedIncomes = showAllIncomes ? transactionDs : transactionDs.slice(0, 3);
+  const displayedExpenses = showAllExpenses ? transactionRs : transactionRs.slice(0, 3);
 
   useEffect(() => {
     dispatch(getBudgetByIdThunk(budgetId));
-  }, [dispatch,budgetId]);
+  }, [dispatch, budgetId]);
 
   return (
     <>
       <div className={styles.container}>
         <div className={styles.header}>
           <div>{budget?.name}</div>
-          <div>{`${budget?.sum} ₽`} </div>
+          <div>{`${budget?.sum} ₽`}</div>
         </div>
-        <div>
-          <div className={styles.income}>
-            <h1>Доходы</h1>
-            <div className={styles.buttonContainer}>
-              <Button
-                color="var(--primary-light-purple)"
-                onClick={() => setIsModalVisible(true)}
-              >
-                <Space>
-                  <PlusSquareOutlined style={{ fontSize: "22px" }} />
-                </Space>
-              </Button>
+        <div className={styles.sectionsContainer}>
+          <div className={styles.section}>
+            <div className={styles.sectionHeader}>
+              <h1>Доходы</h1>
+              <div className={styles.buttonContainer}>
+                <Button color="purple" onClick={() => setIsModalVisible(true)}>
+                  <Space>
+                    <PlusSquareOutlined style={{ fontSize: "22px" }} />
+                  </Space>
+                </Button>
+              </div>
             </div>
             {isModalVisible && (
               <TransactionDForm
@@ -79,25 +83,62 @@ export function OneBudgetTransactionsList({ budgetId }: Props): JSX.Element {
                 budget={budget}
               />
             )}
+            <div className={styles.transactionList}>
+              {displayedIncomes?.length > 0 ? (
+                displayedIncomes.map((el) => (
+                  <OneBudgetTransactionCard transaction={el} key={el.id} />
+                ))
+              ) : (
+                <h1>Транзакции не найдены</h1>
+              )}
+            </div>
+            {transactionDs.length > 3 && (
+              <Button
+                type="link"
+                onClick={() => setShowAllIncomes(!showAllIncomes)}
+                className={styles.showMoreButton}
+              >
+                {showAllIncomes ? "Свернуть" : "Развернуть"}
+              </Button>
+            )}
           </div>
-
-          {transactionDs?.length > 0 ? (
-            transactionDs.map((el) => (
-              <OneBudgetTransactionCard transaction={el} key={el.id} />
-            ))
-          ) : (
-            <h1>Транзакции не найдены</h1>
-          )}
-        </div>
-        <div>
-          <h1>Расходы</h1>
-          {transactionRs?.length > 0 ? (
-            transactionRs.map((el) => (
-              <OneBudgetTransactionCard transaction={el} key={el.id} />
-            ))
-          ) : (
-            <h1>Транзакции не найдены</h1>
-          )}
+          <div className={styles.section}>
+            <div className={styles.sectionHeader}>
+              <h1>Расходы</h1>
+              <div className={styles.buttonContainer}>
+                <Button color="purple" onClick={() => setIsModalVisibleR(true)}>
+                  <Space>
+                    <PlusSquareOutlined style={{ fontSize: "22px" }} />
+                  </Space>
+                </Button>
+              </div>
+            </div>
+            {isModalVisibleR && (
+              <TransactionRForm
+                isModalVisibleR={isModalVisibleR}
+                setIsModalVisibleR={setIsModalVisibleR}
+                budget={budget}
+              />
+            )}
+            <div className={styles.transactionList}>
+              {displayedExpenses?.length > 0 ? (
+                displayedExpenses.map((el) => (
+                  <OneBudgetTransactionCard transaction={el} key={el.id} />
+                ))
+              ) : (
+                <h1>Транзакции не найдены</h1>
+              )}
+            </div>
+            {transactionRs.length > 3 && (
+              <Button
+                type="link"
+                onClick={() => setShowAllExpenses(!showAllExpenses)}
+                className={styles.showMoreButton}
+              >
+                {showAllExpenses ? "Свернуть" : "Развернуть"}
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </>

@@ -32,10 +32,12 @@ export const OneBudgetTransactionCard: React.FC<
         >
           <p className={styles.description}>{transaction.description}</p>
           <p className={styles.date}>
-            {new Date(transaction.createdAt).toLocaleDateString("ru-RU", {
+            {new Date(transaction.createdAt).toLocaleString("ru-RU", {
               day: "2-digit",
               month: "2-digit",
               year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
             })}
           </p>
         </Flex>

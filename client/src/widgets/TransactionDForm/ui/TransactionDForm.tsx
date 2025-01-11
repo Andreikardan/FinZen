@@ -12,6 +12,7 @@ type Props = {
   setIsModalVisible: (value: boolean) => void;
   budget: IOneBudgetTransactions | null;
 };
+
 export function TransactionDForm({
   isModalVisible,
   setIsModalVisible,
@@ -19,13 +20,18 @@ export function TransactionDForm({
 }: Props) {
   const dispatch = useAppDispatch();
   const categoryDs = budget!.CategoryDs;
-  const initialInputsState = { description: "", sum: null, category_id: null };
+  const initialInputsState = { description: "", sum: 0, category_id: null };
   const [inputs, setInputs] =
     useState<IRawTransactionDData>(initialInputsState);
   const [visible, setVisible] = useState(false);
 
+
   const onChangeHandler = (value: string, name: string) => {
-    setInputs((prev) => ({ ...prev, [name]: value }));
+    if (name === "sum") {
+      setInputs((prev) => ({ ...prev, [name]: Number(value) }));
+    } else {
+      setInputs((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const onCategorySelect = (categoryId: number) => {
@@ -79,7 +85,10 @@ export function TransactionDForm({
               ) : (
                 <div className={styles.emptyIcon}></div>
               )}
-              <button className={styles.categoryButton} onClick={() => setVisible(true)}>
+              <button
+                className={styles.categoryButton}
+                onClick={() => setVisible(true)}
+              >
                 {inputs.category_id
                   ? "Изменить категорию"
                   : "Выбрать категорию"}

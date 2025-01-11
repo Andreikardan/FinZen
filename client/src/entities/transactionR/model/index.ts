@@ -4,6 +4,7 @@ import { ArrayPhotoType } from "@/entities/photo";
 export interface IRawTransactionRData {
   sum: number;
   description: string;
+  category_id: number | null;
 }
 export interface ITransactionR extends IRawTransactionRData {
   id: number;
