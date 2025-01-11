@@ -24,7 +24,7 @@ export function TransactionDForm({
   const [inputs, setInputs] =
     useState<IRawTransactionDData>(initialInputsState);
   const [visible, setVisible] = useState(false);
-console.log(inputs,'доход');
+
 
   const onChangeHandler = (value: string, name: string) => {
     if (name === "sum") {
