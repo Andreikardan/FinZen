@@ -1,0 +1,28 @@
+.container {
+  padding: 16px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  width: 100%; /* Занимает всю ширину экрана */
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+  text-align: center; /* Центрируем заголовок */
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Отступ между карточками */
+  width: 100%; /* Занимает всю ширину контейнера */
+}
+
+.emptyMessage {
+  font-size: 16px;
+  color: #666;
+  text-align: center;
+  margin-top: 20px;
+}

@@ -1,41 +1,63 @@
 .card {
-  width: 100vw;
-  margin-bottom: 5px;
-  border-radius: 4px;
-  
+  margin-bottom: 12px;
+  background-color: #d3c5c5;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* width: 90vw; */
+
 }
 
 .listItem {
-  display: flex;
-  height: 10vw;
-  background-color: #030202;
+  padding: 12px 16px;
+  background-color: red;
+  color: blue;
   
 }
+/* Стили для кнопок действия */
+:global(.adm-swipe-action-actions) {
+  height: 28px; /* Уменьшаем высоту кнопок */
+}
 
-/* .listItem :global(.adm-list-item-content-arrow) {
-   color: rebeccapurple;
-  } */
-
+:global(.adm-swipe-action-action-button) {
+  height: 100%; /* Занимаем всю высоту контейнера */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .listItemContent {
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   
 }
 
 .listItemName {
   font-size: 16px;
   font-weight: 500;
-  color: #1c1010;
+  color: #333;
 }
 
 .listItemSum {
   font-size: 16px;
-  color: #201717;
-  
+  font-weight: 600;
+  color: #082540;
 }
 
+.actionIcon {
+  font-size: 18px;
+  height: 10px;
+}
 
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
+.input {
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 14px;
+}

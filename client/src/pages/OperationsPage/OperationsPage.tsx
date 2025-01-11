@@ -4,10 +4,13 @@ import { InfoSlider } from "@/widgets/InfoSlider";
 
 export function OperationsPage() {
   return (
-    <div>
+    <div className={styles.container}>
+      {/* Контейнер для слайдера */}
       <div className={styles.sliderContainer}>
         <InfoSlider />
       </div>
+
+      {/* Контейнер для списка операций */}
       <div className={styles.operationsList}>
         <OperationsList />
       </div>
