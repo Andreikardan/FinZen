@@ -24,7 +24,7 @@ export function TransactionRForm({
   const [inputs, setInputs] =
     useState<IRawTransactionRData>(initialInputsState);
   const [visible, setVisible] = useState(false);
-console.log(inputs,'расход');
+
 
   const onChangeHandler = (value: string, name: string) => {
     if (name === "sum") {
