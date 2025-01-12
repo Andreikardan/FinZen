@@ -1,21 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ArrayCategoryRsType, ICategoryR } from "../model";
+import { CategoryList, ICategory } from "@/entities/category";
 import {
   createCategoryRThunk,
   deleteCategoryRThunk,
-  getAllCategoryRsThunk,
+  getAllCategoryRThunk,
   updateCategoryRThunk,
-  getCategoryRByIdThunk,
 } from "../api";
 
 type CategoryRsState = {
-  categoryRs: ArrayCategoryRsType | [];
-  currentCategoryR: ICategoryR | null;
+  categoryR: CategoryList | [];
+  currentCategoryR: ICategory | null;
   error: string | null;
   loading: boolean;
 };
 const initialState: CategoryRsState = {
-  categoryRs: [],
+  categoryR: [],
   currentCategoryR: null,
   error: null,
   loading: false,
@@ -26,52 +25,40 @@ const categoryRSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllCategoryRsThunk.pending, (state) => {
+      .addCase(getAllCategoryRThunk.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getAllCategoryRsThunk.fulfilled, (state, action) => {
+      .addCase(getAllCategoryRThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.categoryRs = action.payload.data;
+        state.categoryR = action.payload.data;
         state.error = null;
       })
-      .addCase(getAllCategoryRsThunk.rejected, (state, action) => {
+      .addCase(getAllCategoryRThunk.rejected, (state, action) => {
         state.loading = false;
-        state.categoryRs = [];
+        state.categoryR = [];
         state.error = action.payload!.error;
       })
-      .addCase(getCategoryRByIdThunk.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getCategoryRByIdThunk.fulfilled, (state, action) => {
-        state.loading = false;
-        state.currentCategoryR = action.payload.data;
-      })
-      .addCase(getCategoryRByIdThunk.rejected, (state, action) => {
-        state.loading = false;
-        state.categoryRs = [];
-        state.error = action.payload!.error;
-      })
+
       .addCase(createCategoryRThunk.pending, (state) => {
         state.loading = true;
       })
       .addCase(createCategoryRThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.categoryRs = [...state.categoryRs, action.payload.data];
+        state.categoryR = [...state.categoryR, action.payload.data];
         state.error = null;
       })
       .addCase(createCategoryRThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload!.error;
       })
+
       .addCase(updateCategoryRThunk.pending, (state) => {
         state.loading = true;
       })
       .addCase(updateCategoryRThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.categoryRs = state.categoryRs.map((categoryr) =>
-          categoryr.id === action.payload.data.id
-            ? action.payload.data
-            : categoryr
+        state.categoryR = state.categoryR.map((categoryr) =>
+          categoryr.id === action.payload.data.id ? action.payload.data : categoryr
         );
         state.error = null;
       })
@@ -79,12 +66,13 @@ const categoryRSlice = createSlice({
         state.loading = false;
         state.error = action.payload!.error;
       })
+
       .addCase(deleteCategoryRThunk.pending, (state) => {
         state.loading = true;
       })
       .addCase(deleteCategoryRThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.categoryRs = state.categoryRs.filter(
+        state.categoryR = state.categoryR.filter(
           (categoryR) => categoryR.id !== action.payload.data.id
         );
       })

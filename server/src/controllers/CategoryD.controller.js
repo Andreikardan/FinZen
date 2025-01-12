@@ -1,168 +1,82 @@
 const CategoryDService = require("../services/CategoryD.service");
-const CategoryDValidator = require("../utils/CategoryDValidator");
+const CategoryValidator = require("../utils/CategoryValidator");
 const formatResponse = require("../utils/formatResponse");
 
 class CategoryDController {
+
   static async getAllCategoryDs(req, res) {
     try {
-      const categoryDs = await CategoryDService.get();
-      if (categoryDs.length === 0 || !categoryDs) {
-        return res
-          .status(200)
-          .json(formatResponse(200, "No categories found", []));
+      const {user:{id}} = req.locals
+      if(id === undefined){
+        res.status(404).json(formatResponse(404, "Где твои куки?", null, 'Где твои куки?'));
       }
-
-      return res.status(200).json(formatResponse(200, "success", categoryDs));
+      const categoryDs = await CategoryDService.getAll(id);
+      if (!categoryDs?.length) {
+        return res.status(200).json(formatResponse(200, "Нет категорий по доходам", []));
+      }
+      return res.status(200).json(formatResponse(200, "Все ваши категории по доходам", categoryDs));
     } catch ({ message }) {
       console.error(message);
-      res
-        .status(500)
-        .json(formatResponse(500, "Internal server error", null, message));
-    }
-  }
-
-  static async getCategoryDById(req, res) {
-    const { id } = req.params; 
-
-    try {
-      const categoryD = await CategoryDService.getById(+id);
-
-      if (!categoryD) {
-        return res
-          .status(404)
-          .json(formatResponse(404, `Category with id ${id} not found`));
-      }
-
-      res.status(200).json(formatResponse(200, "success", categoryD));
-    } catch ({ message }) {
-      console.error(message);
-      res
-        .status(500)
-        .json(formatResponse(500, "Internal server error", null, message));
+      res.status(500).json(formatResponse(500, "Internal server error", null, message));
     }
   }
 
   static async createCategoryD(req, res) {
-    const { name, icon, borderColor, budget_id } = req.body; //!
-
-    const { isValid, error } = CategoryDValidator.validate({ name, icon });
-    if (!isValid) {
-      return res
-        .status(400)
-        .json(formatResponse(400, "Validation error", null, error));
-    }
     try {
-      const newCategoryD = await CategoryDService.create({
-        name,
-        icon,
-        borderColor,
-        budget_id //!
-      });
-      if (!newCategoryD) {
-        return res
-          .status(400)
-          .json(formatResponse(400, `Failed to create new category`));
+      const { valid, error } = CategoryValidator.validateCreate(req.body);
+      if (!valid) {
+        return res.status(400).json(formatResponse(400, error, null, error));
       }
-      res.status(201).json(formatResponse(201, "success", newCategoryD));
+      req.body.borderColor = 'green'
+      const newCategoryD = await CategoryDService.create(req.body);
+      if (!newCategoryD) {
+        return res.status(400).json(formatResponse(400, `Категория не создалась`, null));
+      }
+      res.status(201).json(formatResponse(201, "Категория создалась", newCategoryD));
     } catch ({ message }) {
       console.error(message);
-      res
-        .status(500)
-        .json(formatResponse(500, "Internal server error", null, message));
+      res.status(500).json(formatResponse(500, "Internal server error", null, message));
     }
   }
 
   static async updateCategoryD(req, res) {
-    const { id } = req.params; 
-    const { name, icon, borderColor, budget_id } = req.body; //!
-
-    const { isValid, error } = CategoryDValidator.validate({ name, icon });
-    if (!isValid) {
-      return res
-        .status(400)
-        .json(formatResponse(400, "Validation error", null, error));
-    }
-
     try {
-    //!   const categoryDToUpdate = await CategoryDService.getById(+id);
-    //   if (categoryDToUpdate.budget_id !== budget.id) {
-    //     
-    //     return res
-    //       .status(400)
-    //       .json(
-    //         formatResponse(
-    //           400,
-    //           `No rights to update category with id ${id}`,
-    //           null,
-    //           `No rights to update category with id ${id}`
-    //         )
-    //       );
-    //!   }
-
-      const updatedCategoryD = await CategoryDService.update(+id, {
-        name,
-        icon,
-        borderColor,
-        budget_id
-      });
-
-      if (!updatedCategoryD) {
-        return res
-          .status(404)
-          .json(formatResponse(404, `Category with id ${id} not found`));
+      const { id } = req.body;
+      const categoryD = await CategoryDService.getById(+id)
+      if(!categoryD){
+        return res.status(404).json(formatResponse(404, 'Категория не найдена', null));
       }
-
-      res.status(200).json(formatResponse(200, "success", updatedCategoryD));
+      delete req.body.id
+      const { valid, error } = CategoryValidator.validateUpdate(req.body);
+      if (!valid) {
+        return res.status(400).json(formatResponse(400, error, null));
+      }
+      const updatedCategoryD = await CategoryDService.update(categoryD, req.body);
+      if (!updatedCategoryD) {
+        return res.status(404).json(formatResponse(404, `Что то пошло не по плану`));
+      }
+      res.status(200).json(formatResponse(200, "Успешное обновление", updatedCategoryD));
     } catch ({ message }) {
       console.error(message);
-      res
-        .status(500)
-        .json(formatResponse(500, "Internal server error", null, message));
+      res.status(500).json(formatResponse(500, "Internal server error", null, message));
     }
   }
 
   static async deleteCategoryD(req, res) {
-    const { id } = req.params;
-
     try {
-    //!    const categoryDToDelete = await CategoryDService.getById(+id);
-
-    //   if (categoryDToDelete.budget_id !== budget.id) {
-    //     return res
-    //       .status(400)
-    //       .json(
-    //         formatResponse(
-    //           400,
-    //           `No rights to delete category with id ${id}`,
-    //           null,
-    //           `No rights to delete category with id ${id}`
-    //         )
-    //       );
-    //!   } 
-
-      const deletedCategoryD = await CategoryDService.delete(+id);
-
-      if (!deletedCategoryD) {
-        return res
-          .status(404)
-          .json(formatResponse(404, `Category with id ${id} not found`));
+      const {id} = req.body
+      const oldCategoryD = await CategoryDService.getById(+id);
+      if (!oldCategoryD) {
+        return res.status(404).json(formatResponse(404, `Категории не существует`, null));
       }
-
-      res.status(200);
-      res
-        .status(200)
-        .json(
-          formatResponse(
-            200,
-            `Category with id ${id} successfully deleted`,
-            deletedCategoryD
-          )
-        );
+      const result = await CategoryDService.delete(oldCategoryD)
+      if (!result){
+         return res.status(400).json(formatResponse(400, 'Что то пошло не по плану', null))
+      }
+      res.status(200).json(formatResponse(200, `Категория удалена`, result));
     } catch ({ message }) {
       console.error(message);
-      res
-        .status(500)
-        .json(formatResponse(500, "Internal server error", null, message));
+      res.status(500).json(formatResponse(500, "Internal server error", null, message));
     }
   }
 }
