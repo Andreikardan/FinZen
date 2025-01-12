@@ -1,26 +1,33 @@
 import styles from "./BudgetsPage.module.css";
 import { useState } from "react";
-import { Space } from "antd";
+import { Space, Button } from "antd";
 import { PlusSquareOutlined } from "@ant-design/icons";
-import { Button } from "@/shared/ui/Button";
 import { BudgetAddModal } from "@/widgets/BudgetAddModal";
 import { BudgetsList } from "@/widgets/BudgetsList";
 
 export function BudgetsPage() {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
   return (
-    <div>
+    <div className={styles.container}>
+      {/* Список бюджетов */}
       <BudgetsList />
+
+      {/* Кнопка добавления бюджета */}
       <div className={styles.buttonContainer}>
         <Button
-          color="var(--primary-light-purple)"
+          type="primary"
+          className={styles.addButton}
           onClick={() => setIsModalVisible(true)}
         >
           <Space>
-            <PlusSquareOutlined style={{ fontSize: "32px" }} />
+            <PlusSquareOutlined className={styles.addIcon} />
+            
           </Space>
         </Button>
       </div>
+
+      {/* Модальное окно добавления бюджета */}
       {isModalVisible && (
         <BudgetAddModal
           isModalVisible={isModalVisible}

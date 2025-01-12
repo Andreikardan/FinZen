@@ -6,6 +6,7 @@ import { categoryRReducer } from "@/entities/categoryR/slice";
 import { goalReducer } from "@/entities/goal";
 import { transactionDReducer } from "@/entities/transactionD";
 import { transactionRReducer } from "@/entities/transactionR";
+import { sliderReducer } from "@/entities/infoSlider";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     goal: goalReducer,
     transactionD: transactionDReducer,
     transactionR: transactionRReducer,
+    infoSlider:sliderReducer,
   },
 });
 

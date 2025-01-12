@@ -1,0 +1,25 @@
+.container {
+  padding: 16px;
+  background-color: #d7a3a3;
+  min-height: 100vh;
+  border-radius: 8px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #4a148c;
+  margin-bottom: 16px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.emptyMessage {
+  font-size: 16px;
+  color: #666;
+  text-align: center;
+  margin-top: 20px;
+}

@@ -9,6 +9,7 @@ const transactionRRouter = require('./transactionr.routes')
 const formatResponse = require("../utils/formatResponse");
 const goalRouter = require("./goal.routes")
 const goalTransactionRouter = require('./goalTransaction.routes')
+const infoSliderRouter = require('./infoSlider.routes')
 
 
 router
@@ -21,6 +22,7 @@ router
 .use('/transactionrs', transactionRRouter)
 .use('/goals', goalRouter)
 .use('/goal-transaction', goalTransactionRouter)
+.use('/infoSlider',infoSliderRouter)
 
 
 router.use("*", (req, res) => {
