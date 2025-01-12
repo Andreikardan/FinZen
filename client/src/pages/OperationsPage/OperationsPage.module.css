@@ -1,25 +1,19 @@
 
 .container {
-  
   display: flex;
   flex-direction: column;
   gap: 16px; 
-  background-color: #290707;
-  /* min-height: 100vh; */
+  background-color: #ffffff;
+  border-radius: 9px;
   width: 100%;
   
 }
 
 .sliderContainer {
-  background-color: #ae9f9f;
+ 
+  background-color: #dd9292;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 10px 10px 8px rgba(0, 0, 0, 0.1);
   padding: 16px;
 }
 
-.operationsList {
-  background-color: #2e1d1d;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  flex: 1;
-}

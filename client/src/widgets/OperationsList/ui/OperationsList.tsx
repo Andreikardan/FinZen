@@ -17,10 +17,8 @@ export function OperationsList() {
 
   return (
     <div className={styles.container}>
-      {/* Заголовок */}
       <h1 className={styles.title}>Все транзакции</h1>
 
-      {/* Список транзакций */}
       <div className={styles.list}>
         {allTransactions.length > 0 ? (
           allTransactions.map((el: IAllTransaction) => (

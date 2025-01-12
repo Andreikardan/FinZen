@@ -1,7 +1,7 @@
-import React, { useState } from "react";
 import styles from "./PopupTransactionPage.module.css";
-import { IAllTransaction } from "@/entities/transactionR";
 import { Popup, Button } from "antd-mobile";
+import React, { useState } from "react";
+import { IAllTransaction } from "@/entities/transactionR";
 
 type Props = {
   transaction: IAllTransaction;
@@ -16,7 +16,7 @@ export function PopupTransactionPage({
 }: Props) {
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [newCommentText, setNewCommentText] = useState("");
-  const [newPhotoUrl, setNewPhotoUrl] = useState("");
+  // const [newPhotoUrl, setNewPhotoUrl] = useState("");
 
   return (
     <div>
@@ -28,7 +28,6 @@ export function PopupTransactionPage({
         bodyStyle={{ height: "66vh" }}
       >
         <div className={styles.popupContent}>
-          {/* Заголовок и кнопка закрытия */}
           <div className={styles.header}>
             <div className={styles.title}>{transaction.description}</div>
             <Button
