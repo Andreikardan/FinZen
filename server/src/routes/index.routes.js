@@ -20,7 +20,7 @@ router
 .use('/transactionds', transactionDRouter)
 .use('/transactionrs', transactionRRouter)
 .use('/goals', goalRouter)
-.use('/goal-transaction', goalTransactionRouter)
+.use('/goal-transactions', goalTransactionRouter)
 
 
 router.use("*", (req, res) => {

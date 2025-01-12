@@ -14,11 +14,21 @@ class GoalService {
   }
 
   static async update(id, data) {
-    const goal = await this.getById(id);
+    const goal = await this.getById(id);   
     if (goal) {
-      goal.title = data.title;
-      goal.goal = data.goal;
-      goal.accumulator = data.accumulator;
+      if(data.title){
+        goal.title = data.title;
+      }
+      if(data.goal){
+        goal.goal = data.goal;
+      }
+      if(data.accumulator){
+        goal.accumulator = +data.accumulator;
+      }
+
+   
+    
+      
       await goal.save();
     }
     return goal;

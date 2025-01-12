@@ -21,7 +21,7 @@ export const useBudgetList = () => {
   );
 
   const updateBudget = useCallback(
-    async (id: number, updatedBudget: IRawBudgetData) => {
+    async (id: number, updatedBudget: {sum:number}) => {
       const result = await dispatch(updateBudgetThunk({ id, updatedBudget }));
       unwrapResult(result);
     },

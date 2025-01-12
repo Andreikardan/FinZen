@@ -14,10 +14,12 @@ export  function GoalList(): JSX.Element {
            {goals.length > 0 ? (
         goals.map((el: IGoal) => (
           <GoalCard
+    
             goal={el}
             key={el.id}
             onDelete={() => deleteGoal(el.id)}
             onUpdate={(updatedGoal) => updateGoal(el.id, updatedGoal)}
+       
           />
         ))
       ) : (

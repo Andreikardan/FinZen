@@ -104,7 +104,7 @@ export const deleteBudgetThunk = createAsyncThunk<
 });
 export const updateBudgetThunk = createAsyncThunk<
   IApiResponseSuccess<IBudget>,
-  { id: number; updatedBudget: IRawBudgetData },
+  { id: number; updatedBudget: {sum:number} },
   { rejectValue: IApiResponseReject }
 >(
   BUDGETS_THUNKS_TYPE.UPDATE,
@@ -121,6 +121,8 @@ export const updateBudgetThunk = createAsyncThunk<
     }
   }
 );
+console.log(updateBudgetThunk);
+
 export const getAllTransactionsThunk = createAsyncThunk<
   IApiResponseSuccess<ArrayTransactionRsType>,
   void,
