@@ -8,8 +8,8 @@ const axios = require('axios')
 
 class UserController {
   static async refreshToken(req, res) {
+    const { user } = res.locals;
     try {
-      const { user } = res.locals;
       const { accessToken, refreshToken } = generateTokens({ user });
       res.status(200).cookie("refreshToken", refreshToken, cookieConfig).json(
         formatResponse(200, "Successfully generate new tokens", {

@@ -16,8 +16,8 @@ router
 
 .use("/auth", userRouter)
 .use('/budgets', budgetRouter)
-.use('/categoryds', categoryDRouter)
-.use('/categoryrs', categoryRRouter)
+.use('/categoryd', categoryDRouter)
+.use('/categoryr', categoryRRouter)
 .use('/transactionds', transactionDRouter)
 .use('/transactionrs', transactionRRouter)
 .use('/goals', goalRouter)

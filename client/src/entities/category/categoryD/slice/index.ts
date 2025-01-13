@@ -1,21 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ArrayCategoryDsType, ICategoryD } from "../model";
+import { CategoryList, ICategory } from "@/entities/category";
 import {
   createCategoryDThunk,
   deleteCategoryDThunk,
-  getAllCategoryDsThunk,
+  getAllCategoryDThunk,
   updateCategoryDThunk,
-  getCategoryDByIdThunk,
 } from "../api";
 
 type CategoryDsState = {
-  categoryDs: ArrayCategoryDsType | [];
-  currentCategoryD: ICategoryD | null;
+  categoryD: CategoryList | [];
+  currentCategoryD: ICategory | null;
   error: string | null;
   loading: boolean;
 };
 const initialState: CategoryDsState = {
-  categoryDs: [],
+  categoryD: [],
   currentCategoryD: null,
   error: null,
   loading: false,
@@ -26,52 +25,40 @@ const categoryDSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllCategoryDsThunk.pending, (state) => {
+      .addCase(getAllCategoryDThunk.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getAllCategoryDsThunk.fulfilled, (state, action) => {
+      .addCase(getAllCategoryDThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.categoryDs = action.payload.data;
+        state.categoryD = action.payload.data;
         state.error = null;
       })
-      .addCase(getAllCategoryDsThunk.rejected, (state, action) => {
+      .addCase(getAllCategoryDThunk.rejected, (state, action) => {
         state.loading = false;
-        state.categoryDs = [];
+        state.categoryD = [];
         state.error = action.payload!.error;
       })
-      .addCase(getCategoryDByIdThunk.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getCategoryDByIdThunk.fulfilled, (state, action) => {
-        state.loading = false;
-        state.currentCategoryD = action.payload.data;
-      })
-      .addCase(getCategoryDByIdThunk.rejected, (state, action) => {
-        state.loading = false;
-        state.categoryDs = [];
-        state.error = action.payload!.error;
-      })
+
       .addCase(createCategoryDThunk.pending, (state) => {
         state.loading = true;
       })
       .addCase(createCategoryDThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.categoryDs = [...state.categoryDs, action.payload.data];
+        state.categoryD = [...state.categoryD, action.payload.data];
         state.error = null;
       })
       .addCase(createCategoryDThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload!.error;
       })
+
       .addCase(updateCategoryDThunk.pending, (state) => {
         state.loading = true;
       })
       .addCase(updateCategoryDThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.categoryDs = state.categoryDs.map((categoryd) =>
-          categoryd.id === action.payload.data.id
-            ? action.payload.data
-            : categoryd
+        state.categoryD = state.categoryD.map((categoryd) =>
+          categoryd.id === action.payload.data.id ? action.payload.data : categoryd
         );
         state.error = null;
       })
@@ -79,12 +66,13 @@ const categoryDSlice = createSlice({
         state.loading = false;
         state.error = action.payload!.error;
       })
+
       .addCase(deleteCategoryDThunk.pending, (state) => {
         state.loading = true;
       })
       .addCase(deleteCategoryDThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.categoryDs = state.categoryDs.filter(
+        state.categoryD = state.categoryD.filter(
           (categoryD) => categoryD.id !== action.payload.data.id
         );
       })
