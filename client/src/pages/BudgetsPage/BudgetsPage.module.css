@@ -1,7 +1,7 @@
 .container {
+  width: 100%;
   padding: 16px;
   background-color: #f9f9f9;
-  width: 100%;
   
 }
 
@@ -9,21 +9,22 @@
   position: fixed;
   bottom: 125px; 
   left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000; 
+  z-index: 1000;
+  transform: translateX(-50%); 
 }
+
 .addButton {
-  background-color: var(--primary-light-purple);
-  border: none;
-  border-radius: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
   padding: 22px 12px;
   font-size: 16px;
   font-weight: 500;
   color: #fff;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: var(--primary-light-purple);
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
   transition: background-color 0.3s ease;
 }
 

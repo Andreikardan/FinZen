@@ -46,6 +46,7 @@ class BudgetController {
 
   static async create(req, res) {
     const { name, sum } = req.body;
+console.log(req.body);
 
     const { user } = res.locals;
 
@@ -111,6 +112,8 @@ class BudgetController {
     const { id } = req.params;
     const { name, sum } = req.body;
     const { isValid, error } = BudgetValidator.validate({ name, sum });
+    console.log(sum);
+    
     if (!isValid) {
       return res
         .status(400)
