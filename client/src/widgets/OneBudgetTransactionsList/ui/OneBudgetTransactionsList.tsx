@@ -32,6 +32,9 @@ export function OneBudgetTransactionsList({ budgetId }: Props): JSX.Element {
   const [showAllIncomes, setShowAllIncomes] = useState<boolean>(false);
   const [showAllExpenses, setShowAllExpenses] = useState<boolean>(false);
 
+console.log(budget);
+
+
   const transactionDs: ArrayOfTransactionDsWithCategoryIcon | [] = budget
     ? budget.CategoryDs.flatMap((category) =>
         category.TransactionDs.map((transactionD) => ({

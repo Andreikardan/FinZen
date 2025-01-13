@@ -6,7 +6,7 @@ class CategoryDController {
 
   static async getAllCategoryDs(req, res) {
     try {
-      const {user:{id}} = req.locals
+      const {user:{id}} = res.locals
       if(id === undefined){
         res.status(404).json(formatResponse(404, "Где твои куки?", null, 'Где твои куки?'));
       }
