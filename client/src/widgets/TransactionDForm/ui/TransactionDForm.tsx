@@ -6,17 +6,20 @@ import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { IRawTransactionDData } from "@/entities/transactionD/model";
 import { createTransactionDThunk } from "@/entities/transactionD";
 import { IOneBudgetTransactions } from "@/entities/budget/model/type";
+import { updateBudgetThunk } from "@/entities/budget/api";
 
 type Props = {
   isModalVisible: boolean;
   setIsModalVisible: (value: boolean) => void;
   budget: IOneBudgetTransactions | null;
+  refreshTransactions: () => void; 
 };
 
 export function TransactionDForm({
   isModalVisible,
   setIsModalVisible,
   budget,
+  refreshTransactions, 
 }: Props) {
   const dispatch = useAppDispatch();
   const categoryDs = budget!.CategoryDs;
@@ -24,7 +27,6 @@ export function TransactionDForm({
   const [inputs, setInputs] =
     useState<IRawTransactionDData>(initialInputsState);
   const [visible, setVisible] = useState(false);
-
 
   const onChangeHandler = (value: string, name: string) => {
     if (name === "sum") {
@@ -40,15 +42,26 @@ export function TransactionDForm({
   };
 
   const onCreate = async (data: IRawTransactionDData) => {
-    const resultAction = await dispatch(createTransactionDThunk(data));
-    unwrapResult(resultAction);
-    // dispatch(changeBudgetSum({}));
-    setIsModalVisible(false);
-    Toast.show({
-      content: "Операция добавлена",
-      position: "bottom",
-      icon: "success",
-    });
+    if (!data.category_id || !data.description || !data.sum) {
+      Toast.show({
+        content: "Все поля обязательны к заполнению",
+        position: "bottom",
+        icon: "fail",
+      });
+    } else {
+      const resultAction = await dispatch(createTransactionDThunk(data));
+      unwrapResult(resultAction);
+      const updatedBudgetData = { name: budget?.name, sum: budget!.sum + data!.sum };
+      const resultBudgetAction = await dispatch(updateBudgetThunk({ id: budget!.id, updatedBudget: updatedBudgetData }));
+      unwrapResult(resultBudgetAction);
+      setIsModalVisible(false);
+      refreshTransactions(); 
+      Toast.show({
+        content: "Операция добавлена",
+        position: "bottom",
+        icon: "success",
+      });
+    }
   };
 
   return (
