@@ -3,6 +3,7 @@ import { updateBudgetThunk } from "@/entities/budget/api";
 import { updateGoalThunk } from "@/entities/goal/api"; 
 import { createGoalTransactionThunk, IRawGoalTransactionData } from "@/entities/goalTransaction";
 import { useAppDispatch } from "@/shared";
+import { useAppSelector } from "@/shared/hooks/reduxHooks";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { Input } from "antd";
 import { Dialog, Toast } from "antd-mobile";
@@ -15,37 +16,58 @@ type Props = {
   goal_id: number; 
   budget_id: number
   accumulator:number;
-  sum: number
+  sum: number 
+  
+
 };
 
-export function GoalTransactionForm({ isModalVisible, setIsModalVisible, goal_id, accumulator, budget_id, sum }: Props) {
-  const dispatch = useAppDispatch();
-  const initialInputsState = {sumGoal: 0};
-  const [inputs, setInputs] = useState<IRawGoalTransactionData>(initialInputsState);
+export function GoalTransactionForm({ isModalVisible, 
+  setIsModalVisible, 
+  goal_id, 
+  accumulator, 
+  budget_id, 
+  sum
+  }: Props) {
 
-  console.log(budget_id, 1111111);
-  console.log(goal_id, 11222);
+
+
+  const dispatch = useAppDispatch();
+  const initialInputsState = {sumGoal: ""};
+  const [inputs, setInputs] = useState<IRawGoalTransactionData>(initialInputsState);
+ const{budgets} = useAppSelector((state)=> state.budget)
+ const currentBudget = budgets.find((el) => el.id === budget_id)
+
   const onChangeHandler = (value: string, name: string) => {
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
-  const onUpdate = async (sumGoal: number, goal_id: number, budget_id:number) => {
+  const onUpdate = async (sumGoal: string, goal_id: number, budget_id:number) => {
     
 
-      const resultTransactionAction = await dispatch(createGoalTransactionThunk({sumGoal, goal_id, budget_id}));
-      unwrapResult(resultTransactionAction);
-console.log(sumGoal, goal_id, budget_id, 297867545);
+
+try {
+  const resultTransactionAction = await dispatch(createGoalTransactionThunk({sumGoal, goal_id, budget_id}));
+  unwrapResult(resultTransactionAction);
+ 
+} catch (error) {
+  console.error("Ошибка", error);
+  return; 
+}
+
 
    
-     const updatedGoalData = { accumulator: +accumulator + +sumGoal }; 
+     const updatedGoalData = { accumulator: accumulator + +sumGoal }; 
 
-     const updatedBudgetData = { sum: +sum + +sumGoal }; 
-   console.log(updateBudgetThunk, 12324354);
+if(!currentBudget){
+  return 
+}
+     const updatedBudgetData = { sum: sum - +sumGoal, name:currentBudget.name }; 
+
    
       const resultGoalAction = await dispatch(updateGoalThunk({ id: goal_id, updatedGoal: updatedGoalData }));
       unwrapResult(resultGoalAction);
 
-      const resultBudgetAction = await dispatch(updateBudgetThunk({ id: budget_id, updatedBudget: updatedBudgetData }));
+      const resultBudgetAction = await dispatch(updateBudgetThunk({ id: +budget_id, updatedBudget: updatedBudgetData }));
        unwrapResult(resultBudgetAction);
 
 
@@ -66,7 +88,7 @@ console.log(sumGoal, goal_id, budget_id, 297867545);
         content={
           <div>
             <Input
-              type="number"
+              type="string"
               name="sumGoal"
               value={inputs.sumGoal !== null ? inputs.sumGoal : ''}
               onChange={(e) => onChangeHandler(e.target.value, "sumGoal")}

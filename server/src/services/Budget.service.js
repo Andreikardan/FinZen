@@ -1,10 +1,13 @@
-const { where } = require("sequelize");
 const {
   Budget,
   CategoryD,
   CategoryR,
   TransactionD,
   TransactionR,
+  TransactionRPhoto,
+  TransactionComment,
+  Goal,
+  GoalTransaction,
 } = require("../db/models");
 
 class BudgetService {
@@ -44,7 +47,20 @@ class BudgetService {
       where: { user_id: id },
       include: [
         { model: CategoryD, include: [{ model: TransactionD }] },
-        { model: CategoryR, include: [{ model: TransactionR }] },
+      { model: GoalTransaction,  include: { model: Goal, attributes:['title'] },  },
+
+        {
+          model: CategoryR,
+          include: [
+            {
+              model: TransactionR,
+              include: [
+                { model: TransactionComment },
+                { model: TransactionRPhoto },
+              ],
+            },
+          ],
+        },
       ],
     });
     const plainAllData = allData.map((el) => el.get({ plain: true }));

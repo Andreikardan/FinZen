@@ -1,0 +1,50 @@
+.card {
+  padding: 0;
+  cursor: pointer;
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color 0.2s ease;
+}
+
+.card:hover {
+  background-color: var(--color-hover-bg);
+}
+
+.container {
+  width: 100%;
+}
+
+.leftSection {
+  flex: 1;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.description {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.date {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+  white-space: nowrap; 
+}
+
+.sum {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.categoryIcon {
+  padding: 4px;
+  background-color: var(--color-icon-bg);
+  border-radius: 8px;
+}

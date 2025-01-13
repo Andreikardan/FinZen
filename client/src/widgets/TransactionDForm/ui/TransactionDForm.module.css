@@ -1,0 +1,61 @@
+.iconGridContainer {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+    overflow-y: auto;
+  }
+  
+  .iconItem { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 80px;
+    font-size: 24px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+  }
+
+  .emptyIcon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+  }
+
+
+
+
+
+
+
+  .categoryContainer {
+    display: flex; 
+    gap: 8px;
+    align-items: center; 
+  }
+  
+  .emptyIcon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+  }
+  
+  .iconItem {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+  }
+  
+  .categoryButton {
+    padding: 8px 12px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }

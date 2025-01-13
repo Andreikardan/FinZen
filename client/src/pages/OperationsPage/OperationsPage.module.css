@@ -1,14 +1,18 @@
 
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%; 
+  background-color: #fff;
+  border-radius: 9px;
+  
+}
+
 .sliderContainer {
-  position: fixed;
-  top: 20px; 
-  left: 50%; 
-  width: 90%; 
-  max-width: 1200px; 
-  border-radius: 20px;
-  overflow: hidden;
+  padding: 16px;
+  background-color: #dd9292;
+  border-radius: 8px;
+  box-shadow: 10px 10px 8px rgb(0 0 0 / 10%);
 }
-.operationsList {
-  margin-top: 240px; 
-  padding: 20px; 
-}
+

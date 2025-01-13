@@ -49,16 +49,18 @@ export const BudgetCard: React.FC<Props> = React.memo(
             rightActions={[
               {
                 key: "update",
-                text: <EditOutlined />,
+                text: <EditOutlined className={styles.actionIcon} />,
                 color: "warning",
+                
                 onClick: async () => {
                   setIsModalVisible(true);
                   ref.current?.close();
                 },
+                
               },
               {
                 key: "delete",
-                text: <DeleteOutlined />,
+                text: <DeleteOutlined className={styles.actionIcon} />,
                 color: "danger",
                 onClick: async () => {
                   await Dialog.confirm({
@@ -88,14 +90,15 @@ export const BudgetCard: React.FC<Props> = React.memo(
           >
             <List.Item
               arrow={false}
-              className={`${styles.listItem}`}
+              className={styles.listItem}
+              
               onClick={() => {
                 navigate(`/transaction/${budget.id}`);
               }}
             >
               <div className={styles.listItemContent}>
                 <span className={styles.listItemName}>{budget.name}</span>
-                <span className={styles.listItemSum}>{budget.sum}</span>
+                <span className={styles.listItemSum}>{budget.sum} ₽</span>
               </div>
             </List.Item>
           </SwipeAction>
@@ -105,12 +108,13 @@ export const BudgetCard: React.FC<Props> = React.memo(
           visible={isModalVisible}
           title="Редактировать бюджет"
           content={
-            <div>
+            <div className={styles.modalContent}>
               <Input
                 name="name"
                 value={updatedBudgetData.name}
                 onChange={(value) => onChangeHandler(value, "name")}
                 placeholder="Название"
+                className={styles.input}
               />
               <Input
                 type="number"
@@ -118,6 +122,7 @@ export const BudgetCard: React.FC<Props> = React.memo(
                 value={String(updatedBudgetData.sum)}
                 onChange={(value) => onChangeHandler(value, "sum")}
                 placeholder="Сумма"
+                className={styles.input}
               />
             </div>
           }

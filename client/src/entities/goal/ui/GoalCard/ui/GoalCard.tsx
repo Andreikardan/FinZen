@@ -7,33 +7,31 @@ import { IGoal, IRawGoalData } from "@/entities/goal/model";
 import { GoalTransactionForm } from "@/widgets/GoalTransactionForm/ui/GoalTransactionForm";
 import { IApiResponseSuccess } from "@/shared/types";
 import { Dialog, SwipeAction, SwipeActionRef, Toast } from "antd-mobile";
-import { useNavigate } from "react-router-dom";
-import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useAppSelector } from "@/shared/hooks/reduxHooks";
 import { Option } from "antd/es/mentions";
+
+
 
 
 type Props = {
   goal: IGoal;
   onDelete: () => Promise<IApiResponseSuccess<IGoal>>;
   onUpdate: (updatedBudget: IRawGoalData) => void;
-  
 };
+
 
 
 
 export const GoalCard: React.FC<Props> = React.memo(
   ({  goal, onDelete, onUpdate}) => {
     const ref = useRef<SwipeActionRef>(null);
-    const navigate = useNavigate();
-
     const budgets = useAppSelector ((state) => state.budget.budgets)
 
-console.log(budgets);
 
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isTransactionFormVisible, setIsTransactionFormVisible] = useState(false);
-    const [isBudgetFormVisiblue, setIsBudgetFormVisiblue] = useState(false)
+    const [isBudgetFormVisiblue] = useState(false)
     const [updatedGoalData, setUpdatedGoalData] = useState({
       title: "",
       goal: 0,
@@ -45,26 +43,27 @@ console.log(budgets);
       setUpdatedGoalData((prev) => ({ ...prev, [name]: value }));
     };
 
- 
+   
+
 
     const handleUpdate = () => {
       onUpdate(updatedGoalData);
       setIsModalVisible(false);
       Toast.show({
-        content: "Цель更新илась",
+        content: "Цель изменилась",
         icon: "success",
         position: "bottom",
       });
     };
 
-    const progressPercentage = goal.goal ? (goal.accumulator / goal.goal) * 100 : 0;
+   
 
     const handleBudgetSelect = (budgetId: number) => {
       setSelectedBudgetId(budgetId);
       setIsTransactionFormVisible(true);
     };
 
-   
+    const progressPercentage = goal.goal ? (goal.accumulator / goal.goal) * 100 : 0;
 
     return (
       <div className={styles.card}>
@@ -74,10 +73,10 @@ console.log(budgets);
         style={{ width: "100%", marginBottom: "10px" }}
       >
         {budgets.map((budget) => (
-          <Option key={budget.id} value={budget.id}>
-            {budget.name}
-            {budget.sum}
-          </Option>
+          
+             <Option key={budget.id.toString()} value={budget.id.toString()}>
+             {budget.name} - {budget.sum}
+           </Option>
         ))}
       </Select>
         <List>
@@ -96,22 +95,6 @@ console.log(budgets);
                 },
               },
               {
-                key: "add",
-                text: <PlusOutlined />,
-                color: "success",
-                onClick: async () => {
-                  setIsTransactionFormVisible(true);  
-                },
-              },
-              {
-                key: "budget",
-                text: <PlusOutlined />,
-                color: "success",
-                onClick: async () => {
-                  setIsBudgetFormVisiblue(true);  
-                },
-              },
-              {
                 key: "delete",
                 text: <DeleteOutlined />,
                 color: "danger",
@@ -121,7 +104,8 @@ console.log(budgets);
                     confirmText: "Да",
                     async onConfirm() {
                       const result = await onDelete();
-                      if (result.statusCode === 200) {
+                      if (result && result.statusCode === 200) {
+                        setIsModalVisible(false);
                         Toast.show({
                           content: "Цель удалена",
                           icon: "success",
@@ -142,11 +126,8 @@ console.log(budgets);
             ]}
           >
             <List.Item
-              arrow={false}
-              className={`${styles.listItem}`}
-              onClick={() => {
-                navigate(`/goals/${goal.id}`);
-              }}
+          
+          
             >
               <div className={styles.listItemContent}>
                 <span className={styles.listItemName}>{goal.title}</span>
@@ -202,17 +183,18 @@ console.log(budgets);
         ))
       )}
     </div>
-      
         {isTransactionFormVisible && selectedBudgetId &&  (
           <GoalTransactionForm
             accumulator={goal.accumulator}
             goal_id={goal.id}
-            sum={budgets.find(b => b.id === selectedBudgetId)?.sum || 0}
-            budget_id={selectedBudgetId}
+            sum={budgets.find((el)=>(el.id === +selectedBudgetId
+            ))?.sum || 0}
+            budget_id={+selectedBudgetId}
             isModalVisible={isTransactionFormVisible}
             setIsModalVisible={setIsTransactionFormVisible} 
           />
          )}
+ 
          
  <ProgressBar
  completed={progressPercentage.toFixed(1)}

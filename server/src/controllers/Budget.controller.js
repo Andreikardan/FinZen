@@ -1,3 +1,4 @@
+const goaltransaction = require("../db/models/goaltransaction");
 const BudgetService = require("../services/Budget.service");
 const BudgetValidator = require("../utils/BudgetValidator");
 const formatResponse = require("../utils/formatResponse");
@@ -45,6 +46,7 @@ class BudgetController {
 
   static async create(req, res) {
     const { name, sum } = req.body;
+console.log(req.body);
 
     const { user } = res.locals;
 
@@ -110,6 +112,8 @@ class BudgetController {
     const { id } = req.params;
     const { name, sum } = req.body;
     const { isValid, error } = BudgetValidator.validate({ name, sum });
+    console.log(sum);
+    
     if (!isValid) {
       return res
         .status(400)
@@ -134,27 +138,39 @@ class BudgetController {
     const { user } = res.locals;
     try {
       const allTransactions = await BudgetService.getAllTransactions(1);
+
       if (allTransactions.length === 0 || !allTransactions) {
         return res
           .status(200)
           .json(formatResponse(200, "No transactions found", []));
       }
-      let clearAllTransactions = [];
 
-      allTransactions.forEach((budget) => {
-        budget.CategoryDs.forEach((categoryD) => {
-          clearAllTransactions = [
-            ...clearAllTransactions,
-            ...categoryD.TransactionDs,
-          ];
-        });
-        budget.CategoryRs.forEach((categoryR) => {
-          clearAllTransactions = [
-            ...clearAllTransactions,
-            ...categoryR.TransactionRs,
-          ];
-        });
-      });
+      let clearAllTransactions = allTransactions.flatMap((budget) => [
+        ...budget.CategoryDs.flatMap((categoryD) =>
+          categoryD.TransactionDs.map((transaction) => ({
+            budgetName: budget.name,
+            ...transaction,
+            icon: categoryD.icon,
+            borderColor: categoryD.borderColor,
+          }))
+        ),
+        ...budget.CategoryRs.flatMap((categoryR) =>
+          categoryR.TransactionRs.map((transaction) => ({
+            budgetName: budget.name,
+            ...transaction,
+            icon: categoryR.icon,
+          }))
+        ),
+        ...budget.GoalTransactions.map((goalTransaction) => {
+          const { Goal, id,budget_id,goal_id,...rest } = goalTransaction;
+
+          return {
+            budgetName: budget.name,
+            goalTitle: Goal.title,
+            ...rest,
+          };
+        }),
+      ]);
       const sortTransaction = clearAllTransactions.toSorted(
         (a, b) => b.createdAt - a.createdAt
       );

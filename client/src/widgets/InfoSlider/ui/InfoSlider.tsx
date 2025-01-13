@@ -1,18 +1,31 @@
-import styles from './InfoSlider.module.css'
+import { useEffect } from "react";
+import styles from "./InfoSlider.module.css";
 import { Swiper, Toast } from "antd-mobile";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
+import { getInfoSliderDataThunk } from "@/entities/infoSlider";
 
 export function InfoSlider() {
-  const colors = ["#ace0ff", "#bcffbd", "#e4fabd", "#ffcfac"];
-  const items = colors.map((color, index) => (
+  const dispatch = useAppDispatch();
+  const sliderDataArray = useAppSelector((state) => state.infoSlider.slider);
+  useEffect(() => {
+    dispatch(getInfoSliderDataThunk());
+  }, [dispatch]);
+
+  const items = sliderDataArray.map((el, index) => (
     <Swiper.Item key={index}>
       <div
-        className={styles.content}
-        style={{ background: color }}
+        className={styles.slideContainer}
         onClick={() => {
-          Toast.show(`你点击了卡片 ${index + 1}`);
+          Toast.show(`Вы нажали на карточку ${index + 1}`);
         }}
       >
-        {index + 1}
+        <div className={styles.slideTitle}>{el.title}</div>
+        <div className={styles.slideText}>{el.text}</div>
+        <img
+          src={`http://localhost:3000/static/images/${el.img}`}
+          alt={el.title}
+          className={styles.slideImage}
+        />
       </div>
     </Swiper.Item>
   ));

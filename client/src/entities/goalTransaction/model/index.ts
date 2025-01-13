@@ -1,5 +1,6 @@
 export interface IRawGoalTransactionData {
-    sumGoal: number;
+    sumGoal: string;
+  
 }
 
 export interface IGoalTransaction extends IRawGoalTransactionData {
