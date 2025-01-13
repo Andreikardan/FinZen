@@ -2,25 +2,25 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    height: calc(100vh - 60px); /* Учитываем высоту панели навигации */
     padding: 10px;
+    overflow-y: auto; /* Добавляем скролл для всего контейнера */
     background-color: #f9f9f9;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: calc(100vh - 60px); /* Учитываем высоту панели навигации */
-    overflow-y: auto; /* Добавляем скролл для всего контейнера */
+    box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
   }
   
   .header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     padding: 10px;
-    background-color: #6a1b9a;
-    color: white;
-    border-radius: 8px;
+    margin-bottom: 10px;
     font-size: 1.2em;
     font-weight: bold;
-    margin-bottom: 10px;
+    color: white;
+    background-color: #6a1b9a;
+    border-radius: 8px;
   }
   
   .sectionsContainer {
@@ -36,13 +36,13 @@
     padding: 10px;
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
   }
   
   .sectionHeader {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
   }
   
   .sectionHeader h1 {
@@ -57,13 +57,13 @@
   }
   
   .buttonContainer button {
-    background-color: #6a1b9a;
-    color: white;
-    border: none;
     padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
     font-size: 1em;
+    color: white;
+    cursor: pointer;
+    background-color: #6a1b9a;
+    border: none;
+    border-radius: 5px;
     transition: background-color 0.3s ease;
   }
   
@@ -73,15 +73,15 @@
   
   .transactionList {
     max-height: 200px; /* Ограничиваем высоту списка */
-    overflow-y: auto; /* Добавляем скролл */
     padding-right: 10px; /* Отступ для скролла */
+    overflow-y: auto; /* Добавляем скролл */
   }
   
   .showMoreButton {
-    color: #6a1b9a;
-    font-weight: bold;
-    text-align: center;
     margin-top: 10px;
+    font-weight: bold;
+    color: #6a1b9a;
+    text-align: center;
     cursor: pointer;
   }
   

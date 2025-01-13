@@ -1,6 +1,6 @@
 export interface IRawGoalData {
     title: string;
-    goal: number;
+    goal: number ;
     accumulator: number;
 }
 

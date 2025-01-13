@@ -4,5 +4,7 @@ export enum ROUTES {
   PARAMS_TRANSACTION = `/transaction/:id`,
   OPERATIONS = "/operations",
   ANALYTICS = "/goals",
+  GOAL_TRANSACTIONS = "/goal-transactions",
   SETTINGS = '/settings'
+
 }

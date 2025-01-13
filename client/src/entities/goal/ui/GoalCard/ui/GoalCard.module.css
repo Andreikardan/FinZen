@@ -1,29 +1,62 @@
-.wrapper {
-    border: 2px solid var(--primary-dark-purple);
-  }
-  
-  .container {
-    width: 100%;
-    background-color:rgb(139 110 192 / 90.2%);
-    border-radius: 6px;
+.card {
+  padding: 10px; 
+  margin: 8px 0;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+  transition: box-shadow 0.3s ease;
 }
-  
-  .barCompleted {
-    background-color: var(--primary-light-purple);
-  }
-  
 
-  
-  .button {
-    display: flex;
-    justify-content: space-between;
 
-  }
+.card:hover {
+  box-shadow: 0 4px 16px rgb(0 0 0 / 20%);
+}
 
-  .goalCard {
-    width: 340px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgb(0 0 0 / 10%); 
+
+.listItem {
+  display: flex;
+  flex-direction: column; 
+  padding: 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.listItem:last-child {
+  border-bottom: none; 
+}
+
+.listItemContent {
+  display: flex;
+  flex-direction: column; 
+  width: 300px; 
+  margin-bottom: 4px;
+}
+
+.listItemName {
+  font-size: 16px; 
+  font-weight: 500;
+  color: #333;
+}
+
+.listItemSum {
+  font-size: 14px; 
+  color: #555;
+}
+
+
+.progressBarContainer {
+  margin-top: 16px;
+}
+
+.progressBar {
+  height: 8px;
+  border-radius: 4px;
+}
+
+
+@media (width <= 600px) {
+  .card {
+      padding: 16px; 
   }
+}
 

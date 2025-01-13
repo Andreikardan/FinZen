@@ -69,7 +69,7 @@ export const deleteGoalThunk = createAsyncThunk<
 
 export const updateGoalThunk = createAsyncThunk<
   IApiResponseSuccess<IGoal>,
-  {id:number, updatedGoal: IRawGoalData},
+  {id:number, updatedGoal: { accumulator:number}},
   { rejectValue: IApiResponseReject }
 >(GOAL_THUNKS_TYPES.UPDATE, async ({id, updatedGoal}, { rejectWithValue }) => {
   try {

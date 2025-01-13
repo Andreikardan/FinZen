@@ -3,10 +3,14 @@ import { useGoalList } from '../useGoalList'
 import { IGoal } from '@/entities/goal'
 import { GoalCard } from '@/entities/goal/ui/GoalCard'
 
+
+
+
+
 export  function GoalList(): JSX.Element {
  const {goals, deleteGoal, updateGoal} =  useGoalList()
 
-
+ 
 
   return (
    
@@ -14,15 +18,18 @@ export  function GoalList(): JSX.Element {
            {goals.length > 0 ? (
         goals.map((el: IGoal) => (
           <GoalCard
+    
             goal={el}
             key={el.id}
             onDelete={() => deleteGoal(el.id)}
             onUpdate={(updatedGoal) => updateGoal(el.id, updatedGoal)}
+       
           />
         ))
       ) : (
         <h1>Задач пока не обнаружено</h1>
       )}
+      
     </div>
   )
 }

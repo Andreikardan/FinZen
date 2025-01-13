@@ -123,6 +123,7 @@ export const updateBudgetThunk = createAsyncThunk<
   }
 );
 
+
 export const getAllTransactionsThunk = createAsyncThunk<
   IApiResponseSuccess<AllTransactionArray>,
   void,

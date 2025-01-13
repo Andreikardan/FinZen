@@ -47,14 +47,14 @@ export function GoalForm({ isModalVisible, setIsModalVisible }: Props) {
             <Input
               type="number"
               name="goal"
-              value={inputs.goal !== null ? String(inputs.goal) : ''}
+              value={inputs.goal !== null ? inputs.goal : ''}
               onChange={(e) => onChangeHandler(e.target.value, "goal")}
               placeholder="Сумма на цель"
             />
             <Input
               type="number"
               name="accumulator"
-              value={inputs.accumulator !== null ? String(inputs.accumulator) : ''}
+              value={inputs.accumulator !== null ? inputs.accumulator : ''}
               onChange={(e) => onChangeHandler(e.target.value, "accumulator")}
               placeholder="Сумма добавления"
             />

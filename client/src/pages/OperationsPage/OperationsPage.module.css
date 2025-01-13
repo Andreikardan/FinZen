@@ -2,18 +2,17 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 16px; 
-  background-color: #ffffff;
+  gap: 16px;
+  width: 100%; 
+  background-color: #fff;
   border-radius: 9px;
-  width: 100%;
   
 }
 
 .sliderContainer {
- 
+  padding: 16px;
   background-color: #dd9292;
   border-radius: 8px;
-  box-shadow: 10px 10px 8px rgba(0, 0, 0, 0.1);
-  padding: 16px;
+  box-shadow: 10px 10px 8px rgb(0 0 0 / 10%);
 }
 
