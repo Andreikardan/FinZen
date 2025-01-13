@@ -1,7 +1,12 @@
+import { Popup, Button, Toast } from "antd-mobile";
 import styles from "./PopupTransactionPage.module.css";
-import { Popup, Button } from "antd-mobile";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IAllTransaction } from "@/entities/transactionR";
+import { axiosInstance } from "@/shared/lib/axiosInstance";
+import { IApiResponseSuccess } from "@/shared/types";
+import { IComment } from "@/entities/comments";
+import { CommentsSection } from "../CommentsSection/CommentsSection"; 
+import { GallerySection } from "../GallerySection/GallerySection"; 
 
 type Props = {
   transaction: IAllTransaction;
@@ -14,9 +19,128 @@ export function PopupTransactionPage({
   setVisible,
   visible,
 }: Props) {
-  const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
-  const [newCommentText, setNewCommentText] = useState("");
-  // const [newPhotoUrl, setNewPhotoUrl] = useState("");
+  const [photos, setPhotos] = useState(transaction.TransactionRPhotos || []);
+  const [comments, setComments] = useState(transaction.TransactionComments || []);
+  
+
+ 
+  useEffect(() => {
+    setPhotos(transaction.TransactionRPhotos || []);
+    setComments(transaction.TransactionComments || []);
+  }, [transaction]);
+
+  const handleAddComment = async (text: string) => {
+    try {
+      const response = await axiosInstance.post<IApiResponseSuccess<IComment>>(
+        "/comments",
+        {
+          transaction_id: transaction.id,
+          text: text,
+        }
+      );
+
+      if (response.data.statusCode === 201) {
+        setComments([...comments, response.data.data]);
+        Toast.show({
+          content: "Комментарий добавлен",
+          icon: "success",
+          position: "bottom",
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      Toast.show({
+        content: "Не удалось добавить комментарий",
+      });
+    }
+  };
+
+  const handleUpdateComment = async (id: number, text: string) => {
+    try {
+      const updateComment = await axiosInstance.put<
+        IApiResponseSuccess<IComment>
+      >("/comments", {
+        id: id,
+        text: text,
+      });
+
+      if (updateComment.data.statusCode === 200) {
+        const updatedComments = comments.map((comment) =>
+          comment.id === id ? { ...comment, text: text } : comment
+        );
+        setComments(updatedComments); 
+        Toast.show({
+          content: "Изменено",
+          icon: "success",
+          position: "bottom",
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      Toast.show({
+        content: "Что-то не так",
+      });
+    }
+  };
+
+  const handleDeleteComment = async (id: number) => {
+    try {
+      const response = await axiosInstance.delete<IApiResponseSuccess<null>>(
+        `/comments/${id}`
+      );
+
+      if (response.data.statusCode === 200) {
+        const updatedComments = comments.filter(
+          (comment) => comment.id !== id
+        );
+        setComments(updatedComments);
+        Toast.show({
+          content: "Комментарий удален",
+          icon: "success",
+          position: "bottom",
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      Toast.show({
+        content: "Не удалось удалить комментарий",
+      });
+    }
+  };
+
+  const handleUploadPhoto = async (file: File) => {
+    const formData = new FormData();
+    formData.append("trPhoto", file);
+
+    try {
+      const response = await axiosInstance.post(
+        `/imagesForTransaction/upload/${transaction.id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.data.statusCode === 201) {
+        setPhotos([...photos, response.data.data]); 
+        Toast.show({
+          content: "Фото загружено",
+          icon: "success",
+          position: "bottom",
+        });
+      }
+
+      return response.data.data;
+    } catch (error) {
+      console.error(error);
+      Toast.show({
+        content: "Не удалось загрузить фото",
+      });
+      throw error;
+    }
+  };
 
   return (
     <div>
@@ -25,7 +149,7 @@ export function PopupTransactionPage({
         visible={visible}
         onMaskClick={() => setVisible(false)}
         position="bottom"
-        bodyStyle={{ height: "66vh" }}
+        bodyStyle={{ height: "50vh" }}
       >
         <div className={styles.popupContent}>
           <div className={styles.header}>
@@ -58,67 +182,21 @@ export function PopupTransactionPage({
               Дата и время: {new Date(transaction.createdAt).toLocaleString()}
             </div>
 
-            {transaction.TransactionComments &&
-              transaction.TransactionComments.length > 0 && (
-                <div className={styles.commentsSection}>
-                  <div className={styles.sectionTitle}>Комментарии:</div>
-                  {transaction.TransactionComments.map((el) => (
-                    <div key={el.id} className={styles.commentItem}>
-                      {editingCommentId === el.id ? (
-                        <div>
-                          <input
-                            type="text"
-                            value={newCommentText}
-                            onChange={(e) => setNewCommentText(e.target.value)}
-                          />
-                          <button
-                            onClick={() => {
-                              setEditingCommentId(null);
-                            }}
-                          >
-                            Сохранить
-                          </button>
-                          <button onClick={() => setEditingCommentId(null)}>
-                            Отмена
-                          </button>
-                        </div>
-                      ) : (
-                        <div>
-                          <div className={styles.commentsText}>{el.text}</div>
-                          <button
-                            onClick={() => {
-                              setEditingCommentId(el.id);
-                              setNewCommentText(el.text);
-                            }}
-                          >
-                            Редактировать
-                          </button>
-                          <button>Удалить</button>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
+            <CommentsSection
+              comments={comments}
+              transactionType={transaction.type}
+              transactionId={transaction.id}
+              onAddComment={handleAddComment}
+              onUpdateComment={handleUpdateComment}
+              onDeleteComment={handleDeleteComment}
+            />
 
-            {transaction.TransactionRPhotos &&
-              transaction.TransactionRPhotos.length > 0 && (
-                <div className={styles.gallerySection}>
-                  <div className={styles.sectionTitle}>Фотографии:</div>
-                  <div className={styles.gallery}>
-                    {transaction.TransactionRPhotos.map((photo, index) => (
-                      <img
-                        key={index}
-                        src={
-                          "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Focus_ubt.jpeg/350px-Focus_ubt.jpeg"
-                        }
-                        alt={`Фото ${index + 1}`}
-                        className={styles.photo}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
+            <GallerySection
+              photos={photos}
+              // transactionId={transaction.id}
+              transactionType={transaction.type}
+              onUploadPhoto={handleUploadPhoto}
+            />
           </div>
         </div>
       </Popup>

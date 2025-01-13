@@ -21,6 +21,7 @@ module.exports = {
       budget_id: {
         type: Sequelize.INTEGER,
         references: { model: "Budgets", key: "id" },
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
