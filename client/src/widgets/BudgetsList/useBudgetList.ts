@@ -2,6 +2,7 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import { useCallback, useEffect } from "react";
 import { getAllBudgetsThunk } from "@/entities/budget";
 import { deleteBudgetThunk, updateBudgetThunk } from "@/entities/budget/api";
+import { IRawBudgetData } from "@/entities/budget/model/type";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 
 export const useBudgetList = () => {
@@ -20,7 +21,7 @@ export const useBudgetList = () => {
   );
 
   const updateBudget = useCallback(
-    async (id: number, updatedBudget: {sum:number}) => {
+    async (id: number, updatedBudget: IRawBudgetData) => {
       const result = await dispatch(updateBudgetThunk({ id, updatedBudget }));
       unwrapResult(result);
     },

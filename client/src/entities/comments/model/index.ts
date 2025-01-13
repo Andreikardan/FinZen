@@ -7,4 +7,7 @@ export interface IComment extends IRawComment {
   createdAt: Date;
   updatedAt: Date;
 }
+export interface ICommentText {
+  text:string
+}
 export type ArrayCommentsType = Array<IComment>;

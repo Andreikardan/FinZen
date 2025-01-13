@@ -121,7 +121,6 @@ export const updateBudgetThunk = createAsyncThunk<
     }
   }
 );
-console.log(updateBudgetThunk);
 
 export const getAllTransactionsThunk = createAsyncThunk<
   IApiResponseSuccess<AllTransactionArray>,

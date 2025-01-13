@@ -14,7 +14,8 @@ module.exports = {
       },
       transactionR_id: {
         type: Sequelize.INTEGER,
-        references:{model:'TransactionRs', key:'id'}
+        references:{model:'TransactionRs', key:'id'},
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
