@@ -4,13 +4,15 @@ import  { useEffect } from "react";
 import { refreshTokensThunk } from "@/entities/user";
 import { Navbar } from "@/widgets/Navbar";
 import { Outlet } from "react-router-dom";
+import { getAllBudgetsThunk } from "@/entities/budget";
 
 
 function Layout() {
   const user = useAppSelector((state)=>state.user.user)
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(refreshTokensThunk());
+    dispatch(refreshTokensThunk()).unwrap()
+    dispatch(getAllBudgetsThunk());
   }, [dispatch]);
 
   return (
