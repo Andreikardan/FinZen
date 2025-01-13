@@ -1,5 +1,5 @@
 export interface IRawTransactionDData {
-    sum: number | null;
+    sum: number ;
     description: string;
     category_id: number | null;
   }
