@@ -46,6 +46,7 @@ export const GallerySection: React.FC<Props> = ({
           <div className={styles.sectionTitle}>Фотографии:</div>
           <div className={styles.gallery}>
             {photos.map((photo, index) => (
+              
               <img
                 key={index}
                 src={`http://localhost:3000/static/images/${photo.url}`}

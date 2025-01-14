@@ -11,11 +11,11 @@ module.exports = {
           transaction_id: 1,
         },
         {
-          text: "Нормас",
+          text: "Пересчитать проценты",
           transaction_id: 2,
         },
         {
-          text: "Ваще круто",
+          text: "Научился делать дивы",
           transaction_id: 3,
         },
       ],

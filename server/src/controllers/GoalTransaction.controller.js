@@ -44,7 +44,6 @@ class GoalTransactionController {
 
     static async createGoalTransaction(req, res) {
         const {  budget_id, goal_id, sumGoal, type} = req.body; 
-    console.log(req.body);
     
         try {
           const newGoalTransaction = await GoalTransactionService.create({

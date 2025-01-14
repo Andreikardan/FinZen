@@ -17,6 +17,7 @@ module.exports = {
         },
         onDelete: 'CASCADE'
       },
+     
       goal_id: {
         type: Sequelize.INTEGER,
         references: {
@@ -27,6 +28,10 @@ module.exports = {
       },
       sumGoal: {
         type: Sequelize.FLOAT
+      },
+      icon:{
+        type:Sequelize.STRING,
+        defaultValue:'перевод.svg',
       },
       createdAt: {
         allowNull: false,

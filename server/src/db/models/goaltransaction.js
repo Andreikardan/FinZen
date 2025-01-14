@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   GoalTransaction.init({
     budget_id: DataTypes.INTEGER,
+    icon:DataTypes.STRING,
     goal_id: DataTypes.INTEGER,
     sumGoal: DataTypes.FLOAT,
     type: DataTypes.STRING

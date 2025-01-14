@@ -46,7 +46,6 @@ class TransactionRController {
 
   static async createTransactionR(req, res) {
     const { sum, description, category_id } = req.body; //!
-console.log(sum);
 
     const { isValid, error } = TransactionRValidator.validate({
       sum,

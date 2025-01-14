@@ -3,8 +3,9 @@ const formatResponse = require("../utils/formatResponse");
 
 class GoalController {
   static async getGoals(req, res) {
+    const {user} = res.locals
     try {
-      const goals = await GoalService.get();
+      const goals = await GoalService.get(user.id);
       if (goals.length === 0) {
         return res.status(200).json(formatResponse(200, "No goals found", []));
       }
@@ -18,12 +19,14 @@ class GoalController {
 
   static async createGoals(req, res) {
     const { title, goal, accumulator} = req.body;
+    const {user} = res.locals
 
     try {
       const newGoal = await GoalService.create({
         title,
         goal,
-        accumulator
+        accumulator,
+        user_id:user.id
       });
 
       if (!newGoal) {
