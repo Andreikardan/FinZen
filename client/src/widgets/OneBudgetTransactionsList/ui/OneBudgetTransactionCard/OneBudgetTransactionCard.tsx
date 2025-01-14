@@ -18,7 +18,7 @@ export const OneBudgetTransactionCard: React.FC<
     <List.Item>
       <Flex align="center" justify="between">
         <Image
-          src={transaction.category_icon}
+          src={`http://localhost:3000/static/images/${transaction.category_icon}`}
           alt="категория транзакции"
           width={32}
           height={32}
