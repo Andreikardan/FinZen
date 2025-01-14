@@ -9,6 +9,7 @@ export interface IRawTransactionRData {
 export interface ITransactionR extends IRawTransactionRData {
   id: number;
   category_id: number;
+  type: string;
   createdAt: Date;
   updatedAt: Date;
 }

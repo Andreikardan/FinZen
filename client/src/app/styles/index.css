@@ -12,6 +12,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+ ::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  color: white;
+  background-color: white;
+} 
+
 * {
   box-sizing: border-box;
   padding: 0;
