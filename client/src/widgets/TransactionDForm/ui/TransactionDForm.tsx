@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import styles from "./TransactionDForm.module.css";
 import { useState } from "react";
 import { unwrapResult } from "@reduxjs/toolkit";
@@ -6,17 +7,20 @@ import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { IRawTransactionDData } from "@/entities/transactionD/model";
 import { createTransactionDThunk } from "@/entities/transactionD";
 import { IOneBudgetTransactions } from "@/entities/budget/model/type";
+import { updateBudgetThunk } from "@/entities/budget/api";
 
 type Props = {
   isModalVisible: boolean;
   setIsModalVisible: (value: boolean) => void;
   budget: IOneBudgetTransactions | null;
+  refreshTransactions: () => void;
 };
 
 export function TransactionDForm({
   isModalVisible,
   setIsModalVisible,
   budget,
+  refreshTransactions,
 }: Props) {
   const dispatch = useAppDispatch();
   const categoryDs = budget!.CategoryDs;
@@ -24,7 +28,6 @@ export function TransactionDForm({
   const [inputs, setInputs] =
     useState<IRawTransactionDData>(initialInputsState);
   const [visible, setVisible] = useState(false);
-
 
   const onChangeHandler = (value: string, name: string) => {
     if (name === "sum") {
@@ -40,15 +43,33 @@ export function TransactionDForm({
   };
 
   const onCreate = async (data: IRawTransactionDData) => {
-    const resultAction = await dispatch(createTransactionDThunk(data));
-    unwrapResult(resultAction);
-    // dispatch(changeBudgetSum({}));
-    setIsModalVisible(false);
-    Toast.show({
-      content: "Операция добавлена",
-      position: "bottom",
-      icon: "success",
-    });
+    if (!data.category_id || !data.description || !data.sum) {
+      Toast.show({
+        content: "Все поля обязательны к заполнению",
+        position: "bottom",
+        icon: "fail",
+      });
+    } else {
+      const resultAction = await dispatch(createTransactionDThunk(data));
+      unwrapResult(resultAction);
+      const updatedBudgetData = {
+        name: budget?.name,
+        //@ts-ignore
+        sum: budget!.sum + data!.sum,
+      };
+      const resultBudgetAction = await dispatch(
+        //@ts-ignore
+        updateBudgetThunk({ id: budget!.id, updatedBudget: updatedBudgetData })
+      );
+      unwrapResult(resultBudgetAction);
+      setIsModalVisible(false);
+      refreshTransactions();
+      Toast.show({
+        content: "Операция добавлена",
+        position: "bottom",
+        icon: "success",
+      });
+    }
   };
 
   return (
@@ -74,11 +95,11 @@ export function TransactionDForm({
             <div className={styles.categoryContainer}>
               {inputs.category_id ? (
                 <img
-                  src={
+                  src={`http://localhost:3000/static/images/${
                     categoryDs.find(
                       (category) => category.id === inputs.category_id
                     )?.icon
-                  }
+                  }`}
                   className={styles.iconItem}
                   style={{ width: "24px", height: "24px", marginRight: "8px" }}
                 />
@@ -105,10 +126,13 @@ export function TransactionDForm({
                     {categoryDs.map((category) => (
                       <Grid.Item key={category.id}>
                         <img
-                          src={category.icon}
+                          src={`http://localhost:3000/static/images/${category.icon}`}
                           className={styles.iconItem}
                           onClick={() => onCategorySelect(category.id)}
                         />
+                        <span onClick={() => onCategorySelect(category.id)}>
+                          {category.name}
+                        </span>
                       </Grid.Item>
                     ))}
                   </Grid>

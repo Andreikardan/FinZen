@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import styles from "./TransactionRForm.module.css";
 import { useState } from "react";
 import { unwrapResult } from "@reduxjs/toolkit";
@@ -6,17 +7,20 @@ import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { IRawTransactionRData } from "@/entities/transactionR/model";
 import { createTransactionRThunk } from "@/entities/transactionR";
 import { IOneBudgetTransactions } from "@/entities/budget/model/type";
+import { updateBudgetThunk } from "@/entities/budget/api";
 
 type Props = {
   isModalVisibleR: boolean;
   setIsModalVisibleR: (value: boolean) => void;
   budget: IOneBudgetTransactions | null;
+  refreshTransactions: () => void;
 };
 
 export function TransactionRForm({
   isModalVisibleR,
   setIsModalVisibleR,
   budget,
+  refreshTransactions,
 }: Props) {
   const dispatch = useAppDispatch();
   const categoryDs = budget!.CategoryDs;
@@ -24,7 +28,6 @@ export function TransactionRForm({
   const [inputs, setInputs] =
     useState<IRawTransactionRData>(initialInputsState);
   const [visible, setVisible] = useState(false);
-
 
   const onChangeHandler = (value: string, name: string) => {
     if (name === "sum") {
@@ -40,15 +43,39 @@ export function TransactionRForm({
   };
 
   const onCreate = async (data: IRawTransactionRData) => {
-    const resultAction = await dispatch(createTransactionRThunk(data));
-    unwrapResult(resultAction);
-    // dispatch(changeBudgetSum({}));
-    setIsModalVisibleR(false);
-    Toast.show({
-      content: "Операция добавлена",
-      position: "bottom",
-      icon: "success",
-    });
+    const updatedBudgetData = {
+      name: budget?.name, //@ts-ignore
+      sum: budget!.sum - data!.sum,
+    };
+
+    if (updatedBudgetData.sum < 0) {
+      Toast.show({
+        content: "Бюджет не может быть отрицательным",
+        position: "bottom",
+        icon: "fail",
+      });
+    } else if (!data.category_id || !data.description || !data.sum) {
+      Toast.show({
+        content: "Все поля обязательны к заполнению",
+        position: "bottom",
+        icon: "fail",
+      });
+    } else {
+      const resultAction = await dispatch(createTransactionRThunk(data));
+      unwrapResult(resultAction);
+      const resultBudgetAction = await dispatch(
+        //@ts-ignore
+        updateBudgetThunk({ id: budget!.id, updatedBudget: updatedBudgetData })
+      );
+      unwrapResult(resultBudgetAction);
+      setIsModalVisibleR(false);
+      refreshTransactions();
+      Toast.show({
+        content: "Операция добавлена",
+        position: "bottom",
+        icon: "success",
+      });
+    }
   };
 
   return (
@@ -109,6 +136,9 @@ export function TransactionRForm({
                           className={styles.iconItem}
                           onClick={() => onCategorySelect(category.id)}
                         />
+                        <span onClick={() => onCategorySelect(category.id)}>
+                          {category.name}
+                        </span>
                       </Grid.Item>
                     ))}
                   </Grid>

@@ -14,14 +14,16 @@ module.exports = {
         references: {
           model: "Budgets",
           key:"id"
-        }
+        },
+        onDelete: 'CASCADE'
       },
       goal_id: {
         type: Sequelize.INTEGER,
         references: {
           model:"Goals",
           key:"id"
-        }
+        },
+        onDelete: 'CASCADE'
       },
       sumGoal: {
         type: Sequelize.FLOAT

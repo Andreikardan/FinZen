@@ -1,61 +1,67 @@
 .iconGridContainer {
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    padding: 16px;
-    box-sizing: border-box;
-  }
-  
-  .iconItem {
-    width: 100%;
-    height: 80px; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    font-size: 24px;
-  }
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  overflow-y: auto;
+}
 
-  .emptyIcon {
-    width: 24px;
-    height: 24px;
-    background-color: #f0f0f0;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 8px;
-  }
+.iconItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 80px;
+  font-size: 24px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
 
+.emptyIcon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+}
 
+.categoryContainer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
 
+.iconGridContainer .iconItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  padding: 8px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
 
+.iconGridContainer .iconItem img {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 8px;
+  border-radius: 50%; 
+  object-fit: cover; 
+}
 
+.iconGridContainer .iconItem span {
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+}
 
-
-  .categoryContainer {
-    display: flex;
-    align-items: center; 
-    gap: 8px; 
-  }
-  
-  .emptyIcon {
-    width: 24px;
-    height: 24px;
-    background-color: #f0f0f0;
-    border-radius: 50%;
-    display: inline-block;
-  }
-  
-  .iconItem {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-  }
-  
-  .categoryButton {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-    cursor: pointer;
-  }
+.categoryButton {
+  padding: 8px 12px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

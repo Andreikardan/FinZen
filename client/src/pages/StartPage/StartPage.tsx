@@ -15,7 +15,7 @@ export function StartPage(): React.ReactElement {
         )}
         {state && (
           <>
-          <img className='img' src='/Pornhub-logo.svg.png'   style={{
+          <img className='img' src='/../../public/LOGO.png'   style={{
     width: '300px',
     height: '100px',
     objectFit: 'cover'

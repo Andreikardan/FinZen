@@ -1,0 +1,61 @@
+.card {
+    padding: 12px; 
+    margin: 8px 0; 
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 16px rgb(0 0 0 / 20%);
+}
+
+
+.listItem {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.listItem:last-child {
+    border-bottom: none; 
+}
+
+.listItemContent {
+    display: flex;
+    flex-direction: column; 
+    margin-bottom: 4px; 
+}
+
+.listItemName {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+.listItemSum {
+    font-size: 14px; 
+    color: #555;
+}
+
+
+
+
+
+.progressBarContainer {
+    margin-top: 16px;
+}
+
+.progressBar {
+    height: 8px;
+    border-radius: 4px;
+}
+
+@media (width <= 600px) {
+    .card {
+        padding: 16px; 
+    }
+}

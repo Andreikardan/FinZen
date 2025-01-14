@@ -7,9 +7,12 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(User, {
         foreignKey: "user_id",
       });
-      this.hasMany(CategoryR,{foreignKey:'budget_id'})
-      this.hasMany(CategoryD,{foreignKey:'budget_id'})
-      this.hasMany(GoalTransaction, {foreignKey:'budget_id'})
+      this.hasMany(CategoryR,{foreignKey:'budget_id',
+      })
+      this.hasMany(CategoryD,{foreignKey:'budget_id',
+      })
+      this.hasMany(GoalTransaction, {foreignKey:'budget_id',
+      })
     }
   }
   Budget.init(

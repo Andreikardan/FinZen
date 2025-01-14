@@ -10,10 +10,8 @@ export function BudgetsPage() {
 
   return (
     <div className={styles.container}>
-      {/* Список бюджетов */}
       <BudgetsList />
 
-      {/* Кнопка добавления бюджета */}
       <div className={styles.buttonContainer}>
         <Button
           type="primary"
@@ -22,12 +20,10 @@ export function BudgetsPage() {
         >
           <Space>
             <PlusSquareOutlined className={styles.addIcon} />
-            
           </Space>
         </Button>
       </div>
 
-      {/* Модальное окно добавления бюджета */}
       {isModalVisible && (
         <BudgetAddModal
           isModalVisible={isModalVisible}

@@ -11,7 +11,8 @@ module.exports = {
       },
       category_id: {
         type: Sequelize.INTEGER,
-        references:{model:'CategoryDs',key:'id'}
+        references:{model:'CategoryDs',key:'id'},
+        onDelete: 'CASCADE',
       },
       sum: {
         type: Sequelize.INTEGER

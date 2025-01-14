@@ -1,15 +1,15 @@
 .container {
-  padding: 16px;
-  background-color: #d7a3a3;
   min-height: 100vh;
+  padding: 16px;
+  background-color: #ffffff;
   border-radius: 8px;
 }
 
 .title {
+  margin-bottom: 16px;
   font-size: 24px;
   font-weight: 600;
   color: #4a148c;
-  margin-bottom: 16px;
 }
 
 .list {
@@ -18,8 +18,8 @@
 }
 
 .emptyMessage {
+  margin-top: 20px;
   font-size: 16px;
   color: #666;
   text-align: center;
-  margin-top: 20px;
 }

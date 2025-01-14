@@ -18,6 +18,7 @@ export const BudgetCard: React.FC<Props> = React.memo(
     const ref = useRef<SwipeActionRef>(null);
     const navigate = useNavigate();
 
+
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [updatedBudgetData, setUpdatedBudgetData] = useState({
       name: budget.name,

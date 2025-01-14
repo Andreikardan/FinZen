@@ -5,7 +5,9 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Goal extends Model {
     static associate({GoalTransaction}) {
-      this.hasMany(GoalTransaction,{foreignKey:'goal_id'})
+      this.hasMany(GoalTransaction,{foreignKey:'goal_id',
+         onDelete: 'CASCADE'
+      })
     }
   }
   Goal.init({

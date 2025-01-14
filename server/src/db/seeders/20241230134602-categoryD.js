@@ -8,19 +8,43 @@ module.exports = {
       [
         {
           name: "Зарплата",
-          icon: "ЗарплатаУРЛ",
+          icon: "зарплата.svg",
           borderColor: 'dfsdfs',
           budget_id: 1,
         },
         {
-          name: "Подработка",
-          icon: "ПодработкаУРЛ",
+          name: "Инвестиции",
+          icon: "инвестиции.svg",
           borderColor: 'dfsdfs',
           budget_id: 1,
         },
         {
-          name: "Возврат долга",
-          icon: "ДолгУРЛ",
+          name: "Перевод",
+          icon: "перевод.svg",
+          borderColor: 'dfsdfs',
+          budget_id: 1,
+        },
+        {
+          name: "Подарок",
+          icon: "подарок.svg",
+          borderColor: 'dfsdfs',
+          budget_id: 1,
+        },
+        {
+          name: "Халтура",
+          icon: "халтура.svg",
+          borderColor: 'dfsdfs',
+          budget_id: 1,
+        },
+        {
+          name: "Шальной доход",
+          icon: "шальнойДоход.svg",
+          borderColor: 'dfsdfs',
+          budget_id: 1,
+        },
+        {
+          name: "Кэшбек",
+          icon: "кэшбек.svg",
           borderColor: 'dfsdfs',
           budget_id: 1,
         },
