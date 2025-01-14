@@ -1,15 +1,17 @@
 import { updateThunk } from '@/entities/user/api';
 import { ISignUpData } from '@/entities/user/model';
 import { isEmailExistsChecker, useAppDispatch } from '@/shared';
+import { useAppSelector } from '@/shared/hooks/reduxHooks';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Button, Form, Input } from 'antd';
 import { Toast } from 'antd-mobile';
 import { useState } from 'react';
-//валидацию на импуты, неактивность кнопки на ошибку, сверка пароля если его вводили
+
 export function UserEdit() {
     const [pass, setPass] = useState<boolean>(false)
     const dispatch = useAppDispatch()
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const user = useAppSelector((state)=>state.user.user)
 
     const submit = async (values: ISignUpData )=>{
         for( const key in values){
@@ -43,7 +45,7 @@ export function UserEdit() {
 
     return (
         <>
-            <Form style={{ maxWidth: '306px', minWidth: '306px' }} onFinish={submit} onFieldsChange={(_, changedFields) => handleFormChange(changedFields)}>
+            <Form style={{ maxWidth: '306px', minWidth: '306px' }} onFinish={submit} onFieldsChange={(_, changedFields) => handleFormChange(changedFields)} initialValues={{username: user!.username,email: user!.email}}>
             <Form.Item name='email' hasFeedback rules={[{
                 validator: async (_,value) => {
                     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

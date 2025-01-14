@@ -1,6 +1,27 @@
-const { CategoryD, User, Budget } = require("../db/models");
+const { CategoryD, CategoryR, User, Budget } = require("../db/models");
 
 class CategoryDService {
+
+  static async getIcons(){
+    const user = await User.findByPk(1, {
+      include: [{model: Budget,include: [{ model: CategoryD, attributes: ["icon"] },{ model: CategoryR, attributes: ["icon"] }]}]});
+    const icons = [];
+    user.Budgets.forEach((budget) => {
+      budget.CategoryDs.forEach((categoryD) => {
+        if (categoryD.icon) {
+          icons.push({ icon: categoryD.icon });
+        }
+      });
+      budget.CategoryRs.forEach((categoryR) => {
+        if (categoryR.icon) {
+          icons.push({ icon: categoryR.icon });
+        }
+      });
+    });
+
+    return icons;
+  }
+  
 
   static async getAll(id) {
     const data = await User.findByPk(id,{include:[{model:Budget, include:[{model: CategoryD}]}]});
