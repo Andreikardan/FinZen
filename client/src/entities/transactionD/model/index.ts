@@ -5,7 +5,7 @@ export interface IRawTransactionDData {
   }
   export interface ITransactionD extends IRawTransactionDData {
     id: number;
-   
+   type: string;
     createdAt: Date;
     updatedAt: Date;
   }

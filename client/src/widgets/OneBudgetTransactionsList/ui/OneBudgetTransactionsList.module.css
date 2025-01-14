@@ -5,16 +5,16 @@
   height: calc(100vh - 60px);
   padding: 10px;
   overflow-y: auto;
-  background-color: #f9f9f9;
+  /* background-color: #f9f9f9; */
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
+  /* box-shadow: 0 4px 8px rgb(0 0 0 / 10%); */
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
+  padding: 25px 10px;
   margin-bottom: 10px;
   font-size: 1.2em;
   font-weight: bold;
@@ -33,7 +33,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 10px;
+  /* padding: 0 10px 10px; */
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
@@ -43,11 +43,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: var(--primary-light-purple-background);
+  padding: 10px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .sectionHeader h1 {
   margin: 0;
-  font-size: 1.5em;
+  font-size: 1.3em;
   color: #4a148c;
 }
 
@@ -72,7 +76,7 @@
 }
 
 .transactionList {
-  padding-right: 10px;
+  padding:0 10px;
 }
 
 .showMoreButton {
@@ -85,4 +89,28 @@
 
 .showMoreButton:hover {
   text-decoration: underline;
+}
+
+/* Стили для заглушек (placeholder) */
+.transactionList .placeholder {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  color: #666;
+  text-align: center;
+}
+
+.transactionList .placeholder h1 {
+  margin: 0;
+  font-size: 1.2em;
+  color: #4a148c;
+}
+
+.transactionList .placeholder p {
+  margin: 0;
+  font-size: 1em;
+  color: #666;
 }

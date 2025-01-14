@@ -15,14 +15,18 @@ export const OneBudgetTransactionCard: React.FC<
   OneBudgetTransactionCardProps
 > = ({ transaction }) => {
   return (
-    <List.Item>
-      <Flex align="center" justify="between">
+    <List.Item style={{ marginTop: "-10px" }}>
+      <Flex className={styles.container} align="center" justify="between">
         <Image
           src={`http://localhost:3000/static/images/${transaction.category_icon}`}
           alt="категория транзакции"
           width={32}
           height={32}
-          className={styles.categoryIcon}
+          className={
+            transaction.type === "доход"
+              ? styles.categoryIconD
+              : styles.categoryIconR
+          }
         />
 
         <Flex
@@ -42,7 +46,9 @@ export const OneBudgetTransactionCard: React.FC<
           </p>
         </Flex>
 
-        <p className={styles.sum}>{transaction.sum} ₽</p>
+        <p className={transaction.type === "доход" ? styles.sumD : styles.sumR}>
+          {transaction.sum} ₽
+        </p>
       </Flex>
     </List.Item>
   );
