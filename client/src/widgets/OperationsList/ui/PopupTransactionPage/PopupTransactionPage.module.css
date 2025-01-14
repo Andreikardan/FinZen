@@ -53,9 +53,8 @@
 }
 
 .commentsSection {
-  text-align: center;
-
   margin-bottom: 16px;
+  text-align: center;
 }
 
 .sectionTitle {
@@ -120,9 +119,9 @@
 .photo {
   width: 100px;
   height: 100px;
+  cursor: pointer;
   object-fit: cover;
   border-radius: 8px;
-  cursor: pointer;
 }
 
 .uploadSection {
@@ -130,10 +129,10 @@
 }
 
 .emptySection {
-  text-align: center;
-  color: #666;
-  font-size: 16px;
   margin-top: 20px;
+  font-size: 16px;
+  color: #666;
+  text-align: center;
 }
 
 /* Стили для контейнера ImageViewer */
@@ -141,17 +140,19 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   z-index: 1000;
+  transform: translate(-50%, -50%);
 }
 
 .emptyMessage {
-  color: #888;
+  margin-top: 8px;
   font-style: italic;
+  color: #888;
   text-align: center;
   margin-top: 8px;
 }
 .imgContainer{
 
   padding: 30px 20px 420px 20px;
+
 }

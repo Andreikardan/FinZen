@@ -3,7 +3,10 @@ const CategoryValidator = require("../utils/CategoryValidator");
 const formatResponse = require("../utils/formatResponse");
 
 class CategoryDController {
-
+  static async getIcons(req,res){
+    const icons = await CategoryDService.getIcons()
+    res.status(200).json(formatResponse(200, 'Получены иконки', icons))
+  }
   static async getAllCategoryDs(req, res) {
     try {
       const {user:{id}} = res.locals
@@ -23,12 +26,14 @@ class CategoryDController {
 
   static async createCategoryD(req, res) {
     try {
-      const { valid, error } = CategoryValidator.validateCreate(req.body);
-      if (!valid) {
-        return res.status(400).json(formatResponse(400, error, null, error));
-      }
+      // const { valid, error } = CategoryValidator.validateCreate(req.body);
+      // if (!valid) {
+      //   return res.status(400).json(formatResponse(400, error, null, error));
+      // }
+      console.log(req.body)
       req.body.borderColor = 'green'
       const newCategoryD = await CategoryDService.create(req.body);
+      console.log(req.body)
       if (!newCategoryD) {
         return res.status(400).json(formatResponse(400, `Категория не создалась`, null));
       }
@@ -47,11 +52,13 @@ class CategoryDController {
         return res.status(404).json(formatResponse(404, 'Категория не найдена', null));
       }
       delete req.body.id
-      const { valid, error } = CategoryValidator.validateUpdate(req.body);
+      console.log(req.body)
+      const { valid, error, clearData } = CategoryValidator.validateUpdate(req.body);
       if (!valid) {
+        console.log(clearData)
         return res.status(400).json(formatResponse(400, error, null));
       }
-      const updatedCategoryD = await CategoryDService.update(categoryD, req.body);
+      const updatedCategoryD = await CategoryDService.update(categoryD, clearData);
       if (!updatedCategoryD) {
         return res.status(404).json(formatResponse(404, `Что то пошло не по плану`));
       }

@@ -124,13 +124,13 @@ export function TransactionDForm({
                 <div className={styles.iconGridContainer}>
                   <Grid columns={3} gap={8}>
                     {categoryDs.map((category) => (
-                      <Grid.Item key={category.id}>
+                      <Grid.Item className={styles.gridItem} key={category.id}>
                         <img
                           src={`http://localhost:3000/static/images/${category.icon}`}
                           className={styles.iconItem}
                           onClick={() => onCategorySelect(category.id)}
                         />
-                        <span onClick={() => onCategorySelect(category.id)}>
+                        <span className={styles.categoryNames} onClick={() => onCategorySelect(category.id)}>
                           {category.name}
                         </span>
                       </Grid.Item>

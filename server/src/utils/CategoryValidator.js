@@ -27,31 +27,31 @@ class CategoryValidator {
   }
 
   static validateUpdate(data) {
-    const keys = ['name', 'icon', 'budget_id'];
-    const invalidKeys = Object.keys(data).filter(key => !keys.includes(key));
-    if (invalidKeys.length > 0) {
-      return { valid: false, error: `Недопустимые поля: ${invalidKeys.join(', ')}.` };
-    }
-    if (Object.keys(data).length === 0) {
-      return { valid: true, error: 'Нет данных для обновления.' };
-    }
-    for (const key of Object.keys(data)) {
-      if (data[key] === '' || data[key] === null || data[key] === undefined) {
-        return { valid: false, error: `Поле "${key}" не может быть пустым.` };
-      }
-      if (key === 'budget_id') {
-        if (typeof data[key] !== 'number' || data[key] <= 0) {
-          return { valid: false, error: 'Поле "budget_id" должно быть положительным числом.' };
+    const clearData = {};
+
+    for (const key in data) {
+      if (Object.prototype.hasOwnProperty.call(data, key)) {
+        const value = data[key];
+
+        if (value === "" || value === null || value === undefined) {
+          continue; // Пропускаем пустые значения
         }
-      } else {
-        if (typeof data[key] !== 'string') {
-          return { valid: false, error: `Поле "${key}" должно быть строкой.` };
+
+        if (key === "budget_id" && typeof value !== "number") {
+          continue; // Пропускаем, если budget_id не число
         }
+
+        clearData[key] = value; // Добавляем только валидные данные
       }
     }
-  
-    return { valid: true, error: 'Прошло валидацию.' };
+
+    if (Object.keys(clearData).length === 0) {
+      return { valid: false, error: "Нет допустимых данных для обновления.", clearData };
+    }
+
+    return { valid: true, error: null, clearData };
   }
+  
 }
 
 module.exports = CategoryValidator;
