@@ -93,7 +93,8 @@ export const updateCategoryDThunk = createAsyncThunk<
   UpdateCategory,
   { rejectValue: IApiResponseReject }
 >(
-  CATEGORYD_THUNKS_TYPE.UPDATE, async (updatedCategory , { rejectWithValue }) => {
+  CATEGORYD_THUNKS_TYPE.UPDATE,
+  async (updatedCategory, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.put<IApiResponseSuccess<ICategory>>(
         CATEGORYD_API_ROUTES.CATEGORY_ALL_ROUTES,

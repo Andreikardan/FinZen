@@ -54,6 +54,7 @@ const categoryDSlice = createSlice({
 
       .addCase(updateCategoryDThunk.pending, (state) => {
         state.loading = true;
+        state.error = null;
       })
       .addCase(updateCategoryDThunk.fulfilled, (state, action) => {
         state.loading = false;

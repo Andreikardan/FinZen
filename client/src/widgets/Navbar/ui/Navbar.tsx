@@ -1,54 +1,22 @@
 import styles from './Navbar.module.css';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Dropdown, MenuProps, Space } from "antd";
-import { signOutThunk} from '@/entities/user';
+import { Space } from "antd";
 import { ROUTES } from '@/shared/enums/routes';
 import { Button } from '@/shared/ui/Button';
 import { useAppDispatch, useAppSelector } from '@/shared/hooks/reduxHooks';
 import { getAllBudgetsThunk } from '@/entities/budget';
-import { HistoryOutlined, LineChartOutlined, MenuOutlined, WalletOutlined } from '@ant-design/icons';
+import { HistoryOutlined, LineChartOutlined, WalletOutlined, SettingOutlined } from '@ant-design/icons';
 
 export function Navbar(): React.ReactElement {
   const dispatch = useAppDispatch()
   const user = useAppSelector((state)=>state.user.user)
   const navigate = useNavigate();
   
-
-
- const startGameHandler = async() =>{
-  dispatch(getAllBudgetsThunk())
-
-  navigate(ROUTES.BUDGETS)
- }
-
-
-  const signOutHandler = async (): Promise<void> => {
-    dispatch(signOutThunk())
-   
-  };
-  const items: MenuProps['items'] = [
-    {
-      key: '1',
-      label: (
-        <a target="_blank" rel=" " href="https:">
-          Редактировать
-        </a>
-      ),
-    },
-    {
-      key: '2',
-      label: (
-        <a target="_blank" rel=" " href="https:">
-          Категории
-        </a>
-      ),
-    },
-
-  ];
-
-
-
+  const startGameHandler = async() =>{
+    dispatch(getAllBudgetsThunk())
+    navigate(ROUTES.BUDGETS)
+  }
   return (
     
     <div className={styles.container}>
@@ -81,13 +49,11 @@ export function Navbar(): React.ReactElement {
         <span>Аналитика</span>
       </div>
     </Button>
-    <Dropdown menu={{ items }} trigger={['click']} placement="top">
-      <Button className={styles.burgerButton} type="submit">
-      <Space>
-        <MenuOutlined style={{ fontSize: '32px' }}/> 
+      <Button className={styles.burgerButton} type="button" onClick={() => navigate(ROUTES.SETTINGS)}>
+        <Space>
+          <SettingOutlined style={{ fontSize: '41px', color:"var(--primary-light-purple)" }}/>
         </Space>
       </Button>
-    </Dropdown>
   </>
 )}
 
