@@ -13,7 +13,7 @@ type Props = {
 
 export function GoalForm({ isModalVisible, setIsModalVisible }: Props) {
   const dispatch = useAppDispatch();
-  const initialInputsState = { title: '', goal: 0, accumulator: 0 };
+  const initialInputsState = { title: '', goal: null, accumulator: null };
   const [inputs, setInputs] = useState<IRawGoalData>(initialInputsState);
 
   const onChangeHandler = (value: string, name: string) => {

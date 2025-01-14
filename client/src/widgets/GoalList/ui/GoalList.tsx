@@ -21,7 +21,7 @@ export  function GoalList(): JSX.Element {
     
             goal={el}
             key={el.id}
-            onDelete={() => deleteGoal(el.id)}
+            onDelete={() => deleteGoal(Number(el.id))} 
             onUpdate={(updatedGoal) => updateGoal(el.id, updatedGoal)}
        
           />
