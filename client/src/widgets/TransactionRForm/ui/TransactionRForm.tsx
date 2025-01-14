@@ -43,7 +43,18 @@ export function TransactionRForm({
   };
 
   const onCreate = async (data: IRawTransactionRData) => {
+    if (!budget || !budget.sum) {
+      Toast.show({
+        content: "Бюджет не найден",
+        position: "bottom",
+        icon: "fail",
+      });
+      return;
+    }
+
+ 
     const updatedBudgetData = {
+
       name: budget?.name, //@ts-ignore
       sum: budget!.sum - data!.sum,
     };

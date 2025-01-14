@@ -1,13 +1,8 @@
 import React from "react";
-import { Cell, Legend, Pie, PieChart } from "recharts";
-import { Tooltip } from "antd";
-import { ArrayTransactionDsType } from "@/entities/transactionD/model";
-import { ArrayTransactionRsType } from "@/entities/transactionR/model";
+import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
 import { ArrayCategoryDsWithTransactions, ArrayCategoryRsWithTransactions } from "@/entities/category";
 
 interface BudgetStatisticsProps {
-  transactionDs: ArrayTransactionDsType ;
-  transactionRs: ArrayTransactionRsType;
   categoriesRs: ArrayCategoryRsWithTransactions;
   categoriesDs: ArrayCategoryDsWithTransactions;
 }
@@ -16,74 +11,110 @@ export const BudgetStatistics: React.FC<BudgetStatisticsProps> = ({
   categoriesRs,
   categoriesDs,
 }) => {
- console.log(categoriesRs, 6666);
+
+  const calculatePercentageData = (data: { type: string; value: number }[]) => {
+    const total = data.reduce((sum, item) => sum + item.value, 0);
+    return data.map((item) => ({
+      ...item,
+      value: total === 0 ? 0 : (item.value / total) * 100,
+    }));
+  };
+
 
   const expenseDataCategRs = categoriesRs?.map((category) => ({
-    name: category.name,
+    type: category.name,
     value: category.TransactionRs?.reduce((sum, transaction) => sum + transaction.sum, 0) || 0,
   }));
-console.log(categoriesRs, 8888);
+
+  const expenseDataCategRsPercentage = calculatePercentageData(expenseDataCategRs);
 
 
-
- console.log(expenseDataCategRs);
- 
   const expenseDataCategDs = categoriesDs?.map((category) => ({
-    name: category.name,
+    type: category.name,
     value: category.TransactionDs?.reduce((sum, transaction) => sum + transaction.sum, 0) || 0,
   }));
 
-console.log(expenseDataCategDs);
+  const expenseDataCategDsPercentage = calculatePercentageData(expenseDataCategDs);
+
 
   const COLORS = ["var(--primary-blue)", "var(--primary-purple)", "var(--primary-light-purple)", "#FF8042", "#AF19FF"];
 
+
+
+  const CustomTooltip = ({ active, payload }:any) => {
+    if (active && payload && payload.length) {
+      const { type, value } = payload[0].payload;
+      console.log(payload[0].payload);
+      
+      return (
+        <div style={{ backgroundColor: "#fff", padding: "10px", border: "1px solid #ccc" }}>
+          <p>{`Категория: ${type}`}</p>
+          <p>{`Значение: ${value.toFixed(1)}%`}</p>
+        </div>
+      );
+    }
+  };
+
   return (
-    <div>
- 
-      <div>
-        <h2>Распределение расходов по категориям</h2>
-        <PieChart width={400} height={300}>
+    <div style={{ padding: "10px" }}>
+   
+      <div style={{ marginBottom: "20px" }}>
+        <h2>Расходы по категориям</h2>
+        <div >
+        <PieChart width={300} height={350}>
           <Pie
-            data={expenseDataCategRs}
+            data={expenseDataCategRsPercentage}
             dataKey="value"
-            nameKey="name"
+            nameKey="type"
             cx="50%"
             cy="50%"
             outerRadius={100}
             fill="#8884d8"
-            label
+            label={({ value }) => `${value.toFixed(1)}%`}
           >
-            {expenseDataCategRs?.map((_, index) => (
+            {expenseDataCategRsPercentage?.map((_, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Tooltip />
-          <Legend />
+          <Tooltip content={<CustomTooltip />} />
+          <Legend
+           layout="horizontal" 
+           align="center" 
+           verticalAlign="bottom" 
+          />
+ 
         </PieChart>
+      </div>
       </div>
 
- 
+
       <div>
-        <h2>Распределение доходов по категориям</h2>
-        <PieChart width={400} height={300}>
+        <h2>Доходы по категориям</h2>
+        <div style={{ display: "flex", flexDirection: "row", alignItems: "center"}}>
+        <PieChart width={300} height={350}>
           <Pie
-            data={expenseDataCategDs}
+            data={expenseDataCategDsPercentage}
             dataKey="value"
-            nameKey="name"
+            nameKey="type"
             cx="50%"
             cy="50%"
             outerRadius={100}
             fill="#8884d8"
-            label
+            label={({ value }) => `${value.toFixed(1)}%`}
           >
-            {expenseDataCategDs?.map((_, index) => (
+            {expenseDataCategDsPercentage?.map((_, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Tooltip />
-          <Legend />
+          <Tooltip content={<CustomTooltip />} />
+          <Legend
+           layout="horizontal" 
+           align="center" 
+           verticalAlign="bottom" 
+          />
         </PieChart>
       </div>
+    </div>
     </div>
   );
 };

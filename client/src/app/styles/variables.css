@@ -1,9 +1,9 @@
 :root {
   /* colors */
   --primary-blue: rgb(5 160 208);
-  --primary-purple: rgb(233 92 233 / 100%);
-  --primary-dark-purple: rgb(48 25 52 / 100%);
-  --primary-deep-blue: rgb(18 18 45 / 100%);
+  --primary-purple: rgb(233 92 233 / 100%); 
+  --primary-dark-purple: rgb(71 37 77);
+  --primary-deep-blue: rgb(18 18 45 / 100%); 
   --primary-light-purple: rgb(158 124 219 / 100%);
   --primary-white: rgb(255 255 255 / 100%);
   --primary-gray-1: rgb(128 128 128);

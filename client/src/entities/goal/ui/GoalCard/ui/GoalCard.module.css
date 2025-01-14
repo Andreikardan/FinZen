@@ -14,16 +14,11 @@
 }
 
 
-.listItem {
-  display: flex;
-  flex-direction: column; 
-  padding: 8px;
-  border-bottom: 1px solid #f0f0f0;
+.listItemLabel {
+  margin-right: 8px;
+  font-weight: bold;
 }
 
-.listItem:last-child {
-  border-bottom: none; 
-}
 
 .listItemContent {
   display: flex;
