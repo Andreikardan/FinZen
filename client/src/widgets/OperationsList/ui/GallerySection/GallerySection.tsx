@@ -16,7 +16,7 @@ export const GallerySection: React.FC<Props> = ({
 }) => {
   const [imageViewerVisible, setImageViewerVisible] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const inputRef = useRef<HTMLInputElement>(null); 
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const openImageViewer = (index: number) => {
     setCurrentImageIndex(index);
@@ -27,9 +27,9 @@ export const GallerySection: React.FC<Props> = ({
     const file = e.target.files?.[0];
     if (file) {
       try {
-        await onUploadPhoto(file); 
+        await onUploadPhoto(file);
         if (inputRef.current) {
-          inputRef.current.value = ""; 
+          inputRef.current.value = "";
         }
       } catch (error) {
         console.error("Ошибка при загрузке фото:", error);
@@ -41,6 +41,8 @@ export const GallerySection: React.FC<Props> = ({
     <div>
       {photos.length > 0 ? (
         <div className={styles.gallerySection}>
+          {" "}
+          //!!!!!!!!!
           <div className={styles.sectionTitle}>Фотографии:</div>
           <div className={styles.gallery}>
             {photos.map((photo, index) => (
@@ -53,7 +55,6 @@ export const GallerySection: React.FC<Props> = ({
               />
             ))}
           </div>
-        
           {transactionType === "трата" && (
             <div className={styles.uploadSection}>
               <input
@@ -61,7 +62,7 @@ export const GallerySection: React.FC<Props> = ({
                 accept="image/*"
                 onChange={handleFileChange}
                 ref={inputRef}
-                style={{ display: "none" }} 
+                style={{ display: "none" }}
                 id="file-input"
               />
               <label htmlFor="file-input" className={styles.uploadButton}>
@@ -74,7 +75,7 @@ export const GallerySection: React.FC<Props> = ({
         <div className={styles.emptySection}>
           <div className={styles.sectionTitle}>Фотографии:</div>
           <div className={styles.emptyMessage}>Тут пока пусто</div>
-        
+
           {transactionType === "трата" && (
             <div className={styles.uploadSection}>
               <input
@@ -82,7 +83,7 @@ export const GallerySection: React.FC<Props> = ({
                 accept="image/*"
                 onChange={handleFileChange}
                 ref={inputRef}
-                style={{ display: "none" }} 
+                style={{ display: "none" }}
                 id="file-input"
               />
               <label htmlFor="file-input" className={styles.uploadButton}>
@@ -94,6 +95,7 @@ export const GallerySection: React.FC<Props> = ({
       )}
 
       <ImageViewer
+        classNames={{body:styles.imgContainer}}
         image={`http://localhost:3000/static/images/${photos[currentImageIndex]?.url}`}
         visible={imageViewerVisible}
         onClose={() => setImageViewerVisible(false)}

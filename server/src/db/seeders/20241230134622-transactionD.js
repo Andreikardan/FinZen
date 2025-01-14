@@ -8,19 +8,40 @@ module.exports = {
       [
         {
           category_id: 1,
-          sum: 4000,
+          sum: 40000,
           description: "Пришла зп",
         },
         {
           category_id: 2,
-          sum: 11000,
-          description: "Натаксовал",
+          sum: 5000,
+          description: "Фиксируем прибыль",
         },
         {
           category_id: 3,
-          sum: 8000,
+          sum: 3000,
           description: "Вернули долг",
         },
+        {
+          category_id: 4,
+          sum: 7000,
+          description: "Подарок от команды",
+        },
+        {
+          category_id: 5,
+          sum: 6000,
+          description: "Потаксовал",
+        },
+        {
+          category_id: 6,
+          sum: 3000,
+          description: "Нашел на улице",
+        },
+        {
+          category_id: 7,
+          sum: 1000,
+          description: "Кэшбек прилетел",
+        }
+        
       ],
       {}
     );

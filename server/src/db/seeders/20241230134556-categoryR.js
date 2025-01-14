@@ -7,21 +7,66 @@ module.exports = {
       "CategoryRs",
       [
         {
-          name: "Бензин",
-          icon: "benzUrl",
+          name: "Кафе",
+          icon: "кафе.svg",
           borderColor: 'dfsdfs',
           budget_id: 1,
         },
-        { name: "Продукты", 
-          icon: "ProduktUrl", 
-          borderColor: 'dfsdfs',
-          budget_id: 1 
-        },
         { name: "Кредиты", 
-          icon: "CreditUrl", 
+          icon: "кредиты.svg", 
           borderColor: 'dfsdfs',
           budget_id: 1 
         },
+        { name: "Образование", 
+          icon: "образование.svg", 
+          borderColor: 'dfsdfs',
+          budget_id: 1 
+        },
+
+        {
+          name: "Девчачьи штучки",
+          icon: "девчачьиШтучки.svg",
+          borderColor: 'dfsdfs',
+          budget_id: 1,
+        },
+        { name: "Пацанячьи штучки", 
+          icon: "пацанячьиШтучки.svg", 
+          borderColor: 'dfsdfs',
+          budget_id: 1 
+        },
+        { name: "Перевод", 
+          icon: "перевод.svg", 
+          borderColor: 'dfsdfs',
+          budget_id: 1 
+        },
+        {
+          name: "Продукты",
+          icon: "продукты.svg",
+          borderColor: 'dfsdfs',
+          budget_id: 1,
+        },
+        { name: "Путешествия", 
+          icon: "путешествия.svg", 
+          borderColor: 'dfsdfs',
+          budget_id: 1 
+        },
+        { name: "Развлечения", 
+          icon: "развлечения.svg", 
+          borderColor: 'dfsdfs',
+          budget_id: 1 
+        },
+        {
+          name: "Ремонт",
+          icon: "ремонт.svg",
+          borderColor: 'dfsdfs',
+          budget_id: 1,
+        },
+        { name: "Спорттовары", 
+          icon: "спорттовары.svg", 
+          borderColor: 'dfsdfs',
+          budget_id: 1 
+        },
+       
       ],
       {}
     );
