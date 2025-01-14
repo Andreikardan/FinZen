@@ -4,7 +4,7 @@ const verifyRefreshToken = require("../middleware/verifeRefreshToken");
 const router = require("express").Router();
 
 router
-.get("/allTransactions", BudgetController.getAllTransaction)
+.get("/allTransactions",verifyRefreshToken, BudgetController.getAllTransaction)
 .get("/", verifyRefreshToken, BudgetController.get)
 .get("/:id", BudgetController.getBudgetById)
   .post("/", verifyRefreshToken, BudgetController.create)

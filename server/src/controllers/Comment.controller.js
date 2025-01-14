@@ -5,7 +5,6 @@ class CommentController {
   static async update(req, res) {
     // const { id } = req.params;
     const { id, text } = req.body;
-    console.log(req.body);
 
     try {
       const updateBudget = await CommentService.update(id, text);
@@ -39,7 +38,6 @@ class CommentController {
     }
   }
   static async delete(req, res) {
-    console.log(req.params,"====");
     
     const { id } = req.params;
     try {

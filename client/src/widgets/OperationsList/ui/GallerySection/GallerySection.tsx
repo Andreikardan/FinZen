@@ -22,6 +22,7 @@ export const GallerySection: React.FC<Props> = ({
     setCurrentImageIndex(index);
     setImageViewerVisible(true);
   };
+  console.log(photos.url)
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -46,6 +47,7 @@ export const GallerySection: React.FC<Props> = ({
           <div className={styles.sectionTitle}>Фотографии:</div>
           <div className={styles.gallery}>
             {photos.map((photo, index) => (
+              
               <img
                 key={index}
                 src={`http://localhost:3000/static/images/${photo.url}`}

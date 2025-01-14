@@ -35,7 +35,8 @@ export const CommentsSection: React.FC<Props> = ({
   const handleAddComment = async () => {
     if (!newComment.trim()) {
       Toast.show({
-        content: "Комментарий не может быть пустым",
+        content: "Что-то пошло не так...",
+        position:'top'
       });
       return;
     }
@@ -100,7 +101,7 @@ export const CommentsSection: React.FC<Props> = ({
           <TextArea
             value={newComment}
             onChange={(value) => setNewComment(value)}
-            placeholder="Введите новый комментарий"
+            placeholder="Введите свой комментарий"
           />
           <Button onClick={handleAddComment} color="primary">
             Добавить комментарий

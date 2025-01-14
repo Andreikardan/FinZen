@@ -46,7 +46,6 @@ class BudgetController {
 
   static async create(req, res) {
     const { name, sum } = req.body;
-console.log(req.body);
 
     const { user } = res.locals;
 
@@ -112,7 +111,6 @@ console.log(req.body);
     const { id } = req.params;
     const { name, sum } = req.body;
     const { isValid, error } = BudgetValidator.validate({ name, sum });
-    console.log(sum);
     
     if (!isValid) {
       return res
@@ -137,7 +135,7 @@ console.log(req.body);
   static async getAllTransaction(req, res) {
     const { user } = res.locals;
     try {
-      const allTransactions = await BudgetService.getAllTransactions(1);
+      const allTransactions = await BudgetService.getAllTransactions(user.id);
 
       if (allTransactions.length === 0 || !allTransactions) {
         return res

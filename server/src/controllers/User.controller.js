@@ -96,7 +96,6 @@ class UserController {
 
     try {
       const user = await UserService.getByEmail(normalizedEmail);
-      console.log(user);
       
       if (!user) {
         return res.status(404).json(formatResponse(404,`User with email ${email} not found`,null,`User with email ${email} not found`));
