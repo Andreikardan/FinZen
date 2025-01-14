@@ -7,18 +7,18 @@ import { useAppDispatch, useAppSelector } from '@/shared/hooks/reduxHooks';
 import { BudgetStatistics } from '@/widgets/BudgetStatistics/ui/BudgetStatistics';
 import { getBudgetByIdThunk } from '@/entities/budget';
 import { Option } from 'antd/es/mentions';
-
+import styles from "../BudgetsPage/BudgetsPage.module.css"
 
 export function GoalPage() {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [selectedBudgetId, setSelectedBudgetId] = useState<number | null>(null);
 
   const dispatch = useAppDispatch();
-  const budget = useAppSelector((state) => state.budget.currentBudget);
-  const budgets = useAppSelector((state) => state.budget.budgets);
+  const budget = useAppSelector((state) => state.budget.currentBudget); 
+  const budgets = useAppSelector((state) => state.budget.budgets);  
 
-  console.log(budgets, 55555);
-  console.log(budget, 7777);
+console.log(budget,999);
+
 
   useEffect(() => {
     if (selectedBudgetId) {
@@ -26,7 +26,7 @@ export function GoalPage() {
     }
   }, [selectedBudgetId, dispatch]);
 
- 
+
 
  
   const transactionDs = 
@@ -38,6 +38,8 @@ export function GoalPage() {
           })) || []
         ) || []
      
+console.log(transactionDs, 77);
+
 
   const transactionRs = 
 
@@ -53,16 +55,19 @@ export function GoalPage() {
     setSelectedBudgetId(budgetId);
   };
 
-
+  const hasTransactions = () => {
+    return transactionDs.length > 0 || transactionRs.length > 0;
+  };
 
   const categoriesRs = budget?.CategoryRs || [];
   const categoriesDs = budget?.CategoryDs || [];
 
   return (
     <div>
+       <div>
       <GoalList />
       <div>
-        <button
+        <button className={styles.buttonContainer}
           color="var(--primary-light-purple)"
           onClick={() => setIsModalVisible(true)}
         >
@@ -78,7 +83,7 @@ export function GoalPage() {
         />
       )}
       <Select
-        placeholder="Выберите бюджет"
+        placeholder="Статистика по бюджету"
         onChange={(value) => handleBudgetSelect(Number(value))}
         style={{ width: "100%", marginBottom: "10px" }}
       >
@@ -90,7 +95,10 @@ export function GoalPage() {
       </Select>
 
 
-      {budget && (
+    
+    </div>
+
+    {budget && hasTransactions() &&(
         <BudgetStatistics
           transactionDs={transactionDs}
           transactionRs={transactionRs}
@@ -99,5 +107,7 @@ export function GoalPage() {
         />
       )}
     </div>
+   
+
   );
 }

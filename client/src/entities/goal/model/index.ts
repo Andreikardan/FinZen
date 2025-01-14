@@ -1,7 +1,7 @@
 export interface IRawGoalData {
-    title: string;
-    goal: number ;
-    accumulator: number;
+    title?: string;
+    goal: number |null ;
+    accumulator: number | null;
 }
 
 export interface IGoal extends IRawGoalData {

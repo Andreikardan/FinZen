@@ -1,6 +1,5 @@
 import {   ArrayGoalTransactionsType } from "../model"
 import {    createGoalTransactionThunk,    getAllGoalTransactionsThunk } from "../api";
-import { message } from "antd";
 import { createSlice } from "@reduxjs/toolkit";
 
 type GoalState = {
@@ -29,13 +28,13 @@ const goalTransactionSlice = createSlice ({
         state.loading = false;
         state.goalTransactions = action.payload.data;
         state.error = null;
-        message.success(action.payload.message)
+        
       })
       .addCase(getAllGoalTransactionsThunk.rejected, (state, action) => {
         state.loading = false;
         state.goalTransactions = [];
         state.error = action.payload!.error;
-        message.error(action.payload!.error)
+        
       })
 
       .addCase(createGoalTransactionThunk.pending, (state) => {
@@ -45,12 +44,12 @@ const goalTransactionSlice = createSlice ({
         state.loading = false;
         state.goalTransactions = [...state.goalTransactions, action.payload.data];
         state.error = null;
-        message.success(action.payload.message)
+        
       })
       .addCase(createGoalTransactionThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload!.error;
-        message.error(action.payload!.error)
+       
       })
 
     }

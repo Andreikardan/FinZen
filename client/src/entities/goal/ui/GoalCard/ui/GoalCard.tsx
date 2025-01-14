@@ -34,8 +34,8 @@ export const GoalCard: React.FC<Props> = React.memo(
     const [isBudgetFormVisiblue] = useState(false)
     const [updatedGoalData, setUpdatedGoalData] = useState({
       title: "",
-      goal: 0,
-      accumulator:0,
+      goal: null,
+      accumulator:null,
     });
     const [selectedBudgetId, setSelectedBudgetId] = useState<number | null>(null);
 
@@ -61,9 +61,14 @@ export const GoalCard: React.FC<Props> = React.memo(
     const handleBudgetSelect = (budgetId: number) => {
       setSelectedBudgetId(budgetId);
       setIsTransactionFormVisible(true);
+      setIsModalVisible(false)
     };
 
-    const progressPercentage = goal.goal ? (goal.accumulator / goal.goal) * 100 : 0;
+    const progressPercentage = goal.goal !== null && goal.accumulator !== null? (goal.accumulator / goal.goal) * 100 : 0;
+
+    const progressColor = progressPercentage >= 100 ? "var( --primary-dark-purple)" : "var(--primary-light-purple)";  
+
+    
 
     return (
       <div className={styles.card}>
@@ -125,15 +130,21 @@ export const GoalCard: React.FC<Props> = React.memo(
               },
             ]}
           >
-            <List.Item
-          
-          
-            >
+          <List.Item>
               <div className={styles.listItemContent}>
-                <span className={styles.listItemName}>{goal.title}</span>
-                <span className={styles.listItemSum}>{goal.goal}</span>
-                <span className={styles.listItemSum}>{goal.accumulator}</span>
-              </div>
+                    <div>
+                         <span className={styles.listItemLabel}>Цель:</span>
+                         <span className={styles.listItemValue}>{goal.title}</span>
+                 </div>
+                <div>
+                         <span className={styles.listItemLabel}>Сумма цели:</span>
+                         <span className={styles.listItemValue}>{goal.goal}</span>
+                 </div>
+                 <div>
+                         <span className={styles.listItemLabel}>Внесено:</span>
+                        <span className={styles.listItemValue}>{goal.accumulator}</span>
+                      </div>
+                     </div>
             </List.Item>
           </SwipeAction>
         </List>
@@ -151,7 +162,7 @@ export const GoalCard: React.FC<Props> = React.memo(
               />
                <Input
                 name="goal"
-                value={updatedGoalData.goal}
+                value={updatedGoalData.goal !== null ? updatedGoalData.goal : ""}
                 onChange={(e) => onChangeHandler(e.target.value, "goal")}
                 placeholder="Сумма"
               />
@@ -192,17 +203,20 @@ export const GoalCard: React.FC<Props> = React.memo(
             budget_id={+selectedBudgetId}
             isModalVisible={isTransactionFormVisible}
             setIsModalVisible={setIsTransactionFormVisible} 
+            goal = {goal.goal}
           />
          )}
  
          
  <ProgressBar
- completed={progressPercentage.toFixed(1)}
- height="15px"
- labelColor="#fff"
- barContainerClassName={styles.container}
- transitionDuration="0.4s"
- />
+          completed={progressPercentage.toFixed(1)}
+          height="15px"
+          labelColor="#fff"
+          bgColor={progressColor}
+          barContainerClassName={styles.container}
+          transitionDuration="0.4s"
+          customLabel={`${progressPercentage.toFixed(1)}%`}  
+        />
       </div>
     );
   }
