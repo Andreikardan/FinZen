@@ -1,4 +1,4 @@
-import { Collapse, message } from "antd";
+import { Col, Collapse, Image, message, Row } from "antd";
 import { UserEdit } from "@/widgets";
 import CategoryForm from "@/widgets/CategoryForm/CategoryForm";
 import { useCategoryDList } from "@/entities/category";
@@ -6,6 +6,9 @@ import { useBudgetList } from "@/widgets/BudgetsList/useBudgetList";
 import { signOutThunk } from "@/entities/user";
 import { useAppDispatch } from "@/shared";
 import EditCategoryDForm from '@/widgets/CategoryEdit/CategoryDCreate'
+import { axiosInstance } from "@/shared/lib/axiosInstance";
+import { useEffect, useState } from "react";
+import { IApiResponseSuccess } from "@/shared/types";
 
 const { Panel } = Collapse;
 
@@ -13,10 +16,19 @@ const CollapseComponent = () => {
   const dispatch = useAppDispatch();
   const { budgets } = useBudgetList();
   const { categoryD, createCategoryD, deleteCategoryD, updateCategoryD } = useCategoryDList();
+  const [icons, setIcons] = useState<{icon: string;}[]| []>([])
+  
+  async function loadicons(){
+    const icons = await axiosInstance.get<IApiResponseSuccess<{icon: string;}[]>>('/categoryd/icons')
+    setIcons(icons.data.data)
+  }
+  useEffect(() => {
+    loadicons()
+  }, []);
 
-  const handleAddCategory = async (values: { name: string; category: number }) => {
+  const handleAddCategory = async (values: { name: string; category: number; icon?: string }) => {
     try {
-      await createCategoryD(values.name, "", "", values.category);
+      await createCategoryD(values.name, values.icon || "", "", values.category);
       message.success("Категория добавлена");
     } catch (error) {
       message.error("Ошибка при добавлении категории");
@@ -51,22 +63,25 @@ const CollapseComponent = () => {
   };
 
   return (
-    <Collapse style={{ maxWidth: "340px", minWidth: "340px" }}>
+    <Collapse accordion style={{ maxWidth: "340px", minWidth: "340px" }}>
       <Panel header="Редактировать личные данные" key="1">
         <UserEdit />
       </Panel>
       <Panel header="Редактирование категорий доходов" key="2">
-        <Collapse>
+        <Collapse accordion>
           <Panel header="Добавить категорию" key="add-category">
             {budgets.length > 0 ? (
-              <CategoryForm budgets={budgets} onAddCategory={handleAddCategory} />
+              <CategoryForm icons={icons} budgets={budgets} onAddCategory={handleAddCategory} />
             ) : (
               <span>Сначала добавьте счет</span>
             )}
           </Panel>
           {categoryD.length > 0 ? (
-            categoryD.map((category) => (
-              <Panel header={category.name} key={category.id}>
+            categoryD.map((category) => (<Panel header={ <Row justify="space-between" align="middle"><Col>{category.name}</Col><Col>{category.icon && ( <Image
+                      src={`http://localhost:3000/static/images/${category.icon}`}
+                      width={24}
+                      height={24}
+                      preview={false}/>)}</Col> </Row>} key={category.id}>
                 <EditCategoryDForm
                   category={category}
                   onEdit={handleEditCategory}
