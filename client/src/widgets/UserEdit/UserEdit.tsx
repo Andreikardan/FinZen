@@ -43,7 +43,7 @@ export function UserEdit() {
 
     return (
         <>
-            <Form style={{ maxWidth: '350px', minWidth: '350px' }} onFinish={submit} onFieldsChange={(_, changedFields) => handleFormChange(changedFields)}>
+            <Form style={{ maxWidth: '306px', minWidth: '306px' }} onFinish={submit} onFieldsChange={(_, changedFields) => handleFormChange(changedFields)}>
             <Form.Item name='email' hasFeedback rules={[{
                 validator: async (_,value) => {
                     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
