@@ -1,14 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./InfoSlider.module.css";
 import { Swiper, Toast } from "antd-mobile";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { getInfoSliderDataThunk } from "@/entities/infoSlider";
+import { SkeletonSlider } from "./SkeletonSlider/SkeletonSlider"; 
 
 export function InfoSlider() {
   const dispatch = useAppDispatch();
   const sliderDataArray = useAppSelector((state) => state.infoSlider.slider);
+  const [isLoading, setIsLoading] = useState(true); 
+
   useEffect(() => {
-    dispatch(getInfoSliderDataThunk());
+    const fetchData = async () => {
+      await dispatch(getInfoSliderDataThunk()).unwrap(); 
+      setTimeout(() => setIsLoading(false), 2000); 
+    };
+    fetchData();
   }, [dispatch]);
 
   const items = sliderDataArray.map((el, index) => (
@@ -29,11 +36,16 @@ export function InfoSlider() {
       </div>
     </Swiper.Item>
   ));
+
   return (
     <div>
-      <Swiper loop autoplay>
-        {items}
-      </Swiper>
+      {isLoading ? (
+        <SkeletonSlider />
+      ) : (
+        <Swiper loop autoplay>
+          {items}
+        </Swiper>
+      )}
     </div>
   );
 }

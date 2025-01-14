@@ -18,7 +18,7 @@ export function OperationsCard({ transaction }: Props) {
         <Flex align="center" justify="between" className={styles.container}>
           <Flex align="center" gap={8} className={styles.leftSection}>
             <Image
-              src={`https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Focus_ubt.jpeg/350px-Focus_ubt.jpeg`}
+              src={`http://localhost:3000/static/images/${transaction.icon}`}
               alt="категория транзакции"
               width={32}
               height={32}

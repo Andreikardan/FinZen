@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import styles from "./TransactionDForm.module.css";
 import { useState } from "react";
 import { unwrapResult } from "@reduxjs/toolkit";
@@ -12,14 +13,14 @@ type Props = {
   isModalVisible: boolean;
   setIsModalVisible: (value: boolean) => void;
   budget: IOneBudgetTransactions | null;
-  refreshTransactions: () => void; 
+  refreshTransactions: () => void;
 };
 
 export function TransactionDForm({
   isModalVisible,
   setIsModalVisible,
   budget,
-  refreshTransactions, 
+  refreshTransactions,
 }: Props) {
   const dispatch = useAppDispatch();
   const categoryDs = budget!.CategoryDs;
@@ -51,11 +52,18 @@ export function TransactionDForm({
     } else {
       const resultAction = await dispatch(createTransactionDThunk(data));
       unwrapResult(resultAction);
-      const updatedBudgetData = { name: budget?.name, sum: budget!.sum + data!.sum };
-      const resultBudgetAction = await dispatch(updateBudgetThunk({ id: budget!.id, updatedBudget: updatedBudgetData }));
+      const updatedBudgetData = {
+        name: budget?.name,
+        //@ts-ignore
+        sum: budget!.sum + data!.sum,
+      };
+      const resultBudgetAction = await dispatch(
+        //@ts-ignore
+        updateBudgetThunk({ id: budget!.id, updatedBudget: updatedBudgetData })
+      );
       unwrapResult(resultBudgetAction);
       setIsModalVisible(false);
-      refreshTransactions(); 
+      refreshTransactions();
       Toast.show({
         content: "Операция добавлена",
         position: "bottom",
@@ -87,11 +95,11 @@ export function TransactionDForm({
             <div className={styles.categoryContainer}>
               {inputs.category_id ? (
                 <img
-                  src={
+                  src={`http://localhost:3000/static/images/${
                     categoryDs.find(
                       (category) => category.id === inputs.category_id
                     )?.icon
-                  }
+                  }`}
                   className={styles.iconItem}
                   style={{ width: "24px", height: "24px", marginRight: "8px" }}
                 />
@@ -118,10 +126,13 @@ export function TransactionDForm({
                     {categoryDs.map((category) => (
                       <Grid.Item key={category.id}>
                         <img
-                          src={category.icon}
+                          src={`http://localhost:3000/static/images/${category.icon}`}
                           className={styles.iconItem}
                           onClick={() => onCategorySelect(category.id)}
                         />
+                        <span onClick={() => onCategorySelect(category.id)}>
+                          {category.name}
+                        </span>
                       </Grid.Item>
                     ))}
                   </Grid>

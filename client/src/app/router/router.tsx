@@ -1,12 +1,16 @@
-import { createBrowserRouter } from 'react-router-dom';
-import Layout from '../Layout/Layout';
-import { ROUTES } from '@/shared/enums/routes';
-import AuthGuard from './AuthGuard';
-import UserGuard from './UserGuard'
-import { GoalPage } from '@/pages/GoalPage/GoalPage';
-import { OperationsPage, StartPage,ParamsTransactionPage,BudgetsPage, SettingsPage } from '@/pages';
-
-
+import { createBrowserRouter } from "react-router-dom";
+import Layout from "../Layout/Layout";
+import { ROUTES } from "@/shared/enums/routes";
+import AuthGuard from "./AuthGuard";
+import UserGuard from "./UserGuard";
+import { GoalPage } from "@/pages/GoalPage/GoalPage";
+import {
+  OperationsPage,
+  StartPage,
+  ParamsTransactionPage,
+  BudgetsPage,
+  SettingsPage,
+} from "@/pages";
 
 export const router = createBrowserRouter([
   {
@@ -15,7 +19,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: ROUTES.HOME,
-        element: <AuthGuard><StartPage /></AuthGuard>,
+        element: (
+          <AuthGuard>
+            <StartPage />
+          </AuthGuard>
+        ),
       },
       {
         element: <UserGuard />,
@@ -38,8 +46,8 @@ export const router = createBrowserRouter([
           },
           {
             path: ROUTES.SETTINGS,
-            element:<SettingsPage />
-          }
+            element: <SettingsPage />,
+          },
         ],
       },
     ],

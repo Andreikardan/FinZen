@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import styles from "./TransactionRForm.module.css";
 import { useState } from "react";
 import { unwrapResult } from "@reduxjs/toolkit";
@@ -12,7 +13,7 @@ type Props = {
   isModalVisibleR: boolean;
   setIsModalVisibleR: (value: boolean) => void;
   budget: IOneBudgetTransactions | null;
-  refreshTransactions: () => void; 
+  refreshTransactions: () => void;
 };
 
 export function TransactionRForm({
@@ -53,8 +54,9 @@ export function TransactionRForm({
 
  
     const updatedBudgetData = {
-      name: budget?.name,
-      sum: budget.sum - data!.sum,
+
+      name: budget?.name, //@ts-ignore
+      sum: budget!.sum - data!.sum,
     };
 
     if (updatedBudgetData.sum < 0) {
@@ -73,11 +75,12 @@ export function TransactionRForm({
       const resultAction = await dispatch(createTransactionRThunk(data));
       unwrapResult(resultAction);
       const resultBudgetAction = await dispatch(
+        //@ts-ignore
         updateBudgetThunk({ id: budget!.id, updatedBudget: updatedBudgetData })
       );
       unwrapResult(resultBudgetAction);
       setIsModalVisibleR(false);
-      refreshTransactions(); 
+      refreshTransactions();
       Toast.show({
         content: "Операция добавлена",
         position: "bottom",
@@ -144,6 +147,9 @@ export function TransactionRForm({
                           className={styles.iconItem}
                           onClick={() => onCategorySelect(category.id)}
                         />
+                        <span onClick={() => onCategorySelect(category.id)}>
+                          {category.name}
+                        </span>
                       </Grid.Item>
                     ))}
                   </Grid>
