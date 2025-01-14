@@ -44,7 +44,23 @@
 }
 
 .categoryIcon {
-  padding: 4px;
-  background-color: var(--color-icon-bg);
-  border-radius: 8px;
+  /* margin-right: 12px; */
+  object-fit: cover;
+  border-radius: 50%; 
+  padding: 6px;
+}
+
+.categoryIcon.трата {
+  border: 0.5px solid rgb(212, 76, 31);
+  background-color: rgba(239, 6, 6, 0.367)
+}
+
+.categoryIcon.доход {
+  border: 0.5px solid rgb(3, 173, 0);
+  background-color: rgba(93, 232, 91, 0.367)
+}
+
+.categoryIcon.перевод {
+  border: #003ea8;
+  background-color: #e6f7ff;
 }

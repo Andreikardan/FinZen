@@ -11,7 +11,7 @@ type Props = {
 
 export function OperationsCard({ transaction }: Props) {
   const [visible, setVisible] = useState<boolean>(false);
-console.log(transaction.icon);
+  console.log(transaction.icon);
 
   return (
     <>
@@ -23,7 +23,7 @@ console.log(transaction.icon);
               alt="категория транзакции"
               width={32}
               height={32}
-              className={styles.categoryIcon}
+              className={`${styles.categoryIcon} ${styles[transaction.type]}`} 
             />
             <div className={styles.textContainer}>
               {transaction.type !== "перевод" ? (
@@ -50,10 +50,10 @@ console.log(transaction.icon);
             style={{
               color:
                 transaction.type === "трата"
-                  ? "red"
+                  ? "var(--transactionR-sum-color)"
                   : transaction.type === "доход"
-                  ? "green"
-                  : "blue",
+                  ? "var(--transactionD-sum-color)"
+                  : "var(--transactionP-sum-color)",
             }}
           >
             {transaction.type !== "перевод"

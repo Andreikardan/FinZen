@@ -22,7 +22,6 @@ export const GallerySection: React.FC<Props> = ({
     setCurrentImageIndex(index);
     setImageViewerVisible(true);
   };
-  console.log(photos.url)
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
