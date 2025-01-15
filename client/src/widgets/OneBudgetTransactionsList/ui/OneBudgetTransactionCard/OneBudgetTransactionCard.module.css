@@ -1,34 +1,33 @@
 .container {
   border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
   padding-bottom: 10px;
+  width: 300px; 
 }
 
 .categoryIconD {
   margin-right: 12px;
   object-fit: cover;
-  border-radius: 50%; 
+  border-radius: 50%;
   padding: 6px;
   background-color: var(--categoryDIcon-background-color);
-  border:var(--categoryDIcon-border-color) ;
-  
+  border: var(--categoryDIcon-border-color);
 }
 
 .categoryIconR {
   margin-right: 12px;
   object-fit: cover;
-  border-radius: 50%; 
+  border-radius: 50%;
   padding: 6px;
-  background-color:var(--categoryRIcon-background-color);
-  border: var(--categoryRIcon-border-color) ;
-  
+  background-color: var(--categoryRIcon-background-color);
+  border: var(--categoryRIcon-border-color);
 }
 
-
-
 .descriptionBlock {
-  flex: 1; 
-  flex-direction: column; 
+  flex: 1;
+  flex-direction: column;
   margin-right: 12px;
+  width: 100%; 
+  word-wrap: break-word; 
 }
 
 .description {
@@ -36,33 +35,35 @@
   font-size: 16px;
   font-weight: 500;
   color: #333;
+  white-space: normal; 
+  word-break: break-word; 
 }
 
 .date {
   margin: 0;
   font-size: 12px;
   color: #666;
-  white-space: nowrap; 
+  white-space: nowrap;
 }
 
-.sumD { 
+.sumD {
   min-width: 80px;
   margin: 0;
   font-size: 15px;
   font-weight: 400;
   color: var(--transactionD-sum-color);
-  text-align: right; 
+  text-align: right;
   align-self: flex-start;
   padding-top: 4px;
 }
 
-.sumR { 
+.sumR {
   min-width: 80px;
   margin: 0;
   font-size: 15px;
   font-weight: 400;
-  color:  var(--transactionR-sum-color);
-  text-align: right; 
+  color: var(--transactionR-sum-color);
+  text-align: right;
   align-self: flex-start;
   padding-top: 4px;
 }
