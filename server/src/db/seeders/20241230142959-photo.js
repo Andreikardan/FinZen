@@ -7,28 +7,28 @@ module.exports = {
       "TransactionRPhotos",
       [
         {
-          url: "Фото1",
+          url: "mac.png",
           transactionR_id: 1,
         },
         {
-          url: "Фото2",
+          url: "check.svg",
           transactionR_id: 1,
         },
         {
-          url: "Фото1",
+          url: "bank.jpg",
           transactionR_id: 2,
         },
         {
-          url: "Фото2",
+          url: "check.svg",
           transactionR_id: 2,
         },
         {
-          url: "Фото1",
+          url: "verstka.jpg",
           transactionR_id: 3,
         },
         {
-          url: "Фото2",
-          transactionR_id: 2,
+          url: "check.svg",
+          transactionR_id: 3,
         },
       ],
       {}

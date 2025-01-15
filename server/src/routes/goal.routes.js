@@ -5,8 +5,8 @@ const verifyRefreshToken = require("../middleware/verifeRefreshToken");
 const router = require("express").Router();
 
 router
-.get('/', GoalController.getGoals)
-.post('/', GoalController.createGoals)
+.get('/', verifyRefreshToken, GoalController.getGoals)
+.post('/', verifyRefreshToken,GoalController.createGoals)
 .delete('/:id', GoalController.deleteGoals)
 .put('/:id', GoalController.updateGoals)
 

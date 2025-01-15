@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Goal.init({
+    user_id:DataTypes.INTEGER,
     title: DataTypes.STRING,
     goal: DataTypes.FLOAT,
     accumulator: DataTypes.FLOAT

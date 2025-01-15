@@ -9,6 +9,7 @@ const {
   Goal,
   GoalTransaction,
 } = require("../db/models");
+const { mockCategoryR, mockCategoryD } = require("../utils/consts");
 
 class BudgetService {
   static async get(id) {
@@ -23,8 +24,26 @@ class BudgetService {
       ],
     });
   }
+
   static async create(data) {
-    return await Budget.create(data);
+    const newBudget = await Budget.create(data);
+    
+    const allBudget = await this.get(data.user_id)
+    if(allBudget.length <= 1){
+      const newCategoryR = mockCategoryR.map((el) => ({
+        ...el,
+        budget_id: newBudget.id,
+      }));
+      const newCategoryD = mockCategoryD.map((el) => ({
+        ...el,
+        budget_id: newBudget.id,
+      }));
+      
+      await CategoryD.bulkCreate(newCategoryD);
+      await CategoryR.bulkCreate(newCategoryR);
+    }
+   
+    return newBudget;
   }
   static async update(id, data) {
     const budget = await this.getById(id);
@@ -47,7 +66,10 @@ class BudgetService {
       where: { user_id: id },
       include: [
         { model: CategoryD, include: [{ model: TransactionD }] },
-      { model: GoalTransaction,  include: { model: Goal, attributes:['title'] },  },
+        {
+          model: GoalTransaction,
+          include: { model: Goal, attributes: ["title"] },
+        },
 
         {
           model: CategoryR,

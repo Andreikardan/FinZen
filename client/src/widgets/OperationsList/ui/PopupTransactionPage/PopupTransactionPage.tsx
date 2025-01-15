@@ -43,14 +43,14 @@ export function PopupTransactionPage({
         setComments([...comments, response.data.data]);
         Toast.show({
           content: "Комментарий добавлен",
-          icon: "success",
-          position: "bottom",
+          position: "top",
         });
       }
     } catch (error) {
       console.error(error);
       Toast.show({
-        content: "Не удалось добавить комментарий",
+        content: "Что-то пошло не так...",
+        position:'top'
       });
     }
   };
@@ -70,15 +70,15 @@ export function PopupTransactionPage({
         );
         setComments(updatedComments); 
         Toast.show({
-          content: "Изменено",
-          icon: "success",
-          position: "bottom",
+          content: "Комментарий изменен",
+          position: "top",
         });
       }
     } catch (error) {
       console.error(error);
       Toast.show({
-        content: "Что-то не так",
+        content: "Что-то пошло не так...",
+        position:'top'
       });
     }
   };
@@ -96,14 +96,14 @@ export function PopupTransactionPage({
         setComments(updatedComments);
         Toast.show({
           content: "Комментарий удален",
-          icon: "success",
-          position: "bottom",
+          position: "top",
         });
       }
     } catch (error) {
       console.error(error);
       Toast.show({
-        content: "Не удалось удалить комментарий",
+        content: "Что-то пошло не так...",
+        position:'top'
       });
     }
   };
@@ -114,7 +114,7 @@ export function PopupTransactionPage({
 
     try {
       const response = await axiosInstance.post(
-        `/imagesForTransaction/upload/${transaction.id}`,
+        `${import.meta.env.VITE_API}/imagesForTransaction/upload/${transaction.id}`,
         formData,
         {
           headers: {
@@ -127,8 +127,7 @@ export function PopupTransactionPage({
         setPhotos([...photos, response.data.data]); 
         Toast.show({
           content: "Фото загружено",
-          icon: "success",
-          position: "bottom",
+          position: "top",
         });
       }
 
@@ -136,7 +135,8 @@ export function PopupTransactionPage({
     } catch (error) {
       console.error(error);
       Toast.show({
-        content: "Не удалось загрузить фото",
+        content: "Что то пошло не так..",
+        position:'top'
       });
       throw error;
     }
@@ -149,7 +149,7 @@ export function PopupTransactionPage({
         visible={visible}
         onMaskClick={() => setVisible(false)}
         position="bottom"
-        bodyStyle={{ height: "50vh" }}
+        bodyStyle={{ height: "50vh", }}
       >
         <div className={styles.popupContent}>
           <div className={styles.header}>

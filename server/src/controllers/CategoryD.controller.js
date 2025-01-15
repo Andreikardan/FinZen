@@ -4,7 +4,8 @@ const formatResponse = require("../utils/formatResponse");
 
 class CategoryDController {
   static async getIcons(req,res){
-    return await CategoryDService
+    const icons = await CategoryDService.getIcons()
+    res.status(200).json(formatResponse(200, 'Получены иконки', icons))
   }
   static async getAllCategoryDs(req, res) {
     try {
@@ -29,6 +30,7 @@ class CategoryDController {
       // if (!valid) {
       //   return res.status(400).json(formatResponse(400, error, null, error));
       // }
+      console.log(req.body)
       req.body.borderColor = 'green'
       const newCategoryD = await CategoryDService.create(req.body);
       console.log(req.body)

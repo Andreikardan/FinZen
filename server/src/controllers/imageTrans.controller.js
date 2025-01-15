@@ -5,7 +5,6 @@ class ImageTransController {
   static async upload(req,res){
     const { id } = req.params;
     const { filename } = req.file;
-    console.log(id, filename, 44);
 try {
   const uploadingImages = await ImageTransService.addImage(id, filename);
   if (uploadingImages) {

@@ -1,8 +1,9 @@
+const { Model, where } = require("sequelize");
 const { Goal } = require("../db/models");
 
 class GoalService {
-  static async get() {
-    return await Goal.findAll();
+  static async get(id) {
+    return await Goal.findAll({where:{user_id:id}});
   }
 
   static async getById(id) {

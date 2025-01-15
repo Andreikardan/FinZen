@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   infoSlider.init({
+    backgroundColor:DataTypes.STRING,
     title: DataTypes.STRING,
     text: DataTypes.STRING,
     img: DataTypes.STRING

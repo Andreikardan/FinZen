@@ -6,6 +6,7 @@ module.exports = {
     await queryInterface.bulkInsert('Goals', [
       {
         title: 'Машина',
+        user_id:1,
         goal: 500000000,
         accumulator: 500,
         createdAt: new Date(),
@@ -13,6 +14,7 @@ module.exports = {
       },
       {
         title: 'Квартира в Дубаях',
+        user_id:1,
         goal: 500000000000,
         accumulator: 5000,
         createdAt: new Date(),
@@ -20,6 +22,7 @@ module.exports = {
       },
       {
         title: 'Шоколадка',
+        user_id:1,
         goal: 89,
         accumulator: 10,
         createdAt: new Date(),
