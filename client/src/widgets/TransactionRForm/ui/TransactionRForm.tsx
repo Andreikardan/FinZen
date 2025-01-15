@@ -23,7 +23,7 @@ export function TransactionRForm({
   refreshTransactions,
 }: Props) {
   const dispatch = useAppDispatch();
-  const categoryRs = budget!.CategoryRs;
+  const categoryRs = budget?.CategoryRs;
   const initialInputsState = { description: "", sum: 0, category_id: null };
   const [inputs, setInputs] =
     useState<IRawTransactionRData>(initialInputsState);
@@ -47,7 +47,6 @@ export function TransactionRForm({
       Toast.show({
         content: "Бюджет не найден",
         position: "bottom",
-        icon: "fail",
       });
       return;
     }
@@ -63,13 +62,11 @@ export function TransactionRForm({
       Toast.show({
         content: "Бюджет не может быть отрицательным",
         position: "bottom",
-        icon: "fail",
       });
     } else if (!data.category_id || !data.description || !data.sum) {
       Toast.show({
         content: "Все поля обязательны к заполнению",
         position: "bottom",
-        icon: "fail",
       });
     } else {
       const resultAction = await dispatch(createTransactionRThunk(data));
@@ -84,7 +81,6 @@ export function TransactionRForm({
       Toast.show({
         content: "Операция добавлена",
         position: "bottom",
-        icon: "success",
       });
     }
   };
@@ -112,8 +108,9 @@ export function TransactionRForm({
             <div className={styles.categoryContainer}>
               {inputs.category_id ? (
                 <img
+
                   src={`${import.meta.env.VITE_IMAGES_API}${
-                    categoryRs.find(
+                    categoryRs?.find(
                       (category) => category.id === inputs.category_id
                     )?.icon
                   }`}
@@ -140,7 +137,7 @@ export function TransactionRForm({
               >
                 <div className={styles.iconGridContainer}>
                   <Grid columns={3} gap={8}>
-                    {categoryRs.map((category) => (
+                    {categoryRs?.map((category) => (
                       <Grid.Item className={styles.gridItem} key={category.id}>
                         <img
                           src={`${import.meta.env.VITE_IMAGES_API}${category.icon}`}
@@ -163,12 +160,13 @@ export function TransactionRForm({
             {
               key: "cancel",
               text: "Отмена",
+              style: {color: 'grey'},
               onClick: () => setIsModalVisibleR(false),
             },
             {
               key: "confirm",
               text: "Добавить",
-              bold: true,
+              style: {color: '#4a148c'},
               onClick: () => onCreate(inputs),
             },
           ],

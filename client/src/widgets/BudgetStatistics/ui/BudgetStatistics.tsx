@@ -11,7 +11,6 @@ export const BudgetStatistics: React.FC<BudgetStatisticsProps> = ({
   categoriesRs,
   categoriesDs,
 }) => {
-
   const calculatePercentageData = (data: { type: string; value: number }[]) => {
     const total = data.reduce((sum, item) => sum + item.value, 0);
     return data.map((item) => ({
@@ -20,14 +19,12 @@ export const BudgetStatistics: React.FC<BudgetStatisticsProps> = ({
     }));
   };
 
-
   const expenseDataCategRs = categoriesRs?.map((category) => ({
     type: category.name,
     value: category.TransactionRs?.reduce((sum, transaction) => sum + transaction.sum, 0) || 0,
   }));
 
   const expenseDataCategRsPercentage = calculatePercentageData(expenseDataCategRs);
-
 
   const expenseDataCategDs = categoriesDs?.map((category) => ({
     type: category.name,
@@ -36,16 +33,19 @@ export const BudgetStatistics: React.FC<BudgetStatisticsProps> = ({
 
   const expenseDataCategDsPercentage = calculatePercentageData(expenseDataCategDs);
 
+  const COLORS = [
+    "var(--primary-blue)",
+    "var(--primary-purple)",
+    "var(--primary-light-purple)",
+    "var(--primary-dark-purple-2)",
+    "var(--primary-purple-2)",
+    "var(--primary-purple-1)",
+    "var(--primary-blue-1)",
+  ];
 
-  const COLORS = ["var(--primary-blue)", "var(--primary-purple)", "var(--primary-light-purple)", "#FF8042", "#AF19FF"];
-
-
-
-  const CustomTooltip = ({ active, payload }:any) => {
+  const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       const { type, value } = payload[0].payload;
-      console.log(payload[0].payload);
-      
       return (
         <div style={{ backgroundColor: "#fff", padding: "10px", border: "1px solid #ccc" }}>
           <p>{`Категория: ${type}`}</p>
@@ -53,68 +53,69 @@ export const BudgetStatistics: React.FC<BudgetStatisticsProps> = ({
         </div>
       );
     }
+    return null;
   };
 
   return (
-    <div style={{ padding: "10px" }}>
-   
-      <div style={{ marginBottom: "20px" }}>
-        <h2>Расходы по категориям</h2>
-        <div >
-        <PieChart width={300} height={350}>
-          <Pie
-            data={expenseDataCategRsPercentage}
-            dataKey="value"
-            nameKey="type"
-            cx="50%"
-            cy="50%"
-            outerRadius={100}
-            fill="#8884d8"
-            label={({ value }) => `${value.toFixed(1)}%`}
-          >
-            {expenseDataCategRsPercentage?.map((_, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip content={<CustomTooltip />} />
-          <Legend
-           layout="horizontal" 
-           align="center" 
-           verticalAlign="bottom" 
-          />
- 
-        </PieChart>
-      </div>
+    <div style={{ padding: "10px", textAlign: "center" }}>
+      <div style={{ marginBottom: "40px" }}>
+        <h2 style={{ fontSize: "20px", marginBottom: "20px" }}>Расходы по категориям</h2>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <PieChart width={300} height={580} style={{ marginTop: '-150px' }}>
+            <Pie
+              data={expenseDataCategRsPercentage}
+              dataKey="value"
+              nameKey="type"
+              cx="50%"
+              cy="50%"
+              outerRadius={100}
+              fill="#8884d8"
+              label={({ value }) => `${value.toFixed(1)}%`}
+            >
+              {expenseDataCategRsPercentage?.map((_, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip content={<CustomTooltip />} />
+            <Legend
+              layout="centric"
+              align="center"
+              verticalAlign="bottom"
+            />
+          </PieChart>
+        </div>
       </div>
 
+      <hr style={{ border: "1px solid #eee", margin: "20px 0" }} />
 
+      
       <div>
-        <h2>Доходы по категориям</h2>
-        <div style={{ display: "flex", flexDirection: "row", alignItems: "center"}}>
-        <PieChart width={300} height={350}>
-          <Pie
-            data={expenseDataCategDsPercentage}
-            dataKey="value"
-            nameKey="type"
-            cx="50%"
-            cy="50%"
-            outerRadius={100}
-            fill="#8884d8"
-            label={({ value }) => `${value.toFixed(1)}%`}
-          >
-            {expenseDataCategDsPercentage?.map((_, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip content={<CustomTooltip />} />
-          <Legend
-           layout="horizontal" 
-           align="center" 
-           verticalAlign="bottom" 
-          />
-        </PieChart>
+        <h2 style={{ fontSize: "20px", marginBottom: "20px" }}>Доходы по категориям</h2>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <PieChart width={300} height={580} style={{ marginTop: '-150px' }}>
+            <Pie
+              data={expenseDataCategDsPercentage}
+              dataKey="value"
+              nameKey="type"
+              cx="50%"
+              cy="50%"
+              outerRadius={100}
+              fill="#8884d8"
+              label={({ value }) => `${value.toFixed(1)}%`}
+            >
+              {expenseDataCategDsPercentage?.map((_, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip content={<CustomTooltip />} />
+            <Legend
+              layout="centric"
+              align="center"
+              verticalAlign="bottom"
+            />
+          </PieChart>
+        </div>
       </div>
-    </div>
     </div>
   );
 };

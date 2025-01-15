@@ -23,7 +23,7 @@ export function TransactionDForm({
   refreshTransactions,
 }: Props) {
   const dispatch = useAppDispatch();
-  const categoryDs = budget!.CategoryDs;
+  const categoryDs = budget?.CategoryDs;
   const initialInputsState = { description: "", sum: 0, category_id: null };
   const [inputs, setInputs] =
     useState<IRawTransactionDData>(initialInputsState);
@@ -95,8 +95,9 @@ export function TransactionDForm({
             <div className={styles.categoryContainer}>
               {inputs.category_id ? (
                 <img
+
                   src={`${import.meta.env.VITE_IMAGES_API}${
-                    categoryDs.find(
+                    categoryDs?.find(
                       (category) => category.id === inputs.category_id
                     )?.icon
                   }`}
@@ -123,7 +124,7 @@ export function TransactionDForm({
               >
                 <div className={styles.iconGridContainer}>
                   <Grid columns={3} gap={8}>
-                    {categoryDs.map((category) => (
+                    {categoryDs?.map((category) => (
                       <Grid.Item className={styles.gridItem} key={category.id}>
                         <img
                           src={`${import.meta.env.VITE_IMAGES_API}${category.icon}`}
@@ -146,12 +147,14 @@ export function TransactionDForm({
             {
               key: "cancel",
               text: "Отмена",
+              style: {color: 'grey'},
               onClick: () => setIsModalVisible(false),
             },
             {
               key: "confirm",
               text: "Добавить",
-              bold: true,
+              style: {color: '#4a148c'},
+            
               onClick: () => onCreate(inputs),
             },
           ],
