@@ -4,6 +4,7 @@ import { Input } from "antd";
 import { Dialog, Toast } from "antd-mobile";
 import { createGoalThunk, IRawGoalData } from "@/entities/goal";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
+import { getAllTransactionsThunk } from "@/entities/budget/api";
 
 
 type Props = {
@@ -23,6 +24,8 @@ export function GoalForm({ isModalVisible, setIsModalVisible }: Props) {
   const onUpdate = async (data: IRawGoalData) => {
     const resultAction = await dispatch(createGoalThunk(data));
     unwrapResult(resultAction);
+    await dispatch(getAllTransactionsThunk())
+    
     setIsModalVisible(false);
     Toast.show({
       content: "Цель добавлена",
