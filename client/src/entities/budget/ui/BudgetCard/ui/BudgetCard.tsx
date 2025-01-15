@@ -68,6 +68,8 @@ export const BudgetCard: React.FC<Props> = React.memo(
                     confirmText: "Да",
                     async onConfirm() {
                       const result = await onDelete();
+                      
+                      
                       if (result.statusCode === 200) {
                         Toast.show({
                           content: "Бюджет удален",

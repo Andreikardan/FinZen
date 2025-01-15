@@ -12,7 +12,9 @@ import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
   
     const deleteGoal = useCallback(
       async (id: number) => {
-        dispatch(deleteGoalThunk(id));
+        const result = await dispatch(deleteGoalThunk(id)).unwrap();
+        return result
+
       },
       [dispatch]
     );

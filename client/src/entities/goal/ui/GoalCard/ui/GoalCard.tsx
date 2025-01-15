@@ -14,6 +14,7 @@ import { Option } from "antd/es/mentions";
 
 
 
+
 type Props = {
   goal: IGoal;
   onDelete: () => Promise<IApiResponseSuccess<IGoal>>;
@@ -24,65 +25,82 @@ type Props = {
 
 
 export const GoalCard: React.FC<Props> = React.memo(
-  ({  goal, onDelete, onUpdate}) => {
+  ({ goal, onDelete, onUpdate }) => {
     const ref = useRef<SwipeActionRef>(null);
-    const budgets = useAppSelector ((state) => state.budget.budgets)
-
+    const budgets = useAppSelector((state) => state.budget.budgets);
 
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isTransactionFormVisible, setIsTransactionFormVisible] = useState(false);
-    const [isBudgetFormVisiblue] = useState(false)
+    const [isBudgetFormVisiblue] = useState(false);
     const [updatedGoalData, setUpdatedGoalData] = useState({
       title: "",
       goal: null,
-      accumulator:null,
+      accumulator: null,
     });
     const [selectedBudgetId, setSelectedBudgetId] = useState<number | null>(null);
 
     const onChangeHandler = (value: string, name: string) => {
+      if (name === "goal" || name === "accumulator") {
+        if (!/^\d*$/.test(value)) {
+          return;
+        }
+      }
       setUpdatedGoalData((prev) => ({ ...prev, [name]: value }));
     };
 
-   
-
-
     const handleUpdate = () => {
-      onUpdate(updatedGoalData);
+      const updatedData = {
+        ...updatedGoalData,
+        goal: updatedGoalData.goal ? Number(updatedGoalData.goal) : null,
+        accumulator: updatedGoalData.accumulator ? Number(updatedGoalData.accumulator) : null,
+      };
+      onUpdate(updatedData);
       setIsModalVisible(false);
       Toast.show({
         content: "Цель изменилась",
-        icon: "success",
         position: "bottom",
       });
     };
 
-   
-
     const handleBudgetSelect = (budgetId: number) => {
-      setSelectedBudgetId(budgetId);
-      setIsTransactionFormVisible(true);
-      setIsModalVisible(false)
+      if (selectedBudgetId === budgetId) {
+        setSelectedBudgetId(null) 
+      } else {
+        setSelectedBudgetId(budgetId)
+      }
+      setIsTransactionFormVisible(true)
+      setIsModalVisible(false);
     };
 
-    const progressPercentage = goal.goal !== null && goal.accumulator !== null? (goal.accumulator / goal.goal) * 100 : 0;
+    const resetState = () => {
+      setUpdatedGoalData({
+        title: "",
+        goal: null,
+        accumulator: null,
+      });
+      setSelectedBudgetId(null); 
+    };
 
-    const progressColor = progressPercentage >= 100 ? "var( --primary-dark-purple)" : "var(--primary-light-purple)";  
+    const progressPercentage =
+      goal.goal !== null && goal.accumulator !== null ? (goal.accumulator / goal.goal) * 100 : 0;
 
-    
+    const progressColor =
+      progressPercentage >= 100 ? "var(--primary-dark-purple)" : "var(--primary-light-purple)";
 
     return (
       <div className={styles.card}>
-       <Select
-        placeholder="Выберите бюджет"
-        onChange={handleBudgetSelect}
-        style={{ width: "100%", marginBottom: "10px" }}
-      >
-        {budgets.map((budget) => (
-          
-             <Option key={budget.id.toString()} value={budget.id.toString()}>
-             {budget.name} - {budget.sum}
-           </Option>
-        ))}
+        <Select
+          placeholder="Выберите бюджет"
+          onChange={handleBudgetSelect}
+          value={selectedBudgetId} 
+          style={{ width: "100%", marginBottom: "10px", fontWeight: "bolder", color: "#333" }}
+          className={styles.noFocusBorder}
+        >
+          {budgets.map((budget) => (
+            <Option key={budget.id.toString()} value={budget.id.toString()}>
+              {budget.name} - {budget.sum}
+            </Option>
+          ))}
       </Select>
         <List>
           <SwipeAction
@@ -109,11 +127,12 @@ export const GoalCard: React.FC<Props> = React.memo(
                     confirmText: "Да",
                     async onConfirm() {
                       const result = await onDelete();
+                      console.log(result);
+                      
                       if (result && result.statusCode === 200) {
                         setIsModalVisible(false);
                         Toast.show({
                           content: "Цель удалена",
-                          icon: "success",
                           position: "bottom",
                         });
                       } else {
@@ -151,7 +170,7 @@ export const GoalCard: React.FC<Props> = React.memo(
 
         <Dialog
           visible={isModalVisible}
-          title="Редактировать бюджет"
+          title="Редактировать цель"
           content={
             <div>
               <Input
@@ -165,6 +184,7 @@ export const GoalCard: React.FC<Props> = React.memo(
                 value={updatedGoalData.goal !== null ? updatedGoalData.goal : ""}
                 onChange={(e) => onChangeHandler(e.target.value, "goal")}
                 placeholder="Сумма"
+                type = "number"
               />
             </div>
           }
@@ -174,17 +194,29 @@ export const GoalCard: React.FC<Props> = React.memo(
                 key: "cancel",
                 text: "Отмена",
                 onClick: () => setIsModalVisible(false),
+                style: { 
+                  color: "#fff",  
+                  backgroundColor: "var(--primary-light-purple)",  
+                  // border: "1px solid var(--primary-dark-purple)",    
+                  padding: "8px 16px", 
+                },
               },
               {
                 key: "confirm",
                 text: "Сохранить",
                 bold: true,
                 onClick: handleUpdate,
+                style: { 
+                  color: "#fff",  
+                  backgroundColor: "var(--primary-light-purple)",  
+                  // border: "1px solid var(--primary-dark-purple)",    
+                  padding: "8px 16px", 
+                },
               },
             ],
           ]}
         />
- <div>
+  
       {isBudgetFormVisiblue && (
         budgets.map((budget) => (
           <div key={budget.id} className={styles.budgetItem}>
@@ -193,24 +225,28 @@ export const GoalCard: React.FC<Props> = React.memo(
           </div>
         ))
       )}
-    </div>
-        {isTransactionFormVisible && selectedBudgetId &&  (
+     
+     {isTransactionFormVisible && selectedBudgetId && (
           <GoalTransactionForm
             accumulator={goal.accumulator}
             goal_id={goal.id}
-            sum={budgets.find((el)=>(el.id === +selectedBudgetId
-            ))?.sum || 0}
+            sum={budgets.find((el) => el.id === +selectedBudgetId)?.sum || 0}
             budget_id={+selectedBudgetId}
             isModalVisible={isTransactionFormVisible}
-            setIsModalVisible={setIsTransactionFormVisible} 
-            goal = {goal.goal}
+            setIsModalVisible={(el) => {
+              setIsTransactionFormVisible(el);
+              if (!el) {
+                resetState();  
+              }
+            }}
+     
           />
-         )}
+        )}
  
          
  <ProgressBar
           completed={progressPercentage.toFixed(1)}
-          height="15px"
+          height="25px"
           labelColor="#fff"
           bgColor={progressColor}
           barContainerClassName={styles.container}

@@ -25,10 +25,11 @@
   flex-direction: column; 
   width: 300px; 
   margin-bottom: 4px;
+  font-size: 17px;
 }
 
 .listItemName {
-  font-size: 16px; 
+  font-size: 20px; 
   font-weight: 500;
   color: #333;
 }
@@ -48,6 +49,20 @@
   border-radius: 4px;
 }
 
+
+
+ 
+.noFocusBorder .ant-select-selector:focus {
+  border-color: var(--primary-dark-purple) !important;  
+  box-shadow: none !important; 
+}
+
+ 
+.noFocusBorder .ant-select-selector:hover {
+  border-color: var(--primary-dark-purple) !important;  
+}
+
+ 
 
 @media (width <= 600px) {
   .card {
