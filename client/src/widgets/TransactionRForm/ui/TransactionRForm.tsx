@@ -7,7 +7,7 @@ import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { IRawTransactionRData } from "@/entities/transactionR/model";
 import { createTransactionRThunk } from "@/entities/transactionR";
 import { IOneBudgetTransactions } from "@/entities/budget/model/type";
-import { updateBudgetThunk } from "@/entities/budget/api";
+import { getAllTransactionsThunk, updateBudgetThunk } from "@/entities/budget/api";
 
 type Props = {
   isModalVisibleR: boolean;
@@ -71,6 +71,8 @@ export function TransactionRForm({
     } else {
       const resultAction = await dispatch(createTransactionRThunk(data));
       unwrapResult(resultAction);
+             await dispatch(getAllTransactionsThunk())
+      
       const resultBudgetAction = await dispatch(
         //@ts-ignore
         updateBudgetThunk({ id: budget!.id, updatedBudget: updatedBudgetData })
@@ -108,7 +110,8 @@ export function TransactionRForm({
             <div className={styles.categoryContainer}>
               {inputs.category_id ? (
                 <img
-                  src={`http://localhost:3000/static/images/${
+
+                  src={`${import.meta.env.VITE_IMAGES_API}${
                     categoryRs?.find(
                       (category) => category.id === inputs.category_id
                     )?.icon
@@ -139,7 +142,7 @@ export function TransactionRForm({
                     {categoryRs?.map((category) => (
                       <Grid.Item className={styles.gridItem} key={category.id}>
                         <img
-                          src={`http://localhost:3000/static/images/${category.icon}`}
+                          src={`${import.meta.env.VITE_IMAGES_API}${category.icon}`}
                           className={styles.iconItem}
                           onClick={() => onCategorySelect(category.id)}
                         />

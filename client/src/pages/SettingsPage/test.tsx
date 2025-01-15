@@ -10,6 +10,7 @@ import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { useEffect, useState } from "react";
 import { IApiResponseSuccess } from "@/shared/types";
 
+
 const { Panel } = Collapse;
 
 const CollapseComponent = () => {
@@ -37,7 +38,8 @@ const CollapseComponent = () => {
 
   const signOutHandler = async (): Promise<void> => {
     try {
-      await dispatch(signOutThunk());
+      await dispatch(signOutThunk()).unwrap();
+
       message.success("Вы успешно вышли из системы");
     } catch (error) {
       message.error("Ошибка при выходе из системы");
@@ -78,7 +80,7 @@ const CollapseComponent = () => {
           </Panel>
           {categoryD.length > 0 ? (
             categoryD.map((category) => (<Panel header={ <Row justify="space-between" align="middle"><Col>{category.name}</Col><Col>{category.icon && ( <Image
-                      src={`http://localhost:3000/static/images/${category.icon}`}
+                      src={`${import.meta.env.VITE_IMAGES_API}${category.icon}`}
                       width={24}
                       height={24}
                       preview={false}/>)}</Col> </Row>} key={category.id}>

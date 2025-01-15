@@ -4,6 +4,7 @@ import { Input } from "antd";
 import { Dialog, Toast } from "antd-mobile";
 import { createGoalThunk, IRawGoalData } from "@/entities/goal";
 import { useAppDispatch } from "@/shared/hooks/reduxHooks";
+import { getAllTransactionsThunk } from "@/entities/budget/api";
 
 type Props = {
   isModalVisible: boolean;
@@ -44,6 +45,7 @@ export function GoalForm({ isModalVisible, setIsModalVisible }: Props) {
       const resultAction = await dispatch(createGoalThunk(data));
       unwrapResult(resultAction);
       setInputs(initialInputsState);
+    await dispatch(getAllTransactionsThunk())
 
       setIsModalVisible(false);
       Toast.show({
@@ -56,6 +58,7 @@ export function GoalForm({ isModalVisible, setIsModalVisible }: Props) {
         position: "bottom",
       });
     }
+
   };
 
   return (

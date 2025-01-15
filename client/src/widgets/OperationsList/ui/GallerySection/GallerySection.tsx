@@ -49,7 +49,7 @@ export const GallerySection: React.FC<Props> = ({
               
               <img
                 key={index}
-                src={`http://localhost:3000/static/images/${photo.url}`}
+                src={`${import.meta.env.VITE_IMAGES_API}${photo.url}`}
                 alt={`Фото ${index + 1}`}
                 className={styles.photo}
                 onClick={() => openImageViewer(index)}
@@ -97,7 +97,7 @@ export const GallerySection: React.FC<Props> = ({
 
       <ImageViewer
         classNames={{body:styles.imgContainer}}
-        image={`http://localhost:3000/static/images/${photos[currentImageIndex]?.url}`}
+        image={`${import.meta.env.VITE_IMAGES_API}${photos[currentImageIndex]?.url}`}
         visible={imageViewerVisible}
         onClose={() => setImageViewerVisible(false)}
       />

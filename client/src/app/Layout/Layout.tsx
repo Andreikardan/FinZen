@@ -5,6 +5,7 @@ import { refreshTokensThunk } from "@/entities/user";
 import { Navbar } from "@/widgets/Navbar";
 import { Outlet } from "react-router-dom";
 import { getAllBudgetsThunk } from "@/entities/budget";
+import { getAllTransactionsThunk } from "@/entities/budget/api";
 
 
 function Layout() {
@@ -12,8 +13,12 @@ function Layout() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(refreshTokensThunk()).unwrap()
-    dispatch(getAllBudgetsThunk());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getAllBudgetsThunk())
+    dispatch(getAllTransactionsThunk())
+  }, [dispatch, user]);
 
   return (
     <div>

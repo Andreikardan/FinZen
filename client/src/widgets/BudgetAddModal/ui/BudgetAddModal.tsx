@@ -10,7 +10,7 @@ type Props = {
   isModalVisible: boolean;
   setIsModalVisible: (value:boolean) => void
 } 
-export function BudgetAddModal({ isModalVisible, setIsModalVisible }:Props) {
+export function BudgetAddModal({  setIsModalVisible,isModalVisible }:Props) {
   const dispatch = useAppDispatch()
   const initialInputsState = {name:'',sum:null}
   const [inputs,setInputs] = useState<IRawBudgetData>(initialInputsState)

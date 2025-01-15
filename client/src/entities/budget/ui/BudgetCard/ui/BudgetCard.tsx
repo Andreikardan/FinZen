@@ -18,7 +18,6 @@ export const BudgetCard: React.FC<Props> = React.memo(
     const ref = useRef<SwipeActionRef>(null);
     const navigate = useNavigate();
 
-
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [updatedBudgetData, setUpdatedBudgetData] = useState({
       name: budget.name,
@@ -51,12 +50,11 @@ export const BudgetCard: React.FC<Props> = React.memo(
                 key: "update",
                 text: <EditOutlined className={styles.actionIcon} />,
                 color: "warning",
-                
+
                 onClick: async () => {
                   setIsModalVisible(true);
                   ref.current?.close();
                 },
-                
               },
               {
                 key: "delete",
@@ -93,7 +91,6 @@ export const BudgetCard: React.FC<Props> = React.memo(
             <List.Item
               arrow={false}
               className={styles.listItem}
-              
               onClick={() => {
                 navigate(`/transaction/${budget.id}`);
               }}
