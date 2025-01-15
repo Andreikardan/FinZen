@@ -23,7 +23,6 @@ export const BudgetCard: React.FC<Props> = React.memo(
       name: budget.name,
       sum: budget.sum,
     });
-    const [isLoading, setIsLoading] = useState(true);
 
     const onChangeHandler = (value: string, name: string) => {
       setUpdatedBudgetData((prev) => ({ ...prev, [name]: value }));

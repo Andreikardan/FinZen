@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-import { getAllTransactionsThunk } from "@/entities/budget/api";
-import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
+import {  useAppSelector } from "@/shared/hooks/reduxHooks";
 import { OperationsCard } from "./OperationsCard";
-import { AllTransactionArray, IAllTransaction } from "@/entities/transactionR";
+import {  IAllTransaction } from "@/entities/transactionR";
 import styles from "./OperationsList.module.css";
 import { TransactionSkeleton } from "@/pages/OperationsPage/TransactionSkeleton";
 
