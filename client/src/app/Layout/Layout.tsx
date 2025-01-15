@@ -13,9 +13,12 @@ function Layout() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(refreshTokensThunk()).unwrap()
-    dispatch(getAllBudgetsThunk());
-    dispatch(getAllTransactionsThunk())
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getAllBudgetsThunk())
+    dispatch(getAllTransactionsThunk())
+  }, [dispatch, user]);
 
   return (
     <div>
