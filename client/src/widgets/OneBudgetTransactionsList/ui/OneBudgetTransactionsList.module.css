@@ -86,11 +86,11 @@
 }
 
 .showMoreButton {
-  margin-top: 10px;
+  /* margin-top: 10px; */
   font-weight: bold;
   color: #6a1b9a;
   text-align: center;
-  cursor: pointer;
+  cursor: pointer; 
 }
 
 .showMoreButton:hover {

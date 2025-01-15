@@ -23,7 +23,7 @@ export function TransactionDForm({
   refreshTransactions,
 }: Props) {
   const dispatch = useAppDispatch();
-  const categoryDs = budget!.CategoryDs;
+  const categoryDs = budget?.CategoryDs;
   const initialInputsState = { description: "", sum: 0, category_id: null };
   const [inputs, setInputs] =
     useState<IRawTransactionDData>(initialInputsState);
@@ -96,7 +96,7 @@ export function TransactionDForm({
               {inputs.category_id ? (
                 <img
                   src={`http://localhost:3000/static/images/${
-                    categoryDs.find(
+                    categoryDs?.find(
                       (category) => category.id === inputs.category_id
                     )?.icon
                   }`}
@@ -123,7 +123,7 @@ export function TransactionDForm({
               >
                 <div className={styles.iconGridContainer}>
                   <Grid columns={3} gap={8}>
-                    {categoryDs.map((category) => (
+                    {categoryDs?.map((category) => (
                       <Grid.Item className={styles.gridItem} key={category.id}>
                         <img
                           src={`http://localhost:3000/static/images/${category.icon}`}

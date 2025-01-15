@@ -23,7 +23,7 @@ export function TransactionRForm({
   refreshTransactions,
 }: Props) {
   const dispatch = useAppDispatch();
-  const categoryRs = budget!.CategoryRs;
+  const categoryRs = budget?.CategoryRs;
   const initialInputsState = { description: "", sum: 0, category_id: null };
   const [inputs, setInputs] =
     useState<IRawTransactionRData>(initialInputsState);
@@ -109,7 +109,7 @@ export function TransactionRForm({
               {inputs.category_id ? (
                 <img
                   src={`http://localhost:3000/static/images/${
-                    categoryRs.find(
+                    categoryRs?.find(
                       (category) => category.id === inputs.category_id
                     )?.icon
                   }`}
@@ -136,7 +136,7 @@ export function TransactionRForm({
               >
                 <div className={styles.iconGridContainer}>
                   <Grid columns={3} gap={8}>
-                    {categoryRs.map((category) => (
+                    {categoryRs?.map((category) => (
                       <Grid.Item className={styles.gridItem} key={category.id}>
                         <img
                           src={`http://localhost:3000/static/images/${category.icon}`}

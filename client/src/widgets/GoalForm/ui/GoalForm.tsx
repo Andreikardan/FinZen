@@ -65,12 +65,13 @@ export function GoalForm({ isModalVisible, setIsModalVisible }: Props) {
             {
               key: "cancel",
               text: "Отмена",
+              style: {color: 'grey'},
               onClick: () => setIsModalVisible(false),
             },
             {
               key: "confirm",
               text: "Добавить",
-              bold: true,
+              style: {color: '#4a148c'},
               onClick: () => onUpdate(inputs),
             },
           ],
