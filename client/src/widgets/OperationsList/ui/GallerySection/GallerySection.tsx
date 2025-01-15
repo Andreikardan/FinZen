@@ -41,12 +41,9 @@ export const GallerySection: React.FC<Props> = ({
     <div>
       {photos.length > 0 ? (
         <div className={styles.gallerySection}>
-          {" "}
-          //!!!!!!!!!
           <div className={styles.sectionTitle}>Фотографии:</div>
           <div className={styles.gallery}>
             {photos.map((photo, index) => (
-              
               <img
                 key={index}
                 src={`${import.meta.env.VITE_IMAGES_API}${photo.url}`}
@@ -96,8 +93,10 @@ export const GallerySection: React.FC<Props> = ({
       )}
 
       <ImageViewer
-        classNames={{body:styles.imgContainer}}
-        image={`${import.meta.env.VITE_IMAGES_API}${photos[currentImageIndex]?.url}`}
+        classNames={{ body: styles.imgContainer }}
+        image={`${import.meta.env.VITE_IMAGES_API}${
+          photos[currentImageIndex]?.url
+        }`}
         visible={imageViewerVisible}
         onClose={() => setImageViewerVisible(false)}
       />

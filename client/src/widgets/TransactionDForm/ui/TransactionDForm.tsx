@@ -8,7 +8,7 @@ import { IRawTransactionDData } from "@/entities/transactionD/model";
 import { createTransactionDThunk } from "@/entities/transactionD";
 import { IOneBudgetTransactions } from "@/entities/budget/model/type";
 import { getAllTransactionsThunk, updateBudgetThunk } from "@/entities/budget/api";
-import { addNewTransaction } from "@/entities/budget/slice";
+
 
 type Props = {
   isModalVisible: boolean;
@@ -87,6 +87,7 @@ export function TransactionDForm({
               value={inputs.description}
               onChange={(value) => onChangeHandler(value, "description")}
               placeholder="Описание"
+              className={styles.inputs}
             />
             <Input
               type="number"
@@ -94,6 +95,7 @@ export function TransactionDForm({
               value={String(inputs.sum)}
               onChange={(value) => onChangeHandler(value, "sum")}
               placeholder="Сумма"
+              className={styles.inputs}
             />
             <div className={styles.categoryContainer}>
               {inputs.category_id ? (
@@ -150,13 +152,13 @@ export function TransactionDForm({
             {
               key: "cancel",
               text: "Отмена",
-              style: {color: 'grey'},
+              style: {backgroundColor: 'grey', color: 'white'},
               onClick: () => setIsModalVisible(false),
             },
             {
               key: "confirm",
               text: "Добавить",
-              style: {color: '#4a148c'},
+              style: {backgroundColor: '#6a1b9a', color: 'white'},
             
               onClick: () => onCreate(inputs),
             },

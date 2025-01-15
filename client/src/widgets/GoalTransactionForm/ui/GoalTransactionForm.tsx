@@ -1,4 +1,4 @@
-
+import styles from './GoalTransaction.module.css'
 import { updateBudgetThunk } from "@/entities/budget/api";
 import { updateGoalThunk } from "@/entities/goal/api"; 
 import { createGoalTransactionThunk, IRawGoalTransactionData } from "@/entities/goalTransaction";
@@ -131,6 +131,7 @@ try {
               value={inputs.sumGoal !== null ? inputs.sumGoal : ''}
               onChange={(e) => onChangeHandler(e.target.value, "sumGoal")}
               placeholder="Сумма на цель"
+              className={styles.inputs}
               suffix={
                 <Tooltip
                   title="Введите сумму, которую хотите добавить к цели."
@@ -156,25 +157,14 @@ try {
             {
               key: "cancel",
               text: "Отмена",
+              style: {backgroundColor: 'grey', color: 'white'},
               onClick: () => setIsModalVisible(false),
-              style: { 
-                color: "#fff",  
-                backgroundColor: "var(--primary-light-purple)",  
-                // border: "1px solid var(--primary-dark-purple)",    
-                padding: "8px 16px", 
-              },
             },
             {
               key: "confirm",
               text: "Добавить",
-              bold: true,
+              style: {backgroundColor: '#6a1b9a', color: 'white'},
               onClick: () => onUpdate(inputs.sumGoal,goal_id, budget_id),
-              style: { 
-                color: "#fff",  
-                backgroundColor: "var(--primary-light-purple)",  
-                // border: "1px solid var(--primary-dark-purple)",  
-                padding: "8px 16px", 
-              },
             },
           ],
         ]}
