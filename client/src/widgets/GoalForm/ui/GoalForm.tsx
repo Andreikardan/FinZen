@@ -1,3 +1,4 @@
+import styles from './GoalForm.module.css'
 import { useState } from "react";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { Input } from "antd";
@@ -73,6 +74,7 @@ export function GoalForm({ isModalVisible, setIsModalVisible }: Props) {
               value={inputs.title}
               onChange={(e) => onChangeHandler(e.target.value, "title")}
               placeholder="Название"
+              className={styles.inputs}
             />
             <Input
               type="number"
@@ -80,7 +82,17 @@ export function GoalForm({ isModalVisible, setIsModalVisible }: Props) {
               value={inputs.goal !== null ? inputs.goal : ''}
               onChange={(e) => onChangeHandler(e.target.value, "goal")}
               placeholder="Сумма на цель"
+              className={styles.inputs}
             />
+            <Input
+              type="number"
+              name="accumulator"
+              value={inputs.accumulator !== null ? inputs.accumulator : ''}
+              onChange={(e) => onChangeHandler(e.target.value, "accumulator")}
+              placeholder="Сумма добавления"
+              className={styles.inputs}
+            />
+
           </div>
         }
         actions={[
@@ -88,24 +100,19 @@ export function GoalForm({ isModalVisible, setIsModalVisible }: Props) {
             {
               key: "cancel",
               text: "Отмена",
+              style: {backgroundColor: 'grey', color: 'white'},
               onClick: () => setIsModalVisible(false),
-              style: { 
-                color: "#fff",  
-                backgroundColor: "var(--primary-light-purple)",  
-                padding: "8px 16px", 
-              },
+
             },
+              
             {
               key: "confirm",
               text: "Добавить",
-              bold: true,
+              style: {backgroundColor: '#6a1b9a', color: 'white'},
               onClick: () => onUpdate(inputs),
-              style: { 
-                color: "#fff",  
-                backgroundColor: "var(--primary-light-purple)",    
-                padding: "8px 16px", 
-              },
+
             },
+             
           ],
         ]}
       />

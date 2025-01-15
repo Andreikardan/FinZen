@@ -99,6 +99,7 @@ export function TransactionRForm({
               value={inputs.description}
               onChange={(value) => onChangeHandler(value, "description")}
               placeholder="Описание"
+              className={styles.inputs}
             />
             <Input
               type="number"
@@ -106,6 +107,7 @@ export function TransactionRForm({
               value={String(inputs.sum)}
               onChange={(value) => onChangeHandler(value, "sum")}
               placeholder="Сумма"
+              className={styles.inputs}
             />
             <div className={styles.categoryContainer}>
               {inputs.category_id ? (
@@ -162,13 +164,13 @@ export function TransactionRForm({
             {
               key: "cancel",
               text: "Отмена",
-              style: {color: 'grey'},
+              style: {backgroundColor: 'grey', color: 'white'},
               onClick: () => setIsModalVisibleR(false),
             },
             {
               key: "confirm",
               text: "Добавить",
-              style: {color: '#4a148c'},
+              style: {backgroundColor: '#6a1b9a', color: 'white'},
               onClick: () => onCreate(inputs),
             },
           ],

@@ -59,3 +59,17 @@
         padding: 16px; 
     }
 } */
+
+.inputs {
+    margin: 15px 0;
+    border:none;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
+    outline: none !important;
+    height: 50px;
+    font-size: 17px;
+    box-shadow: none !important;
+  }
+
+
+  
+

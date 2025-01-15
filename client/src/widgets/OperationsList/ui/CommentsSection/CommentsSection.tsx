@@ -1,3 +1,4 @@
+// import styles from './CommentsSection.module.css'
 import React, { useState } from "react";
 import { Button, TextArea, Toast } from "antd-mobile";
 import styles from "../PopupTransactionPage/PopupTransactionPage.module.css";
@@ -104,7 +105,7 @@ export const CommentsSection: React.FC<Props> = ({
             placeholder="Введите свой комментарий"
           />
           <Button onClick={handleAddComment} color="primary">
-            Добавить комментарий
+            Добавить 
           </Button>
         </div>
       )}

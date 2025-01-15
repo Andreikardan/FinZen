@@ -1,3 +1,4 @@
+import styles from './BudgetAddModal.module.css'
 import  { useState } from "react";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { Dialog, Input, Toast } from "antd-mobile";
@@ -42,6 +43,7 @@ export function BudgetAddModal({  setIsModalVisible,isModalVisible }:Props) {
               value={inputs.name}
               onChange={(value) => onChangeHandler(value, "name")}
               placeholder="Название"
+              className={styles.inputs}
             />
             <Input
               type="number"
@@ -49,6 +51,7 @@ export function BudgetAddModal({  setIsModalVisible,isModalVisible }:Props) {
               value={String(inputs.sum)}
               onChange={(value) => onChangeHandler(value, "sum")}
               placeholder="Сумма"
+              className={styles.inputs}
             />
           </div>
         }
@@ -57,13 +60,13 @@ export function BudgetAddModal({  setIsModalVisible,isModalVisible }:Props) {
             {
               key: "cancel",
               text: "Отмена",
-              style: {color: 'grey'},
+              style: {backgroundColor: 'grey', color: 'white'},
               onClick: () => setIsModalVisible(false),
             },
             {
               key: "confirm",
               text: "Добавить",
-              style: {color: '#4a148c'},
+              style: {backgroundColor: '#6a1b9a', color: 'white'},
               onClick: ()=>onUpdate(inputs),
             },
           ],
