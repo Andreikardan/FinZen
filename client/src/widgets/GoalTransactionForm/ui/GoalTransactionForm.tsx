@@ -1,4 +1,3 @@
-
 import { updateBudgetThunk } from "@/entities/budget/api";
 import { updateGoalThunk } from "@/entities/goal/api"; 
 import { createGoalTransactionThunk, IRawGoalTransactionData } from "@/entities/goalTransaction";
@@ -16,7 +15,7 @@ type Props = {
   setIsModalVisible: (value: boolean) => void;
   goal_id: number; 
   budget_id: number
-  accumulator:number |null;
+  accumulator:number 
   sum: number 
   goal:number |null
 
@@ -50,20 +49,13 @@ export function GoalTransactionForm({ isModalVisible,
 
     if (accumulator === null || goal === null) {
       Toast.show({
-        content: "Некорректные данные цели",
+        content: "Заполните поле",
         position: "bottom",
       });
       return;
     }
 
-try {
-  const resultTransactionAction = await dispatch(createGoalTransactionThunk({sumGoal, goal_id, budget_id}));
-  unwrapResult(resultTransactionAction);
- 
-} catch (error) {
-  console.error("Ошибка", error);
-  return; 
-}
+
 
 
 if(!currentBudget){
@@ -77,6 +69,8 @@ const updatedGoalData = {
   goal: currentGoal?.goal || null,
 };
 
+console.log(updatedGoalData.accumulator, 2222);
+console.log(goal, 1111);
 
 if (updatedGoalData.accumulator > goal) {
   Toast.show({
@@ -84,6 +78,15 @@ if (updatedGoalData.accumulator > goal) {
     position: "bottom",
   });
   return;
+}
+
+try {
+  const resultTransactionAction = await dispatch(createGoalTransactionThunk({sumGoal, goal_id, budget_id}));
+  unwrapResult(resultTransactionAction);
+ 
+} catch (error) {
+  console.error("Ошибка", error);
+  return; 
 }
 
 try {
@@ -126,7 +129,7 @@ try {
         content={
           <div>
             <Input
-              type="string"
+              type="number"
               name="sumGoal"
               value={inputs.sumGoal !== null ? inputs.sumGoal : ''}
               onChange={(e) => onChangeHandler(e.target.value, "sumGoal")}

@@ -1,5 +1,4 @@
 import styles from "./GoalCard.module.css";
-
 import React, { useRef, useState } from "react";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { Input, List, Select } from "antd";
@@ -7,22 +6,15 @@ import { IGoal, IRawGoalData } from "@/entities/goal/model";
 import { GoalTransactionForm } from "@/widgets/GoalTransactionForm/ui/GoalTransactionForm";
 import { IApiResponseSuccess } from "@/shared/types";
 import { Dialog, SwipeAction, SwipeActionRef, Toast } from "antd-mobile";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { useAppSelector } from "@/shared/hooks/reduxHooks";
 import { Option } from "antd/es/mentions";
-
-
-
-
 
 type Props = {
   goal: IGoal;
   onDelete: () => Promise<IApiResponseSuccess<IGoal>>;
   onUpdate: (updatedBudget: IRawGoalData) => void;
 };
-
-
-
 
 export const GoalCard: React.FC<Props> = React.memo(
   ({ goal, onDelete, onUpdate }) => {
@@ -40,8 +32,8 @@ export const GoalCard: React.FC<Props> = React.memo(
     const [selectedBudgetId, setSelectedBudgetId] = useState<number | null>(null);
 
     const onChangeHandler = (value: string, name: string) => {
-      if (name === "goal" || name === "accumulator") {
-        if (!/^\d*$/.test(value)) {
+      if (name === "title") {
+        if (!/^[a-zA-Zа-яА-Я\s]*$/.test(value)) {
           return;
         }
       }
@@ -49,6 +41,14 @@ export const GoalCard: React.FC<Props> = React.memo(
     };
 
     const handleUpdate = () => {
+      // if (!updatedGoalData.title || updatedGoalData.goal === null) {
+      //   Toast.show({
+      //     content: "Заполните все поля",
+      //     position: "bottom",
+      //   });
+      //   return;
+      // }
+
       const updatedData = {
         ...updatedGoalData,
         goal: updatedGoalData.goal ? Number(updatedGoalData.goal) : null,
@@ -64,11 +64,11 @@ export const GoalCard: React.FC<Props> = React.memo(
 
     const handleBudgetSelect = (budgetId: number) => {
       if (selectedBudgetId === budgetId) {
-        setSelectedBudgetId(null) 
+        setSelectedBudgetId(null);
       } else {
-        setSelectedBudgetId(budgetId)
+        setSelectedBudgetId(budgetId);
       }
-      setIsTransactionFormVisible(true)
+      setIsTransactionFormVisible(true);
       setIsModalVisible(false);
     };
 
@@ -78,7 +78,7 @@ export const GoalCard: React.FC<Props> = React.memo(
         goal: null,
         accumulator: null,
       });
-      setSelectedBudgetId(null); 
+      setSelectedBudgetId(null);
     };
 
     const progressPercentage =
@@ -89,10 +89,13 @@ export const GoalCard: React.FC<Props> = React.memo(
 
     return (
       <div className={styles.card}>
+      
+      
+
         <Select
           placeholder="Выберите бюджет"
           onChange={handleBudgetSelect}
-          value={selectedBudgetId} 
+          value={selectedBudgetId}
           style={{ width: "100%", marginBottom: "10px", fontWeight: "bolder", color: "#333" }}
           className={styles.noFocusBorder}
         >
@@ -101,7 +104,7 @@ export const GoalCard: React.FC<Props> = React.memo(
               {budget.name} - {budget.sum}
             </Option>
           ))}
-      </Select>
+        </Select>
         <List>
           <SwipeAction
             ref={ref}
@@ -128,7 +131,7 @@ export const GoalCard: React.FC<Props> = React.memo(
                     async onConfirm() {
                       const result = await onDelete();
                       console.log(result);
-                      
+
                       if (result && result.statusCode === 200) {
                         setIsModalVisible(false);
                         Toast.show({
@@ -149,21 +152,25 @@ export const GoalCard: React.FC<Props> = React.memo(
               },
             ]}
           >
-          <List.Item>
+            <List.Item>
+            <div className={styles.swipeHint}>
+          <LeftOutlined style={{ fontSize: "20px", color: "var(--primary-light-purple)" }} />
+         
+           </div>
               <div className={styles.listItemContent}>
-                    <div>
-                         <span className={styles.listItemLabel}>Цель:</span>
-                         <span className={styles.listItemValue}>{goal.title}</span>
-                 </div>
                 <div>
-                         <span className={styles.listItemLabel}>Сумма цели:</span>
-                         <span className={styles.listItemValue}>{goal.goal}</span>
-                 </div>
-                 <div>
-                         <span className={styles.listItemLabel}>Внесено:</span>
-                        <span className={styles.listItemValue}>{goal.accumulator}</span>
-                      </div>
-                     </div>
+                  <span className={styles.listItemLabel}>Цель:</span>
+                  <span className={styles.listItemValue}>{goal.title}</span>
+                </div>
+                <div>
+                  <span className={styles.listItemLabel}>Сумма цели:</span>
+                  <span className={styles.listItemValue}>{goal.goal}</span>
+                </div>
+                <div>
+                  <span className={styles.listItemLabel}>Внесено:</span>
+                  <span className={styles.listItemValue}>{goal.accumulator}</span>
+                </div>
+              </div>
             </List.Item>
           </SwipeAction>
         </List>
@@ -177,14 +184,14 @@ export const GoalCard: React.FC<Props> = React.memo(
                 name="title"
                 value={updatedGoalData.title}
                 onChange={(e) => onChangeHandler(e.target.value, "title")}
-                placeholder="Название"
+                placeholder="Новое название"
               />
-               <Input
+              <Input
                 name="goal"
                 value={updatedGoalData.goal !== null ? updatedGoalData.goal : ""}
                 onChange={(e) => onChangeHandler(e.target.value, "goal")}
                 placeholder="Сумма"
-                type = "number"
+                type="number"
               />
             </div>
           }
@@ -194,11 +201,10 @@ export const GoalCard: React.FC<Props> = React.memo(
                 key: "cancel",
                 text: "Отмена",
                 onClick: () => setIsModalVisible(false),
-                style: { 
-                  color: "#fff",  
-                  backgroundColor: "var(--primary-light-purple)",  
-                  // border: "1px solid var(--primary-dark-purple)",    
-                  padding: "8px 16px", 
+                style: {
+                  color: "#fff",
+                  backgroundColor: "var(--primary-light-purple)",
+                  padding: "8px 16px",
                 },
               },
               {
@@ -206,58 +212,53 @@ export const GoalCard: React.FC<Props> = React.memo(
                 text: "Сохранить",
                 bold: true,
                 onClick: handleUpdate,
-                style: { 
-                  color: "#fff",  
-                  backgroundColor: "var(--primary-light-purple)",  
-                  // border: "1px solid var(--primary-dark-purple)",    
-                  padding: "8px 16px", 
+                style: {
+                  color: "#fff",
+                  backgroundColor: "var(--primary-light-purple)",
+                  padding: "8px 16px",
                 },
               },
             ],
           ]}
         />
-  
-      {isBudgetFormVisiblue && (
-        budgets.map((budget) => (
-          <div key={budget.id} className={styles.budgetItem}>
-            <span>{budget.name}</span>
-            <span>{budget.sum}</span>
-          </div>
-        ))
-      )}
-     
-     {isTransactionFormVisible && selectedBudgetId && (
+
+        {isBudgetFormVisiblue &&
+          budgets.map((budget) => (
+            <div key={budget.id} className={styles.budgetItem}>
+              <span>{budget.name}</span>
+              <span>{budget.sum}</span>
+            </div>
+          ))}
+
+        {isTransactionFormVisible && selectedBudgetId && (
           <GoalTransactionForm
             accumulator={goal.accumulator}
             goal_id={goal.id}
+            goal={goal.goal}
             sum={budgets.find((el) => el.id === +selectedBudgetId)?.sum || 0}
             budget_id={+selectedBudgetId}
             isModalVisible={isTransactionFormVisible}
             setIsModalVisible={(el) => {
               setIsTransactionFormVisible(el);
               if (!el) {
-                resetState();  
+                resetState();
               }
             }}
-     
           />
         )}
- 
-         
- <ProgressBar
+
+        <ProgressBar
           completed={progressPercentage.toFixed(1)}
           height="25px"
           labelColor="#fff"
           bgColor={progressColor}
           barContainerClassName={styles.container}
           transitionDuration="0.4s"
-          customLabel={`${progressPercentage.toFixed(1)}%`}  
+          customLabel={`${progressPercentage.toFixed(1)}%`}
         />
       </div>
     );
   }
 );
-
-
 
 
