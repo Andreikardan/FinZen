@@ -91,14 +91,14 @@ export type ArrayOfTransactionRsWithCategoryIcon =
                   </Button>
                 </div>
               </div>
-              {isModalVisible && (
+              
                 <TransactionDForm
                   isModalVisible={isModalVisible}
                   setIsModalVisible={setIsModalVisible}
                   budget={budget}
                   refreshTransactions={refreshTransactions} 
                 />
-              )}
+         
               <div className={styles.transactionList}>
                 {displayedIncomes?.length > 0 ? (
                   displayedIncomes.map((el) => (
@@ -129,14 +129,13 @@ export type ArrayOfTransactionRsWithCategoryIcon =
                   </Button>
                 </div>
               </div>
-              {isModalVisibleR && (
                 <TransactionRForm
                   isModalVisibleR={isModalVisibleR}
                   setIsModalVisibleR={setIsModalVisibleR}
                   budget={budget}
                   refreshTransactions={refreshTransactions} 
                 />
-              )}
+              
               <div className={styles.transactionList}>
                 {displayedExpenses?.length > 0 ? (
                   displayedExpenses.map((el) => (
