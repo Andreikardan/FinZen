@@ -15,7 +15,7 @@ export const OneBudgetTransactionCard: React.FC<
   OneBudgetTransactionCardProps
 > = ({ transaction }) => {
   return (
-    <List.Item style={{ marginTop: "-10px" }}>
+    <List.Item style={{ marginTop: "-10px", width:300  }}>
       <Flex className={styles.container} align="center" justify="between">
         <Image
           src={`http://localhost:3000/static/images/${transaction.category_icon}`}

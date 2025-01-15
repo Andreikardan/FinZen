@@ -47,7 +47,6 @@ export function TransactionRForm({
       Toast.show({
         content: "Бюджет не найден",
         position: "bottom",
-        icon: "fail",
       });
       return;
     }
@@ -63,13 +62,11 @@ export function TransactionRForm({
       Toast.show({
         content: "Бюджет не может быть отрицательным",
         position: "bottom",
-        icon: "fail",
       });
     } else if (!data.category_id || !data.description || !data.sum) {
       Toast.show({
         content: "Все поля обязательны к заполнению",
         position: "bottom",
-        icon: "fail",
       });
     } else {
       const resultAction = await dispatch(createTransactionRThunk(data));
@@ -84,7 +81,6 @@ export function TransactionRForm({
       Toast.show({
         content: "Операция добавлена",
         position: "bottom",
-        icon: "success",
       });
     }
   };
@@ -163,12 +159,13 @@ export function TransactionRForm({
             {
               key: "cancel",
               text: "Отмена",
+              style: {color: 'grey'},
               onClick: () => setIsModalVisibleR(false),
             },
             {
               key: "confirm",
               text: "Добавить",
-              bold: true,
+              style: {color: '#4a148c'},
               onClick: () => onCreate(inputs),
             },
           ],
