@@ -49,11 +49,23 @@ export function Navbar(): React.ReactElement {
         <span>Аналитика</span>
       </div>
     </Button>
-      <Button className={styles.burgerButton} type="button" onClick={() => navigate(ROUTES.SETTINGS)}>
+      {/* <Button className={styles.burgerButton} type="button" onClick={() => navigate(ROUTES.SETTINGS)}>
+        
         <Space>
+
           <SettingOutlined style={{ fontSize: '41px', color:"var(--primary-light-purple)" }}/>
         </Space>
-      </Button>
+        
+      </Button> */}
+      <Button className={styles.button} type="button" onClick= {() => navigate(ROUTES.SETTINGS)} >
+      <div className={styles.iconContainer}>
+      <Space>
+
+        <SettingOutlined  style={{ fontSize: '41px', color:"var(--primary-light-purple)" }}/> 
+        </Space>
+        <span>Настройки</span>
+      </div>
+    </Button>
   </>
 )}
 

@@ -78,7 +78,7 @@ const CollapseComponent = () => {
           </Panel>
           {categoryD.length > 0 ? (
             categoryD.map((category) => (<Panel header={ <Row justify="space-between" align="middle"><Col>{category.name}</Col><Col>{category.icon && ( <Image
-                      src={`http://localhost:3000/static/images/${category.icon}`}
+                      src={`${import.meta.env.VITE_IMAGES_API}${category.icon}`}
                       width={24}
                       height={24}
                       preview={false}/>)}</Col> </Row>} key={category.id}>

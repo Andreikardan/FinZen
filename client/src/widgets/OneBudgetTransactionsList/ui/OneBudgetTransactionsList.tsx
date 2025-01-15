@@ -25,6 +25,7 @@ export type ArrayOfTransactionDsWithCategoryIcon =
 export type ArrayOfTransactionRsWithCategoryIcon =
   Array<ITransactionRsWithCategoryIcon>;
 
+
 export function OneBudgetTransactionsList({ budgetId }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const budget = useAppSelector((state) => state.budget.currentBudget);
@@ -90,6 +91,7 @@ export function OneBudgetTransactionsList({ budgetId }: Props): JSX.Element {
                   +
                 </button>
               </div>
+
             </div>
             <TransactionDForm
               isModalVisible={isModalVisible}
@@ -123,6 +125,7 @@ export function OneBudgetTransactionsList({ budgetId }: Props): JSX.Element {
                 <button
                   className={styles.plusButton}
                   onClick={() => setIsModalVisibleR(true)}
+
                 >
                   +
                 </button>

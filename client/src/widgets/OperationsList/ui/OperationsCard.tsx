@@ -11,7 +11,7 @@ type Props = {
 
 export function OperationsCard({ transaction }: Props) {
   const [visible, setVisible] = useState<boolean>(false);
-  console.log(transaction.icon);
+  console.log(`${import.meta.env.VITE_IMAGES_API}`);
 
   return (
     <>
@@ -19,7 +19,7 @@ export function OperationsCard({ transaction }: Props) {
         <Flex align="center" justify="between" className={styles.container}>
           <Flex align="center" gap={8} className={styles.leftSection}>
             <Image
-              src={`http://localhost:3000/static/images/${transaction.icon}`}
+              src={`${import.meta.env.VITE_IMAGES_API}${transaction.icon}`}
               alt="категория транзакции"
               width={32}
               height={32}

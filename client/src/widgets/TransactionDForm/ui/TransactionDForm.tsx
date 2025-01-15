@@ -95,7 +95,8 @@ export function TransactionDForm({
             <div className={styles.categoryContainer}>
               {inputs.category_id ? (
                 <img
-                  src={`http://localhost:3000/static/images/${
+
+                  src={`${import.meta.env.VITE_IMAGES_API}${
                     categoryDs?.find(
                       (category) => category.id === inputs.category_id
                     )?.icon
@@ -126,7 +127,7 @@ export function TransactionDForm({
                     {categoryDs?.map((category) => (
                       <Grid.Item className={styles.gridItem} key={category.id}>
                         <img
-                          src={`http://localhost:3000/static/images/${category.icon}`}
+                          src={`${import.meta.env.VITE_IMAGES_API}${category.icon}`}
                           className={styles.iconItem}
                           onClick={() => onCategorySelect(category.id)}
                         />
