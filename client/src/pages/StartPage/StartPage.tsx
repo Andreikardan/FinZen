@@ -10,7 +10,7 @@ export function StartPage(): React.ReactElement {
       <img className={styles.logo} src='/../../public/LOGO.png' alt="Логотип" />
       {!state && (
         <button className={styles.enterButton} onClick={() => setState((prev) => !prev)}>
-          <span className={styles.enterButtonText}>ВХОД</span>
+          <span className={styles.enterButtonText}>ДОБРО ПОЖАЛОВАТЬ</span>
         </button>
       )}
       {state && <AuthForm />}
