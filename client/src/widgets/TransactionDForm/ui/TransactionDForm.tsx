@@ -8,7 +8,7 @@ import { IRawTransactionDData } from "@/entities/transactionD/model";
 import { createTransactionDThunk } from "@/entities/transactionD";
 import { IOneBudgetTransactions } from "@/entities/budget/model/type";
 import { getAllTransactionsThunk, updateBudgetThunk } from "@/entities/budget/api";
-import { addNewTransaction } from "@/entities/budget/slice";
+
 
 type Props = {
   isModalVisible: boolean;
