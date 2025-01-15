@@ -11,7 +11,6 @@ type Props = {
 
 export function OperationsCard({ transaction }: Props) {
   const [visible, setVisible] = useState<boolean>(false);
-  console.log(`${import.meta.env.VITE_IMAGES_API}`);
 
   return (
     <>

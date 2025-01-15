@@ -35,7 +35,7 @@ export function OperationsList() {
             <TransactionSkeleton />
             <TransactionSkeleton />
           </>
-        ) : allTransactionsArray.length < 0 ? (
+        ) : allTransactionsArray.length === 0 ? (
           <div className={styles.emptyMessage}>Здесь пока пусто</div>
         ) : (
           allTransactionsArray.map((el: IAllTransaction) => (

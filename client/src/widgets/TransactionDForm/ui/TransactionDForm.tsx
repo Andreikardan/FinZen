@@ -7,7 +7,8 @@ import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { IRawTransactionDData } from "@/entities/transactionD/model";
 import { createTransactionDThunk } from "@/entities/transactionD";
 import { IOneBudgetTransactions } from "@/entities/budget/model/type";
-import { updateBudgetThunk } from "@/entities/budget/api";
+import { getAllTransactionsThunk, updateBudgetThunk } from "@/entities/budget/api";
+import { addNewTransaction } from "@/entities/budget/slice";
 
 type Props = {
   isModalVisible: boolean;
@@ -52,6 +53,8 @@ export function TransactionDForm({
     } else {
       const resultAction = await dispatch(createTransactionDThunk(data));
       unwrapResult(resultAction);
+       await dispatch(getAllTransactionsThunk())
+      // dispatch(addNewTransaction(resultAction.payload?.data))
       const updatedBudgetData = {
         name: budget?.name,
         //@ts-ignore

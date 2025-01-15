@@ -10,6 +10,7 @@ import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { useEffect, useState } from "react";
 import { IApiResponseSuccess } from "@/shared/types";
 
+
 const { Panel } = Collapse;
 
 const CollapseComponent = () => {
@@ -37,7 +38,8 @@ const CollapseComponent = () => {
 
   const signOutHandler = async (): Promise<void> => {
     try {
-      await dispatch(signOutThunk());
+      await dispatch(signOutThunk()).unwrap();
+
       message.success("Вы успешно вышли из системы");
     } catch (error) {
       message.error("Ошибка при выходе из системы");

@@ -29,7 +29,7 @@ class BudgetService {
     const newBudget = await Budget.create(data);
     
     const allBudget = await this.get(data.user_id)
-    if(allBudget.length <= 1){
+    if(allBudget){
       const newCategoryR = mockCategoryR.map((el) => ({
         ...el,
         budget_id: newBudget.id,

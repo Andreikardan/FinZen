@@ -7,7 +7,7 @@ import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { IRawTransactionRData } from "@/entities/transactionR/model";
 import { createTransactionRThunk } from "@/entities/transactionR";
 import { IOneBudgetTransactions } from "@/entities/budget/model/type";
-import { updateBudgetThunk } from "@/entities/budget/api";
+import { getAllTransactionsThunk, updateBudgetThunk } from "@/entities/budget/api";
 
 type Props = {
   isModalVisibleR: boolean;
@@ -71,6 +71,8 @@ export function TransactionRForm({
     } else {
       const resultAction = await dispatch(createTransactionRThunk(data));
       unwrapResult(resultAction);
+             await dispatch(getAllTransactionsThunk())
+      
       const resultBudgetAction = await dispatch(
         //@ts-ignore
         updateBudgetThunk({ id: budget!.id, updatedBudget: updatedBudgetData })
