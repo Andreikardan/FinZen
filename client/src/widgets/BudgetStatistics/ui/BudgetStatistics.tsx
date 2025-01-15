@@ -58,6 +58,7 @@ export const BudgetStatistics: React.FC<BudgetStatisticsProps> = ({
 
   return (
     <div style={{ padding: "10px", textAlign: "center" }}>
+       
       <div style={{ marginBottom: "40px" }}>
         <h2 style={{ fontSize: "20px", marginBottom: "20px" }}>Расходы по категориям</h2>
         <div style={{ display: "flex", justifyContent: "center" }}>
@@ -86,7 +87,8 @@ export const BudgetStatistics: React.FC<BudgetStatisticsProps> = ({
         </div>
       </div>
 
-      <hr style={{ border: "1px solid #eee", margin: "20px 0" }} />
+    
+      <hr style={{ border: "1px solid #ddd", margin: "20px 0" }} />
 
       
       <div>

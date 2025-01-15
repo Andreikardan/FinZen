@@ -1,6 +1,6 @@
 import styles from "./BudgetCard.module.css";
 import React, { useRef, useState } from "react";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Dialog, List, SwipeAction, Toast, Input } from "antd-mobile";
 import { SwipeActionRef } from "antd-mobile/es/components/swipe-action";
 import { useNavigate } from "react-router-dom";
@@ -95,10 +95,14 @@ export const BudgetCard: React.FC<Props> = React.memo(
                 navigate(`/transaction/${budget.id}`);
               }}
             >
+              <div className={styles.swipeHint}>
+               <LeftOutlined style={{ fontSize: "20px", color: "var(--primary-light-purple)" }} />
+               </div>
               <div className={styles.listItemContent}>
                 <span className={styles.listItemName}>{budget.name}</span>
                 <span className={styles.listItemSum}>{budget.sum} ₽</span>
               </div>
+               
             </List.Item>
           </SwipeAction>
         </List>
