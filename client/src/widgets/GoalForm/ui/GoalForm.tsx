@@ -27,7 +27,6 @@ export function GoalForm({ isModalVisible, setIsModalVisible }: Props) {
     Toast.show({
       content: "Цель добавлена",
       position: "bottom",
-      icon: 'success'
     });
   };
 
@@ -66,12 +65,24 @@ export function GoalForm({ isModalVisible, setIsModalVisible }: Props) {
               key: "cancel",
               text: "Отмена",
               onClick: () => setIsModalVisible(false),
+              style: { 
+                color: "#fff",  
+                backgroundColor: "var(--primary-light-purple)",  
+                // border: "1px solid var(--primary-dark-purple)",    
+                padding: "8px 16px", 
+              },
             },
             {
               key: "confirm",
               text: "Добавить",
               bold: true,
               onClick: () => onUpdate(inputs),
+              style: { 
+                color: "#fff",  
+                backgroundColor: "var(--primary-light-purple)",  
+                // border: "1px solid var(--primary-dark-purple)",    
+                padding: "8px 16px", 
+              },
             },
           ],
         ]}

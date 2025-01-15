@@ -4,8 +4,9 @@ import { updateGoalThunk } from "@/entities/goal/api";
 import { createGoalTransactionThunk, IRawGoalTransactionData } from "@/entities/goalTransaction";
 import { useAppDispatch } from "@/shared";
 import { useAppSelector } from "@/shared/hooks/reduxHooks";
+import { QuestionCircleOutlined } from "@ant-design/icons";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { Input } from "antd";
+import { Input, Tooltip } from "antd";
 import { Dialog, Toast } from "antd-mobile";
 import { useState } from "react";
 
@@ -50,7 +51,6 @@ export function GoalTransactionForm({ isModalVisible,
     if (accumulator === null || goal === null) {
       Toast.show({
         content: "Некорректные данные цели",
-        icon: "error",
         position: "bottom",
       });
       return;
@@ -80,8 +80,7 @@ const updatedGoalData = {
 
 if (updatedGoalData.accumulator > goal) {
   Toast.show({
-    content: "Сумма цели не может быть выше вложенных",
-    icon: "error", 
+    content: "Вложение не должно превышать цель",
     position: "bottom",
   });
   return;
@@ -106,13 +105,11 @@ try {
   Toast.show({
     content: "Сумма добавлена и цель обновлена",
     position: "bottom",
-    icon: "success",
   });
-} catch (error) {
-  console.error("Ошибка при обновлении цели или бюджета:", error);
+} catch {
+  
   Toast.show({
     content: "Ошибка при обновлении данных",
-    icon: "error",
     position: "bottom",
   });
 }
@@ -134,6 +131,23 @@ try {
               value={inputs.sumGoal !== null ? inputs.sumGoal : ''}
               onChange={(e) => onChangeHandler(e.target.value, "sumGoal")}
               placeholder="Сумма на цель"
+              suffix={
+                <Tooltip
+                  title="Введите сумму, которую хотите добавить к цели."
+               
+                  placement="top"
+                  color="var(--primary-light-purple)"
+                  overlayStyle={{
+                  
+                    padding: "12px",
+                    maxWidth: "200px",
+                    
+                  }}
+                  
+                >
+                  <QuestionCircleOutlined style={{ color: "rgba(0, 0, 0, 0.45)" }} />
+                </Tooltip>
+              }
             />
           </div>
         }
@@ -143,12 +157,24 @@ try {
               key: "cancel",
               text: "Отмена",
               onClick: () => setIsModalVisible(false),
+              style: { 
+                color: "#fff",  
+                backgroundColor: "var(--primary-light-purple)",  
+                // border: "1px solid var(--primary-dark-purple)",    
+                padding: "8px 16px", 
+              },
             },
             {
               key: "confirm",
               text: "Добавить",
               bold: true,
               onClick: () => onUpdate(inputs.sumGoal,goal_id, budget_id),
+              style: { 
+                color: "#fff",  
+                backgroundColor: "var(--primary-light-purple)",  
+                // border: "1px solid var(--primary-dark-purple)",  
+                padding: "8px 16px", 
+              },
             },
           ],
         ]}
