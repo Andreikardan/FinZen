@@ -79,7 +79,6 @@ export const BudgetStatistics: React.FC<BudgetStatisticsProps> = ({
   height={550}
   style={{
     marginTop: '-150px',
-    filter: 'drop-shadow(0 0 5px rgba(106, 27, 154, 0.5))', 
   }}
 >
   <Pie
@@ -92,6 +91,10 @@ export const BudgetStatistics: React.FC<BudgetStatisticsProps> = ({
     fill="#8884d8"
     labelLine={{ stroke: "black", strokeWidth: 1 }}
     label={({ value }) => `${value.toFixed(1)}%`}
+    style={{
+      marginTop: '-150px',
+      filter: 'drop-shadow(0 0 5px rgba(106, 27, 154, 0.5))', 
+    }}
     
   >
     {expenseDataCategRsPercentage?.map((_, index) => (
@@ -119,7 +122,13 @@ export const BudgetStatistics: React.FC<BudgetStatisticsProps> = ({
       <div>
         <h2 style={{ fontSize: "20px", marginBottom: "20px" }}>Доходы по категориям</h2>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <PieChart width={300} height={580} style={{ marginTop: '-150px' }}>
+        <PieChart
+  width={330}
+  height={550}
+  style={{
+    marginTop: '-150px',
+  }}
+>
             <Pie
               data={expenseDataCategDsPercentage}
               dataKey="value"
@@ -129,6 +138,10 @@ export const BudgetStatistics: React.FC<BudgetStatisticsProps> = ({
               outerRadius={100}
               fill="#8884d8"
               label={({ value }) => `${value.toFixed(1)}%`}
+              style={{
+                marginTop: '-150px',
+                filter: 'drop-shadow(0 0 5px rgba(106, 27, 154, 0.5))', 
+              }}
             >
               {expenseDataCategDsPercentage?.map((_, index) => (
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -139,6 +152,10 @@ export const BudgetStatistics: React.FC<BudgetStatisticsProps> = ({
               layout="centric"
               align="center"
               verticalAlign="bottom"
+              style={{
+                paddingTop: "20px",
+                fontSize: "14px",
+              }}
             />
           </PieChart>
         </div>
