@@ -7,7 +7,7 @@ export function StartPage(): React.ReactElement {
 
   return (
     <div className={styles.container}>
-      <img className={styles.logo} src="/../../public/LOGO.svg" alt="Логотип" />
+      <img className={styles.logo} src="/LOGO.svg" alt="Логотип" />
 
       {/* <div className={styles.credo}>
         Ваши деньги у нас в кармане

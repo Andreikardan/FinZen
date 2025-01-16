@@ -4,7 +4,7 @@ export function LandingPage() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <img className={styles.logo} src="../../public/LOGO.png" alt="лого" />
+        <img className={styles.logo} src="/LOGO.svg" alt="лого" />
       </div>
 
       <div className={styles.welcomeText}>

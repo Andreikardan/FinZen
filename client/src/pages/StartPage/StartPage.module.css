@@ -3,10 +3,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; 
+  justify-content: flex-start;
   height: 100vh;
+  width: 100vw;
   padding: 20px;
   overflow: hidden;
+  overflow-x: hidden;
   background: linear-gradient(135deg, #fff, #e0e0e0, #cfbdd7, #fff);
   background-size: 400% 400%;
   animation: gradientBackground 10s ease infinite;
@@ -16,11 +18,9 @@
   0% {
     background-position: 0% 50%;
   }
-
   50% {
     background-position: 100% 50%;
   }
-
   100% {
     background-position: 0% 50%;
   }
@@ -42,39 +42,36 @@
   0% {
     transform: translateY(0) translateX(0);
   }
-
   100% {
     transform: translateY(-20px) translateX(-20px);
   }
 }
 
-
 .logo {
-  width: 400px;
-  height: 200px;
-  margin-top: 17vh;
+  max-width: 70%; /* Уменьшаем логотип */
+  height: auto;
+  margin-top: 10vh; /* Подвинем логотип выше */
   object-fit: contain;
-  animation: float 3s ease-in-out infinite; 
+  animation: float 3s ease-in-out infinite;
 }
 
 @keyframes float {
   0%, 100% {
     transform: translateY(0);
   }
-
   50% {
     transform: translateY(-10px);
   }
 }
 
 .bottomSection {
-  display: flex; 
+  display: flex;
   flex-grow: 1;
   flex-direction: column;
   align-items: center;
-  justify-content: center; 
+  justify-content: flex-start; /* Изменяем на flex-start */
   width: 100%;
-  margin-top: 20px; 
+  margin-top: 10px; /* Уменьшаем отступ сверху */
 }
 
 .enterButton {
@@ -89,7 +86,9 @@
   border: none;
   border-radius: 30px;
   box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
-  transition: all 0.3s ease; 
+  transition: all 0.3s ease;
+  width: 90%;
+  max-width: 300px;
 }
 
 .enterButton::before {
