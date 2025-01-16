@@ -49,7 +49,7 @@ export function PopupTransactionPage({
     } catch (error) {
       console.error(error);
       Toast.show({
-        content: "Что-то пошло не так...",
+        content: "Ошибка",
         position:'top'
       });
     }
@@ -77,7 +77,7 @@ export function PopupTransactionPage({
     } catch (error) {
       console.error(error);
       Toast.show({
-        content: "Что-то пошло не так...",
+        content: "Ошибка",
         position:'top'
       });
     }
@@ -102,7 +102,7 @@ export function PopupTransactionPage({
     } catch (error) {
       console.error(error);
       Toast.show({
-        content: "Что-то пошло не так...",
+        content: "Ошибка",
         position:'top'
       });
     }
@@ -135,7 +135,7 @@ export function PopupTransactionPage({
     } catch (error) {
       console.error(error);
       Toast.show({
-        content: "Что-то пошло не так..",
+        content: "Ошибка",
         position:'top'
       });
       throw error;

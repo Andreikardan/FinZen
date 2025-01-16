@@ -84,6 +84,22 @@
   opacity: 0.7;
 }
 
+
+.inputs {
+  margin: 12px 0;
+  border:none;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
+  outline: none !important;
+  height: 50px;
+  font-size: 16px;
+  box-shadow: none !important;
+}
+
+.inputs:focus {
+  border-color: #2e0d43; /* Цвет границы при фокусе */
+  outline: none; /* Убираем стандартный outline */
+  box-shadow: 0 0 5px rgba(106, 27, 154, 0.5); /* Добавляем тень для красоты */
+}
  
 
 @media (width <= 600px) {

@@ -1,4 +1,6 @@
+import styles from './test.module.css'
 import { Col, Collapse, Image, Row } from "antd";
+
 import { UserEdit } from "@/widgets";
 import CategoryForm from "@/widgets/CategoryForm/CategoryForm";
 import { useCategoryDList, useCategoryRList } from "@/entities/category";
@@ -40,7 +42,8 @@ const CollapseComponent = () => {
   };
 
   return (
-    <Collapse accordion style={{ maxWidth: "340px", minWidth: "340px", maxHeight: "calc(100vh - 400px)", overflowY: "auto", marginBottom:'50px'}}>
+    <div className={styles.container}>
+    <Collapse accordion style={{ padding: '0px', maxWidth: "340px", minWidth: "340px" }}>
       <Panel header="Выбрать бюджет для редактирования" key="2" style={{ backgroundColor: 'white' }}>
         {budgets.length > 0 ? (
           <Collapse accordion>
@@ -66,6 +69,8 @@ const CollapseComponent = () => {
                       {categoryD
                         .filter((category) => category.budget_id === budget.id)
                         .map((category) => (
+                          
+                          
                           <Panel
                             key={category.id}
                             header={
@@ -74,7 +79,7 @@ const CollapseComponent = () => {
                                 <Col>
                                   {category.icon && (
                                     <Image
-                                      src={`http://localhost:3000/static/images/${category.icon}`}
+                                      src={`${import.meta.env.VITE_IMAGES_API}${category.icon}`}
                                       width={24}
                                       height={24}
                                       preview={false}
@@ -112,7 +117,7 @@ const CollapseComponent = () => {
                                 <Col>
                                   {category.icon && (
                                     <Image
-                                      src={`http://localhost:3000/static/images/${category.icon}`}
+                                      src={`${import.meta.env.VITE_IMAGES_API}${category.icon}`}
                                       width={24}
                                       height={24}
                                       preview={false}
@@ -131,6 +136,7 @@ const CollapseComponent = () => {
                     </Collapse>
                   </Panel>
                 </Collapse>
+
               </Panel>
             ))}
           </Collapse>
@@ -163,6 +169,7 @@ const CollapseComponent = () => {
         style={{ backgroundColor: "red", borderRadius: "0 0 8px 8px" }}
       ></Panel>
     </Collapse>
+    </div>
   );
 };
 

@@ -23,7 +23,7 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
           height: '100px',
           borderRadius: '50%',
           border: 'none',
-          backgroundImage: `url(http://localhost:3000/static/images/DefaultUser.svg)`,
+          backgroundImage: `url(${import.meta.env.VITE_IMAGES_API}defaultUser.svg)`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           cursor: 'pointer',

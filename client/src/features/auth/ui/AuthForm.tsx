@@ -1,3 +1,4 @@
+import styles from "./AuthForm.module.css";
 import React, { useState } from "react";
 import { Button, Form, Input } from "antd";
 import { unwrapResult } from "@reduxjs/toolkit";
@@ -6,8 +7,9 @@ import { Toast } from "antd-mobile";
 import { useAppDispatch, ROUTES, isEmailExistsChecker } from "@/shared";
 import { ISignInData, ISignUpData, signInThunk, signUpThunk } from "@/entities/user";
 
+
 export default function AuthForm(): React.ReactElement {
-  const [type, setType] = useState<boolean>(true); // true - вход, false - регистрация
+  const [type, setType] = useState<boolean>(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -66,6 +68,7 @@ export default function AuthForm(): React.ReactElement {
   return (
     <Form
       style={{ maxWidth: '350px', minWidth: '350px' }}
+
       onFinish={submit}
       onFieldsChange={(_, changedFields) => handleFormChange(changedFields)}
     >
@@ -75,6 +78,7 @@ export default function AuthForm(): React.ReactElement {
         hasFeedback
         rules={[
           { required: true, message: 'Пожалуйста, укажите ваш email' },
+
           {
             validator: async (_, value) => {
               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -128,7 +132,11 @@ export default function AuthForm(): React.ReactElement {
                   if (!value || getFieldValue('password') === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject('Пароли не совпадают');
+
+                  if (getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error("Пароли не совпадают"));
                 },
               }),
             ]}
@@ -166,6 +174,7 @@ export default function AuthForm(): React.ReactElement {
         disabled={isButtonDisabled}
         htmlType="submit"
         style={{ width: "100%", fontFamily: "Comfortaa", backgroundColor: "purple" }}
+        className={styles.enterButton}
       >
         {type ? "Войти" : "Зарегистрироваться"}
       </Button>
