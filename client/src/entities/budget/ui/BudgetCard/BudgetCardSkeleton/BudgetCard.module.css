@@ -3,7 +3,7 @@
   padding: 16px;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
 }
 
 
@@ -20,8 +20,8 @@
 .skeletonListItemContent {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   gap: 8px;
+  justify-content: space-between;
   width: 100%;
 }
 
@@ -49,6 +49,7 @@
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }

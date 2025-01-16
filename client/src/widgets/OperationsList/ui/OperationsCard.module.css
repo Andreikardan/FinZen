@@ -21,7 +21,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  width: 185px; /*чтобы не плющились иконки*/
+  width: 185px;  
 }
 
 .description {
@@ -44,24 +44,25 @@
   font-weight: 500;
 }
 
-.categoryIcon {
+.categoryIcon { 
+  padding: 6px;
+
   /* margin-right: 12px; */
   object-fit: cover;
-  border-radius: 50%; 
-  padding: 6px;
+  border-radius: 50%;
 }
 
 .categoryIcon.трата {
-  border: 0.5px solid rgb(212, 76, 31);
-  background-color: rgba(239, 6, 6, 0.367)
+  background-color: rgb(239 6 6 / 36.7%);
+  border: 0.5px solid rgb(212 76 31)
 }
 
 .categoryIcon.доход {
-  border: 0.5px solid rgb(3, 173, 0);
-  background-color: rgba(93, 232, 91, 0.367)
+  background-color: rgb(93 232 91 / 36.7%);
+  border: 0.5px solid rgb(3 173 0)
 }
 
 .categoryIcon.перевод {
-  border:0.5px solid #0058f1;
   background-color: #e6f7ff;
+  border:0.5px solid #0058f1;
 }

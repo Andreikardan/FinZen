@@ -66,6 +66,7 @@ export default function AuthForm(): React.ReactElement {
   };
 
   return (
+
     <Form
       style={{ maxWidth: '350px', minWidth: '350px' }}
 
@@ -89,9 +90,11 @@ export default function AuthForm(): React.ReactElement {
                 return Promise.reject('Введите корректный email');
               }
               return Promise.resolve();
-            },
-          },
+            }
+          }
+          }),
         ]}
+      
       >
         <Input placeholder="email" />
       </Form.Item>
@@ -118,6 +121,9 @@ export default function AuthForm(): React.ReactElement {
       >
         <Input.Password placeholder="Введите пароль" />
       </Form.Item>
+      </>
+      )}
+
 
       {!type && (
         <>
@@ -191,4 +197,6 @@ export default function AuthForm(): React.ReactElement {
       </Button>
     </Form>
   );
+
 }
+

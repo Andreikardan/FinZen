@@ -16,7 +16,7 @@ type Props = {
   setIsModalVisible: (value: boolean) => void;
   goal_id: number; 
   budget_id: number
-  accumulator:number 
+  accumulator:number |null
   sum: number 
   goal:number |null
 
@@ -86,7 +86,7 @@ const updatedGoalData = {
 
 if (updatedGoalData.accumulator > goal) {
   Toast.show({
-    content: "Вложение не должно превышать цель",
+    content: "Вложения превышают",
     position: "bottom",
   });
   return;
@@ -118,7 +118,7 @@ try {
 
   setIsModalVisible(false);
   Toast.show({
-    content: "Сумма добавлена и цель обновлена",
+    content: "Сумма добавлена",
     position: "bottom",
   });
 } catch {

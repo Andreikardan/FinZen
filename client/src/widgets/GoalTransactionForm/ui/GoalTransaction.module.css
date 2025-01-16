@@ -61,12 +61,12 @@
 } */
 
 .inputs {
-    margin: 15px 0;
-    border:none;
-    border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
-    outline: none !important;
     height: 50px;
+    margin: 15px 0;
     font-size: 17px;
+    border:none;
+    border-bottom: 0.5px solid rgb(0 0 0 / 5%);
+    outline: none !important;
     box-shadow: none !important;
   }
 

@@ -1,6 +1,6 @@
 
 .container {
-  font-family: Comfortaa; 
+  font-family: Comfortaa, Arial, sans-serif; 
 }
 
 
@@ -23,7 +23,7 @@
     border-radius: 8px;
   }
 
-
+/* stylelint-disable */
   .ant-select-focused .ant-select-selector {
     border-color: var(--primary-dark-purple)!important; 
     box-shadow: none !important; 
@@ -34,13 +34,13 @@
   }
 
   .ant-input {
-    border: 0px solid #782d2d; 
+    border: 0 solid #782d2d; 
   }
   
   .ant-input:focus {
     border-color: #6a1b9a !important; 
-    box-shadow: 0 0 0 2px rgba(106, 27, 154, 0.2)!important; 
      outline: none !important; 
+    box-shadow: 0 0 0 2px rgb(106 27 154 / 20%)!important; 
   }
 
   button:focus {

@@ -18,7 +18,7 @@ const appReducer = combineReducers({
   infoSlider: sliderReducer,
 });
 
-const rootReducer = (state, action) => {
+const rootReducer = (state: any, action: any) => {
   if (action.type === "user/signOut/fulfilled") {
     return appReducer(undefined, action);
   }

@@ -3,10 +3,10 @@
   flex-direction: column;
   height: 100%;
   padding: 20px;
+  font-family: Comfortaa, Arial, sans-serif;
   background-color: #fff;
   border-radius: 20px 20px 0 0;
-  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
-  font-family: Comfortaa;
+  box-shadow: 0 -4px 12px rgb(0 0 0 / 10%);
 }
 
 .header {
@@ -19,7 +19,7 @@
 .title {
   font-size: 20px;
   font-weight: 600;
-  color: #6a1b9a; 
+  color: #6a1b9a;
 }
 
 .closeButton {
@@ -27,61 +27,61 @@
   font-size: 14px;
   color: white;
   cursor: pointer;
-  background-color: #6a1b9a; 
+  background-color: #6a1b9a;
   border: none;
   border-radius: 10px;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .closeButton:hover {
-  background-color: #4a148c; 
-  transform: translateY(-2px); 
+  background-color: #4a148c;
+  transform: translateY(-2px);
 }
 
 .closeButton:active {
-  transform: translateY(0); 
+  transform: translateY(0);
 }
 
 .content {
   flex: 1;
-  overflow-y: auto;
   padding: 10px;
+  overflow-y: auto;
 }
 
 .amount {
+  padding: 10px;
   margin-bottom: 15px;
   font-size: 16px;
   font-weight: 500;
   color: #333;
-  padding: 10px;
   background-color: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
 }
 
 .date {
+  padding: 10px;
   margin-bottom: 20px;
   font-size: 14px;
   color: #666;
-  padding: 10px;
   background-color: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
 }
 
 .commentsSection {
-  margin-bottom: 20px;
   padding: 15px;
+  margin-bottom: 20px;
   background-color: #f9f9f9;
   border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
 }
 
 .sectionTitle {
   margin-bottom: 10px;
   font-size: 18px;
   font-weight: 500;
-  color: #6a1b9a; 
+  color: #6a1b9a;
 }
 
 .commentItem {
@@ -90,34 +90,13 @@
   background-color: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
 }
 
 .commentsText {
   margin-bottom: 8px;
   font-size: 14px;
   color: #333;
-}
-
-.commentItem button {
-  padding: 6px 12px;
-  margin-right: 8px;
-  font-size: 12px;
-  cursor: pointer;
-  border: none;
-  border-radius: 6px;
-  background-color: #6a1b9a; 
-  color: white;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.commentItem button:hover {
-  background-color: #4a148c; 
-  transform: translateY(-2px); 
-}
-
-.commentItem button:active {
-  transform: translateY(0); 
 }
 
 .commentItem input {
@@ -131,17 +110,38 @@
 }
 
 .commentItem input:focus {
-  border-color: #6a1b9a; 
+  border-color: #6a1b9a;
   outline: none;
 }
 
+.commentItem button {
+  padding: 6px 12px;
+  margin-right: 8px;
+  font-size: 12px;
+  color: white;
+  cursor: pointer;
+  background-color: #6a1b9a;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.commentItem button:hover {
+  background-color: #4a148c;
+  transform: translateY(-2px);
+}
+
+.commentItem button:active {
+  transform: translateY(0);
+}
+
 .gallerySection {
-  margin-bottom: 20px;
-  margin-top: 20px;
   padding: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   background-color: #f9f9f9;
   border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
 }
 
 .gallery {
@@ -161,8 +161,8 @@
 }
 
 .photo:hover {
+  box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
   transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
 
 .uploadSection {
@@ -175,19 +175,19 @@
   font-size: 14px;
   color: white;
   cursor: pointer;
-  background-color: #6a1b9a; 
+  background-color: #6a1b9a;
   border: none;
   border-radius: 8px;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .uploadButton:hover {
-  background-color: #4a148c; 
-  transform: translateY(-2px); 
+  background-color: #4a148c;
+  transform: translateY(-2px);
 }
 
 .uploadButton:active {
-  transform: translateY(0); 
+  transform: translateY(0);
 }
 
 .emptySection {
@@ -205,53 +205,54 @@
 }
 
 .imgContainer {
-  padding: 30px 20px 420px 20px;
+  padding: 30px 20px 420px;
 }
 
 .addCommentSection {
-  margin-top: 20px;
   padding: 15px;
+  margin-top: 20px;
+  text-align: center;
   background-color: #f9f9f9;
   border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  text-align: center; 
+  box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
 }
 
 .addCommentSection textarea {
   width: 100%;
   padding: 10px;
   font-size: 14px;
+  resize: none;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  resize: none; 
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .addCommentSection textarea:focus {
-  border-color: #6a1b9a; 
+  border-color: #6a1b9a;
   outline: none;
-  box-shadow: 0 0 0 2px rgba(106, 27, 154, 0.2); 
+  box-shadow: 0 0 0 2px rgb(106 27 154 / 20%);
 }
 
 .addCommentSection button {
-  margin-top: 10px;
+  width: 100%;
+  max-width: 200px;
   padding: 10px 20px;
+  margin-top: 10px;
   font-size: 14px;
   color: white;
   cursor: pointer;
-  background-color: #6a1b9a; 
+  background-color: #6a1b9a;
   border: none;
   border-radius: 8px;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  width: 100%; 
-  max-width: 200px; 
 }
 
 .addCommentSection button:hover {
-  background-color: #4a148c; 
-  transform: translateY(-2px); 
+  background-color: #4a148c;
+  transform: translateY(-2px);
 }
 
 .addCommentSection button:active {
-  transform: translateY(0); 
+  transform: translateY(0);
 }
+

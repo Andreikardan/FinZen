@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { PlusOutlined, PlusSquareOutlined } from '@ant-design/icons';
+import { PlusOutlined  } from '@ant-design/icons';
 import { Button, Select, Space } from 'antd';
 import { GoalForm } from '@/widgets/GoalForm';
 import { GoalList } from '@/widgets/GoalList';
@@ -108,8 +108,7 @@ export function GoalPage() {
       <div ref={budgetStatisticsRef} style={{ minHeight: '300px', marginTop: '15px' }}>
         {budget && hasTransactions() ? (
           <BudgetStatistics
-            transactionDs={transactionDs}
-            transactionRs={transactionRs}
+          
             categoriesRs={categoriesRs}
             categoriesDs={categoriesDs}
           />
