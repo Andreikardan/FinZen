@@ -43,7 +43,7 @@ function CategoryForm({ icons, budgetId, isIncome }: Props) {
       setSelectedIcon(null);
       setIsButtonDisabled(true);
     } catch (error) {
-      Toast.show({ content: 'Ошибка при добавлении категории', position: "bottom" });
+      Toast.show({ content: 'Ошибка', position: "bottom" });
     }
   };
 

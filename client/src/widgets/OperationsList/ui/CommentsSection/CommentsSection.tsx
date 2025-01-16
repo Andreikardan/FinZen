@@ -36,7 +36,7 @@ export const CommentsSection: React.FC<Props> = ({
   const handleAddComment = async () => {
     if (!newComment.trim()) {
       Toast.show({
-        content: "Что-то пошло не так...",
+        content: "Ошибка",
         position:'top'
       });
       return;
