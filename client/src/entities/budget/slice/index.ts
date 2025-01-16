@@ -8,20 +8,21 @@ import {
   updateBudgetThunk,
   getBudgetByIdThunk,
   getAllTransactionsThunk,
+  addPhotoToTransactionRThunk,
 } from "../api";
 import { AllTransactionArray } from "@/entities/transactionR/model";
 
 type BudgetsState = {
   budgets: ArrayBudgetsType | [];
   currentBudget: IOneBudgetTransactions | null;
-  allTransactionsArray: AllTransactionArray | [];
+  allTransactionsArray: AllTransactionArray | null;
   error: string | null;
   loading: boolean;
 };
 const initialState: BudgetsState = {
   budgets: [],
   currentBudget: null,
-  allTransactionsArray: [],
+  allTransactionsArray: null,
   error: null,
   loading: false,
 };
@@ -107,9 +108,37 @@ const budgetSlice = createSlice({
         state.loading = false;
         state.allTransactionsArray = [];
         state.error = action.payload!.error;
+      })
+      .addCase(addPhotoToTransactionRThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addPhotoToTransactionRThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+
+        state.allTransactionsArray = state.allTransactionsArray?.map(
+          (transaction) => {
+            if (transaction.id === action.payload.id) {
+
+              if (!transaction.TransactionRPhotos) {
+                transaction.TransactionRPhotos = [];
+                transaction.TransactionRPhotos.push(action.payload.data.data);
+              } else {
+                transaction.TransactionRPhotos.push(action.payload.data.data);
+              }
+
+              return transaction;
+            } else {
+              return transaction;
+            }
+          }
+        );
+      })
+      .addCase(addPhotoToTransactionRThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload!.error;
       });
   },
 });
 
 export const budgetReducer = budgetSlice.reducer;
-

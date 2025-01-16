@@ -70,6 +70,8 @@ export function TransactionDForm({
         content: "Операция добавлена",
         position: "bottom",
       });
+      setInputs(initialInputsState)
+
     }
   };
 

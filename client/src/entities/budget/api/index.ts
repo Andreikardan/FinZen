@@ -9,6 +9,7 @@ import {
 } from "../model/type";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { AllTransactionArray } from "@/entities/transactionR/model";
+import { IPhoto } from "@/entities/photo";
 
 enum BUDGETS_THUNKS_TYPE {
   GET_ALL = "budget/getAll",
@@ -17,6 +18,7 @@ enum BUDGETS_THUNKS_TYPE {
   DELETE = "budget/delete",
   UPDATE = "budget/update",
   GET_ALL_TRANSACTIONS = "budget/allTransactions",
+  ADD_PHOTO = "budget/addPhoto",
 }
 
 export const getAllBudgetsThunk = createAsyncThunk<
@@ -122,7 +124,6 @@ export const updateBudgetThunk = createAsyncThunk<
   }
 );
 
-
 export const getAllTransactionsThunk = createAsyncThunk<
   IApiResponseSuccess<AllTransactionArray>,
   void,
@@ -138,3 +139,37 @@ export const getAllTransactionsThunk = createAsyncThunk<
     return rejectWithValue(err.response!.data);
   }
 });
+
+export const addPhotoToTransactionRThunk = createAsyncThunk<
+  { id: number, data: IApiResponseSuccess<IPhoto>},
+  { id: number; formData: FormData },
+  { rejectValue: IApiResponseReject }
+>(
+  BUDGETS_THUNKS_TYPE.ADD_PHOTO,
+  async ({ id, formData }, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.post<IApiResponseSuccess<IPhoto>>(
+        `/imagesForTransaction/upload/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (data.statusCode !== 201) {
+        return rejectWithValue({
+          data: null,
+          statusCode: data.statusCode,
+          error: data.error!,
+          message: data.message,
+        });
+      }
+      return { id, data };
+    } catch (error) {
+      const err = error as AxiosError<IApiResponseReject>;
+      return rejectWithValue(err.response!.data);
+    }
+  }
+);

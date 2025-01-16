@@ -1,21 +1,29 @@
 import styles from "./OperationsCard.module.css";
-import { useState } from "react";
 import { Flex } from "antd";
 import { List, Image } from "antd-mobile";
 import { IAllTransaction } from "@/entities/transactionR";
-import { PopupTransactionPage } from "./PopupTransactionPage/PopupTransactionPage";
 
 type Props = {
   transaction: IAllTransaction;
+  setCurrentTransaction: (transaction: IAllTransaction) => void;
+  setVisible: (value: boolean) => void;
 };
 
-export function OperationsCard({ transaction }: Props) {
-  const [visible, setVisible] = useState<boolean>(false);
-// console.log(transaction);
+export function OperationsCard({
+  transaction,
+  setCurrentTransaction,
+  setVisible,
+}: Props) {
 
   return (
     <>
-      <List.Item onClick={() => setVisible(true)} className={styles.card}>
+      <List.Item
+        onClick={() => {
+          setCurrentTransaction(transaction);
+          setVisible(true);
+        }}
+        className={styles.card}
+      >
         <Flex align="center" justify="between" className={styles.container}>
           <Flex align="center" gap={8} className={styles.leftSection}>
             <Image
@@ -23,7 +31,7 @@ export function OperationsCard({ transaction }: Props) {
               alt="категория транзакции"
               width={32}
               height={32}
-              className={`${styles.categoryIcon} ${styles[transaction.type]}`} 
+              className={`${styles.categoryIcon} ${styles[transaction.type]}`}
             />
             <div className={styles.textContainer}>
               {transaction.type !== "перевод" ? (
@@ -62,12 +70,6 @@ export function OperationsCard({ transaction }: Props) {
           </p>
         </Flex>
       </List.Item>
-
-      <PopupTransactionPage
-        transaction={transaction}
-        visible={visible}
-        setVisible={setVisible}
-      />
     </>
   );
 }
