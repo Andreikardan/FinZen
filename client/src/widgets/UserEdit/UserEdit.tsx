@@ -10,7 +10,7 @@ import { useState } from 'react';
 export function UserEdit() {
     const [pass, setPass] = useState<boolean>(false)
     const dispatch = useAppDispatch()
-    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
     const user = useAppSelector((state)=>state.user.user)
 
     const submit = async (values: ISignUpData )=>{
@@ -38,9 +38,26 @@ export function UserEdit() {
         });
     }
 
-    const handleFormChange = (changedFields: any[]) => {
-        const errors = changedFields.some(({ errors }) => errors.length > 0)
-        setIsButtonDisabled(errors)
+
+    const handleFormChange = (allFields: any[]) => {
+        // Проверяем наличие ошибок в полях
+        const hasErrors = allFields.some(({ errors }) => errors && errors.length > 0);
+
+        // Получаем значения полей password и repeat
+        const passwordField = allFields.find((field) => field.name[0] === 'password');
+        const repeatField = allFields.find((field) => field.name[0] === 'repeat');
+
+        const password = passwordField?.value;
+        const repeat = repeatField?.value;
+
+        // Если пароль введен, но повторение пароля пустое или не совпадает, блокируем кнопку
+        if (password && (!repeat || password !== repeat)) {
+            setIsButtonDisabled(true);
+            return;
+        }
+
+        // Если есть ошибки или пароли не совпадают, блокируем кнопку
+        setIsButtonDisabled(hasErrors || (password && password !== repeat));
     };
 
     return (
@@ -56,7 +73,7 @@ export function UserEdit() {
             }}]}>
                 <Input placeholder="email"/>
             </Form.Item>
-            <Form.Item name="password" hasFeedback rules={[{ 
+            <Form.Item name="password" hasFeedback rules={[{ required: true, message: 'Пожалуйста, введите пароль' },{ 
                 validator: async (_, value) => {
                     const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-zA-Z0-9])[a-zA-Z0-9!@#$%^&*]{8,}$/;
                 if (value && !passwordRegex.test(value)) {
@@ -66,7 +83,7 @@ export function UserEdit() {
             }}]}>
                 <Input.Password placeholder="Введите пароль" />
             </Form.Item>
-            <Form.Item name="repeat" hasFeedback dependencies={['password']} rules={[{ required: pass, message: 'Пожалуйста, повторите пароль' },
+            <Form.Item name="repeat" hasFeedback dependencies={['password']} rules={[{ required: pass, message: 'Пожалуйста, повторите пароль' },{ required: true, message: 'Пожалуйста, введите повторно пароль' },
             ({ getFieldValue }) => ({
                 validator(_, value) {
                 if (!value) {

@@ -39,7 +39,7 @@ const CollapseComponent = () => {
   };
 
   return (
-    <Collapse accordion style={{ padding: '0px', maxWidth: "340px", minWidth: "340px" }}>
+    <Collapse accordion style={{ maxWidth: "340px", minWidth: "340px", maxHeight: "calc(100vh - 400px)", overflowY: "auto", marginBottom:'50px'}}>
       <Panel header="Выбрать бюджет для редактирования" key="2" style={{ backgroundColor: 'white' }}>
         {budgets.length > 0 ? (
           <Collapse accordion>

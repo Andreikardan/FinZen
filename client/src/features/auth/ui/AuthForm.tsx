@@ -36,10 +36,20 @@ export default function AuthForm(): React.ReactElement {
     navigate(ROUTES.BUDGETS);
   }
 
-  const handleFormChange = (changedFields: any[]) => {
+  const handleFormChange = (changedFields: any[], allFields: any[]) => {
     if(!type){
-      const errors = changedFields.some(({ errors }) => errors.length > 0)
-      setIsButtonDisabled(errors)
+      const hasErrors = allFields.some(({ errors }) => errors && errors.length > 0);
+      const passwordField = allFields.find((field) => field.name[0] === 'password');
+      const repeatField = allFields.find((field) => field.name[0] === 'repeat');
+
+      const password = passwordField?.value;
+      const repeat = repeatField?.value;
+      if (password && (!repeat || password !== repeat)) {
+          setIsButtonDisabled(true);
+          return;
+      }
+
+      setIsButtonDisabled(hasErrors || (password && password !== repeat));
     } else {
       const errors = changedFields.slice(0,2).some(({ errors }) => errors.length > 0)
       setIsButtonDisabled(errors)
