@@ -171,7 +171,9 @@ class UserController {
   }
 
   static async checkEmailExistence(req, res) {
+    
     const { email } = req.body;
+    
     if (!email || !UserValidator.validateEmail(email)) {
       return res
         .status(400)

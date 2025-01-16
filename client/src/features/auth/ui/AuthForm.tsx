@@ -22,9 +22,13 @@ export default function AuthForm(): React.ReactElement {
         email: normalizedEmail,
         password: values.password,
       } as ISignInData;
+      
       result = await dispatch(signInThunk(payload));
+      
     } else {
+      
       const isEmailExistsData = await isEmailExistsChecker(normalizedEmail);
+      
       if (!isEmailExistsData.data?.exists) {
         Toast.show({ content: isEmailExistsData.message, position: "bottom" });
         return;
