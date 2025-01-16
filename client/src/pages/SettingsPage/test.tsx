@@ -1,3 +1,4 @@
+import styles from './test.module.css'
 import { Col, Collapse, Image, message, Row } from "antd";
 import { UserEdit } from "@/widgets";
 import CategoryForm from "@/widgets/CategoryForm/CategoryForm";
@@ -65,6 +66,7 @@ const CollapseComponent = () => {
   };
 
   return (
+    <div className={styles.container}>
     <Collapse accordion style={{ maxWidth: "340px", minWidth: "340px" }}>
       <Panel header="Редактировать личные данные" key="1">
         <UserEdit />
@@ -129,6 +131,7 @@ const CollapseComponent = () => {
         style={{ backgroundColor: "red", borderRadius: "0 0 8px 8px" }}
       ></Panel>
     </Collapse>
+    </div>
   );
 };
 

@@ -69,7 +69,7 @@ export function GoalPage() {
   const categoriesDs = budget?.CategoryDs || [];
 
   return (
-    <div>
+    <div className={styles.container}>
       <div>
         <GoalList />
         <div>
