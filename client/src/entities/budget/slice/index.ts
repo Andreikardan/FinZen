@@ -115,7 +115,8 @@ const budgetSlice = createSlice({
       .addCase(addPhotoToTransactionRThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
         state.allTransactionsArray = state.allTransactionsArray?.map(
           (transaction) => {
             if (transaction.id === action.payload.id) {
