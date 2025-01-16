@@ -5,7 +5,7 @@ import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { AxiosError } from "axios";
 
 enum CATEGORYR_API_ROUTES {
-  CATEGORY_ALL_ROUTES = '/categoryr'
+  CATEGORYR_ALL_ROUTES = '/categoryr'
 }
 
 enum CATEGORYR_THUNKS_TYPE {
@@ -23,7 +23,7 @@ export const getAllCategoryRThunk = createAsyncThunk<
   try {
     const { data } = await axiosInstance.get<
       IApiResponseSuccess<CategoryList|[]>
-    >(CATEGORYR_API_ROUTES.CATEGORY_ALL_ROUTES);
+    >(CATEGORYR_API_ROUTES.CATEGORYR_ALL_ROUTES);
     if (data.statusCode !== 200  || data.data.length===0) {
       return rejectWithValue({
         statusCode: data.statusCode,
@@ -46,7 +46,7 @@ export const createCategoryRThunk = createAsyncThunk<
 >(CATEGORYR_THUNKS_TYPE.CREATE, async (newCategoryR, { rejectWithValue }) => {
   try {
     const { data } = await axiosInstance.post<IApiResponseSuccess<ICategory>>(
-      CATEGORYR_API_ROUTES.CATEGORY_ALL_ROUTES,
+      CATEGORYR_API_ROUTES.CATEGORYR_ALL_ROUTES,
       newCategoryR
     );
     if (data.statusCode !== 201) {
@@ -72,7 +72,7 @@ export const deleteCategoryRThunk = createAsyncThunk<
   try {
     const { data } = await axiosInstance.delete<
       IApiResponseSuccess<ICategory>
-    >(CATEGORYR_API_ROUTES.CATEGORY_ALL_ROUTES, { data: { id } });
+    >(CATEGORYR_API_ROUTES.CATEGORYR_ALL_ROUTES, { data: { id } });
     if (data.statusCode !== 200) {
       return rejectWithValue({
         data: null,
@@ -96,7 +96,7 @@ export const updateCategoryRThunk = createAsyncThunk<
   CATEGORYR_THUNKS_TYPE.UPDATE, async (updatedCategory , { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.put<IApiResponseSuccess<ICategory>>(
-        CATEGORYR_API_ROUTES.CATEGORY_ALL_ROUTES,
+        CATEGORYR_API_ROUTES.CATEGORYR_ALL_ROUTES,
         updatedCategory
       );
       if (data.statusCode !== 200) {

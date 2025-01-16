@@ -1,15 +1,17 @@
 import { useState } from 'react';
-import { Form, Select, Input, Button, Modal, Row, Col, Image } from 'antd';
-
-const { Option } = Select;
+import { Form, Input, Button, Row, Col, Image, Modal } from 'antd';
+import { useCategoryDList, useCategoryRList } from '@/entities/category';
+import { Toast } from 'antd-mobile';
 
 interface Props {
-  icons: { icon: string }[]; // Массив иконок
-  budgets: { id: number; name: string }[];
-  onAddCategory: (values: { name: string; category: number; icon?: string }) => void;
+  icons: { icon: string }[];
+  budgetId: number;
+  isIncome: boolean;
 }
 
-function CategoryForm({ icons, budgets, onAddCategory }: Props) {
+function CategoryForm({ icons, budgetId, isIncome }: Props) {
+  const { createCategoryD } = useCategoryDList();
+  const { createCategoryR } = useCategoryRList(); 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
@@ -26,24 +28,31 @@ function CategoryForm({ icons, budgets, onAddCategory }: Props) {
     setIsButtonDisabled(false);
   };
 
-  const submit = async (values: { name: string; category: number }) => {
+  const submit = async (values: { name: string }) => {
     if (!selectedIcon) {
       return;
     }
-    onAddCategory({ ...values, icon: selectedIcon });
-    form.resetFields();
-    setSelectedIcon(null);
-    setIsButtonDisabled(true);
+    try {
+      if (isIncome) {
+        await createCategoryD(values.name, selectedIcon, '', budgetId)
+      } else {
+        await createCategoryR(values.name, selectedIcon, '', budgetId);
+      }
+      Toast.show({ content: 'Категория добавлена', position: "bottom" });
+      form.resetFields();
+      setSelectedIcon(null);
+      setIsButtonDisabled(true);
+    } catch (error) {
+      Toast.show({ content: 'Ошибка при добавлении категории', position: "bottom" });
+    }
   };
 
   return (
     <>
       <Form
         form={form}
-        style={{ maxWidth: '273px', minWidth: '273px' }}
         onFinish={submit}
         onFieldsChange={(_, changedFields) => handleFormChange(changedFields)}
-        initialValues={{ category: budgets[0]?.id || '' }}
       >
         <Form.Item
           name="name"
@@ -63,20 +72,6 @@ function CategoryForm({ icons, budgets, onAddCategory }: Props) {
           ]}
         >
           <Input placeholder="название" />
-        </Form.Item>
-
-        <Form.Item
-          name="category"
-          label="Выберите счет"
-          rules={[{ required: true, message: 'Пожалуйста, выберите счет' }]}
-        >
-          <Select placeholder="Выберите счет">
-            {budgets.map((budget) => (
-              <Option key={budget.id} value={budget.id}>
-                {budget.name}
-              </Option>
-            ))}
-          </Select>
         </Form.Item>
 
         <Form.Item>
