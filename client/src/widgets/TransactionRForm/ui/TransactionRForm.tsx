@@ -85,6 +85,7 @@ export function TransactionRForm({
         position: "bottom",
       });
     }
+    setInputs(initialInputsState)
   };
 
   return (

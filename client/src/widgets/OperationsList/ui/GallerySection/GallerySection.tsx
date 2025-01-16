@@ -1,22 +1,28 @@
 import React, { useState, useRef } from "react";
 import { ImageViewer } from "antd-mobile";
 import styles from "../PopupTransactionPage/PopupTransactionPage.module.css";
-import { ArrayPhotoType } from "@/entities/photo";
+import { useAppSelector } from "@/shared/hooks/reduxHooks";
 
 type Props = {
-  photos: ArrayPhotoType;
+  transactionId: number;
   transactionType: string;
   onUploadPhoto: (file: File) => Promise<void>;
 };
 
 export const GallerySection: React.FC<Props> = ({
-  photos,
+  transactionId,
   transactionType,
   onUploadPhoto,
 }) => {
+  const { allTransactionsArray } = useAppSelector((state) => state.budget);
+
   const [imageViewerVisible, setImageViewerVisible] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const currentPhotos = allTransactionsArray?.find(
+    (el) => el.id === transactionId
+  )?.TransactionRPhotos;
 
   const openImageViewer = (index: number) => {
     setCurrentImageIndex(index);
@@ -27,7 +33,7 @@ export const GallerySection: React.FC<Props> = ({
     const file = e.target.files?.[0];
     if (file) {
       try {
-        await onUploadPhoto(file);
+        onUploadPhoto(file);
         if (inputRef.current) {
           inputRef.current.value = "";
         }
@@ -37,13 +43,14 @@ export const GallerySection: React.FC<Props> = ({
     }
   };
 
+
   return (
     <div>
-      {photos.length > 0 ? (
+      {currentPhotos && currentPhotos.length > 0 ? (
         <div className={styles.gallerySection}>
           <div className={styles.sectionTitle}>Фотографии:</div>
           <div className={styles.gallery}>
-            {photos.map((photo, index) => (
+            {currentPhotos.map((photo, index) => (
               <img
                 key={index}
                 src={`${import.meta.env.VITE_IMAGES_API}${photo.url}`}
@@ -92,14 +99,16 @@ export const GallerySection: React.FC<Props> = ({
         </div>
       )}
 
-      <ImageViewer
-        classNames={{ body: styles.imgContainer }}
-        image={`${import.meta.env.VITE_IMAGES_API}${
-          photos[currentImageIndex]?.url
-        }`}
-        visible={imageViewerVisible}
-        onClose={() => setImageViewerVisible(false)}
-      />
+      {currentPhotos && (
+        <ImageViewer
+          classNames={{ body: styles.imgContainer }}
+          image={`${import.meta.env.VITE_IMAGES_API}${
+            currentPhotos[currentImageIndex]?.url
+          }`}
+          visible={imageViewerVisible}
+          onClose={() => setImageViewerVisible(false)}
+        />
+      )}
     </div>
   );
 };

@@ -43,7 +43,7 @@ export default function AuthForm(): React.ReactElement {
       content: "Успешно",
       position: "bottom",
     });
-    navigate(ROUTES.BUDGETS);
+    navigate(ROUTES.OPERATIONS);
   };
 
   const handleFormChange = ( allFields: any[]) => {

@@ -1,15 +1,17 @@
 import { Popup, Toast } from "antd-mobile";
 import styles from "./PopupTransactionPage.module.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { IAllTransaction } from "@/entities/transactionR";
 import { axiosInstance } from "@/shared/lib/axiosInstance";
 import { IApiResponseSuccess } from "@/shared/types";
 import { IComment } from "@/entities/comments";
-import { CommentsSection } from "../CommentsSection/CommentsSection"; 
-import { GallerySection } from "../GallerySection/GallerySection"; 
+import { CommentsSection } from "../CommentsSection/CommentsSection";
+import { GallerySection } from "../GallerySection/GallerySection";
+import { useAppDispatch } from "@/shared";
+import { addPhotoToTransactionRThunk } from "@/entities/budget/api";
 
 type Props = {
-  transaction: IAllTransaction;
+  transaction: IAllTransaction | null;
   visible: boolean;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -19,15 +21,14 @@ export function PopupTransactionPage({
   setVisible,
   visible,
 }: Props) {
-  const [photos, setPhotos] = useState(transaction.TransactionRPhotos || []);
-  const [comments, setComments] = useState(transaction.TransactionComments || []);
-  
+  const [comments, setComments] = useState(
+    transaction?.TransactionComments || []
+  );
+  const dispatch = useAppDispatch();
 
- 
-  useEffect(() => {
-    setPhotos(transaction.TransactionRPhotos || []);
-    setComments(transaction.TransactionComments || []);
-  }, [transaction]);
+  if (!transaction) {
+    return <></>;
+  }
 
   const handleAddComment = async (text: string) => {
     try {
@@ -50,7 +51,7 @@ export function PopupTransactionPage({
       console.error(error);
       Toast.show({
         content: "Ошибка",
-        position:'top'
+        position: "top",
       });
     }
   };
@@ -68,7 +69,7 @@ export function PopupTransactionPage({
         const updatedComments = comments.map((comment) =>
           comment.id === id ? { ...comment, text: text } : comment
         );
-        setComments(updatedComments); 
+        setComments(updatedComments);
         Toast.show({
           content: "Комментарий изменен",
           position: "top",
@@ -78,7 +79,7 @@ export function PopupTransactionPage({
       console.error(error);
       Toast.show({
         content: "Ошибка",
-        position:'top'
+        position: "top",
       });
     }
   };
@@ -90,9 +91,7 @@ export function PopupTransactionPage({
       );
 
       if (response.data.statusCode === 200) {
-        const updatedComments = comments.filter(
-          (comment) => comment.id !== id
-        );
+        const updatedComments = comments.filter((comment) => comment.id !== id);
         setComments(updatedComments);
         Toast.show({
           content: "Комментарий удален",
@@ -103,7 +102,7 @@ export function PopupTransactionPage({
       console.error(error);
       Toast.show({
         content: "Ошибка",
-        position:'top'
+        position: "top",
       });
     }
   };
@@ -113,30 +112,19 @@ export function PopupTransactionPage({
     formData.append("trPhoto", file);
 
     try {
-      const response = await axiosInstance.post(
-        `${import.meta.env.VITE_API}/imagesForTransaction/upload/${transaction.id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await dispatch(
+        addPhotoToTransactionRThunk({ id: transaction.id, formData })
+      ).unwrap()
 
-      if (response.data.statusCode === 201) {
-        setPhotos([...photos, response.data.data]); 
-        Toast.show({
-          content: "Фото загружено",
-          position: "top",
-        });
-      }
-
-      return response.data.data;
+      Toast.show({
+        content: "Фото загружено",
+        position: "top",
+      });
     } catch (error) {
       console.error(error);
       Toast.show({
         content: "Ошибка",
-        position:'top'
+        position: "top",
       });
       throw error;
     }
@@ -149,17 +137,11 @@ export function PopupTransactionPage({
         visible={visible}
         onMaskClick={() => setVisible(false)}
         position="bottom"
-        bodyStyle={{ height: "50vh", }}
+        bodyStyle={{ height: "50vh" }}
       >
         <div className={styles.popupContent}>
           <div className={styles.header}>
             <div className={styles.title}>{transaction.description}</div>
-            {/* <Button
-              className={styles.closeButton}
-              onClick={() => setVisible(false)}
-            >
-              Закрыть
-            </Button> */}
           </div>
 
           <div className={styles.content}>
@@ -192,8 +174,7 @@ export function PopupTransactionPage({
             />
 
             <GallerySection
-              photos={photos}
-              // transactionId={transaction.id}
+              transactionId={transaction.id}
               transactionType={transaction.type}
               onUploadPhoto={handleUploadPhoto}
             />

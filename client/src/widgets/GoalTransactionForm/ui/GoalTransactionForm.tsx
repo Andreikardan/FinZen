@@ -51,7 +51,6 @@ export function GoalTransactionForm({ isModalVisible,
  
   const onUpdate = async (sumGoal: string, goal_id: number, budget_id:number) => {
     const sumGoalNumber = +sumGoal;
-console.log(sumGoalNumber, 111);
 
     if(sumGoalNumber === 0){
       Toast.show({
