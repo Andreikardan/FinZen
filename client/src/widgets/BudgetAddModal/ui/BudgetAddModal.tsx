@@ -21,13 +21,20 @@ export function BudgetAddModal({  setIsModalVisible,isModalVisible }:Props) {
   };
 
   const onUpdate =  async (data:IRawBudgetData) =>{
+    if (!data.name || !data.sum || data.name.trim() === ''  ) {
+      Toast.show({
+        content: "Заполните все поля",
+        position: "bottom",
+      });
+      return;
+    }
+    
     const resultAction = await dispatch(createBudgetThunk(data))
     unwrapResult(resultAction)
      setIsModalVisible(false);
     Toast.show({
       content: "Бюджет Добавлен",
       position: "bottom",
-      icon:'success'
     });
   }
   

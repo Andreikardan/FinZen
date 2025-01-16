@@ -6,7 +6,7 @@ import { IGoal, IRawGoalData } from "@/entities/goal/model";
 import { GoalTransactionForm } from "@/widgets/GoalTransactionForm/ui/GoalTransactionForm";
 import { IApiResponseSuccess } from "@/shared/types";
 import { Dialog, SwipeAction, SwipeActionRef, Toast } from "antd-mobile";
-import { DeleteOutlined, EditOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, LeftOutlined } from "@ant-design/icons";
 import { useAppSelector } from "@/shared/hooks/reduxHooks";
 import { Option } from "antd/es/mentions";
 
@@ -130,7 +130,6 @@ export const GoalCard: React.FC<Props> = React.memo(
                     confirmText: "Да",
                     async onConfirm() {
                       const result = await onDelete();
-                      console.log(result);
 
                       if (result && result.statusCode === 200) {
                         setIsModalVisible(false);
