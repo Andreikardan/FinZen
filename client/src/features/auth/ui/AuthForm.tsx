@@ -1,3 +1,4 @@
+import styles from "./AuthForm.module.css";
 import React, { useState } from "react";
 import { Button, Form, Input } from "antd";
 import { unwrapResult } from "@reduxjs/toolkit";
@@ -188,11 +189,7 @@ export default function AuthForm(): React.ReactElement {
         type="primary"
         disabled={isButtonDisabled}
         htmlType="submit"
-        style={{
-          width: "100%",
-          fontFamily: "Comfortaa",
-          backgroundColor: "purple",
-        }}
+        className={styles.enterButton}
       >
         {type ? "Войти" : "Зарегистрироваться"}
       </Button>

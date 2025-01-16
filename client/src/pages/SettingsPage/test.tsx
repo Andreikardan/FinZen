@@ -1,4 +1,6 @@
+import styles from './test.module.css'
 import { Col, Collapse, Image, Row } from "antd";
+
 import { UserEdit } from "@/widgets";
 import CategoryForm from "@/widgets/CategoryForm/CategoryForm";
 import { useCategoryDList, useCategoryRList } from "@/entities/category";
@@ -40,6 +42,7 @@ const CollapseComponent = () => {
   };
 
   return (
+    <div className={styles.container}>
     <Collapse accordion style={{ padding: '0px', maxWidth: "340px", minWidth: "340px" }}>
       <Panel header="Выбрать бюджет для редактирования" key="2" style={{ backgroundColor: 'white' }}>
         {budgets.length > 0 ? (
@@ -131,6 +134,7 @@ const CollapseComponent = () => {
                     </Collapse>
                   </Panel>
                 </Collapse>
+
               </Panel>
             ))}
           </Collapse>
@@ -163,6 +167,7 @@ const CollapseComponent = () => {
         style={{ backgroundColor: "red", borderRadius: "0 0 8px 8px" }}
       ></Panel>
     </Collapse>
+    </div>
   );
 };
 
