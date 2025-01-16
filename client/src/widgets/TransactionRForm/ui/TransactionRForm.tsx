@@ -84,8 +84,8 @@ export function TransactionRForm({
         content: "Операция добавлена",
         position: "bottom",
       });
+      setInputs(initialInputsState)
     }
-    setInputs(initialInputsState)
   };
 
   return (

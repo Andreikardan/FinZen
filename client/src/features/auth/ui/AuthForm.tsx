@@ -116,6 +116,7 @@ export default function AuthForm(): React.ReactElement {
         <Input.Password placeholder="Введите пароль" />
       </Form.Item>
 
+
       {!type && (
         <>
           <Form.Item
@@ -185,3 +186,4 @@ export default function AuthForm(): React.ReactElement {
     </Form>
   );
 }
+

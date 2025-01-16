@@ -1,5 +1,5 @@
 import React from "react";
-import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
+import { Cell, Legend, Pie, PieChart} from "recharts";
 import { ArrayCategoryDsWithTransactions, ArrayCategoryRsWithTransactions } from "@/entities/category";
 
 interface BudgetStatisticsProps {
