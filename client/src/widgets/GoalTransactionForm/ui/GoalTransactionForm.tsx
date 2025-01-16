@@ -70,8 +70,7 @@ const updatedGoalData = {
   goal: currentGoal?.goal || null,
 };
 
-console.log(updatedGoalData.accumulator, 2222);
-console.log(goal, 1111);
+
 
 if (updatedGoalData.accumulator > goal) {
   Toast.show({

@@ -94,7 +94,6 @@ export const deleteBudgetThunk = createAsyncThunk<
     const { data } = await axiosInstance.delete<IApiResponseSuccess<IBudget>>(
       `/budgets/${id}`
     );
-    console.log(data.data, 444);
 
     return data;
   } catch (error) {

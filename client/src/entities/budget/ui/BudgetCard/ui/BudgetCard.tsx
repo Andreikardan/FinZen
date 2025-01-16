@@ -1,6 +1,6 @@
 import styles from "./BudgetCard.module.css";
 import React, { useRef, useState } from "react";
-import { DeleteOutlined, EditOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, LeftOutlined } from "@ant-design/icons";
 import { Dialog, List, SwipeAction, Toast, Input } from "antd-mobile";
 import { SwipeActionRef } from "antd-mobile/es/components/swipe-action";
 import { useNavigate } from "react-router-dom";
@@ -33,7 +33,6 @@ export const BudgetCard: React.FC<Props> = React.memo(
       setIsModalVisible(false);
       Toast.show({
         content: "Бюджет обновлен",
-        icon: "success",
         position: "bottom",
       });
     };
@@ -71,7 +70,6 @@ export const BudgetCard: React.FC<Props> = React.memo(
                       if (result.statusCode === 200) {
                         Toast.show({
                           content: "Бюджет удален",
-                          icon: "success",
                           position: "bottom",
                         });
                       } else {

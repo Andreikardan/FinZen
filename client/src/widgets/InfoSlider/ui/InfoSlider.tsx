@@ -37,9 +37,7 @@ export function InfoSlider() {
     <Swiper.Item key={index}>
       <div
         className={styles.slideContainer}
-        onClick={() => {
-          Toast.show(`Вы нажали на карточку ${index + 1}`);
-        }}
+        
       >
         <div className={styles.slideTitle}>{el.title}</div>
         <div className={styles.slideText}>{el.text}</div>
