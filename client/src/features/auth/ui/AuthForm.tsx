@@ -5,12 +5,8 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "antd-mobile";
 import { useAppDispatch, ROUTES, isEmailExistsChecker } from "@/shared";
-import {
-  ISignInData,
-  ISignUpData,
-  signInThunk,
-  signUpThunk,
-} from "@/entities/user";
+import { ISignInData, ISignUpData, signInThunk, signUpThunk } from "@/entities/user";
+
 
 export default function AuthForm(): React.ReactElement {
   const [type, setType] = useState<boolean>(true);
@@ -21,6 +17,7 @@ export default function AuthForm(): React.ReactElement {
   const submit = async (values: ISignInData | ISignUpData) => {
     const normalizedEmail = values.email.toLowerCase();
     let result;
+
     if (type) {
       const payload = {
         email: normalizedEmail,
@@ -40,6 +37,7 @@ export default function AuthForm(): React.ReactElement {
       } as ISignUpData;
       result = await dispatch(signUpThunk(payload));
     }
+
     unwrapResult(result);
     Toast.show({
       content: "Успешно",
@@ -48,21 +46,29 @@ export default function AuthForm(): React.ReactElement {
     navigate(ROUTES.BUDGETS);
   };
 
-  const handleFormChange = (changedFields: any[]) => {
+  const handleFormChange = ( allFields: any[]) => {
+    const hasErrors = allFields.some(({ errors }) => errors && errors.length > 0);
+
     if (!type) {
-      const errors = changedFields.some(({ errors }) => errors.length > 0);
-      setIsButtonDisabled(errors);
-    } else {
-      const errors = changedFields
-        .slice(0, 2)
-        .some(({ errors }) => errors.length > 0);
-      setIsButtonDisabled(errors);
+      const passwordField = allFields.find((field) => field.name[0] === 'password');
+      const repeatField = allFields.find((field) => field.name[0] === 'repeat');
+
+      const password = passwordField?.value;
+      const repeat = repeatField?.value;
+
+      if (password && repeat && password !== repeat) {
+        setIsButtonDisabled(true);
+        return;
+      }
     }
+
+    setIsButtonDisabled(hasErrors);
   };
 
   return (
     <Form
-      style={{ maxWidth: "350px", minWidth: "350px" }}
+      style={{ maxWidth: '350px', minWidth: '350px' }}
+
       onFinish={submit}
       onFieldsChange={(_, changedFields) => handleFormChange(changedFields)}
     >
@@ -71,15 +77,16 @@ export default function AuthForm(): React.ReactElement {
         required
         hasFeedback
         rules={[
-          { required: true, message: "Пожалуйста, укажите ваш email" },
+          { required: true, message: 'Пожалуйста, укажите ваш email' },
+
           {
             validator: async (_, value) => {
               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
               if (!value) {
-                return Promise.reject("Поле не может быть пустым");
+                return Promise.reject('Поле не может быть пустым');
               }
               if (!emailRegex.test(value)) {
-                return Promise.reject("Введите корректный email");
+                return Promise.reject('Введите корректный email');
               }
               return Promise.resolve();
             },
@@ -88,23 +95,21 @@ export default function AuthForm(): React.ReactElement {
       >
         <Input placeholder="email" />
       </Form.Item>
+
       <Form.Item
         name="password"
         required
         hasFeedback
         rules={[
-          { required: true, message: "Пожалуйста, укажите ваш пароль" },
+          { required: true, message: 'Пожалуйста, укажите ваш пароль' },
           {
             validator: async (_, value) => {
-              const passwordRegex =
-                /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-zA-Z0-9])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+              const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-zA-Z0-9])[a-zA-Z0-9!@#$%^&*]{8,}$/;
               if (!value) {
-                return Promise.reject("Поле не может быть пустым");
+                return Promise.reject('Поле не может быть пустым');
               }
               if (!passwordRegex.test(value)) {
-                return Promise.reject(
-                  "От 8 символов. Содержит спецсимвол, заглавную букву, цифры, и английские буквы"
-                );
+                return Promise.reject('От 8 символов. Содержит спецсимвол, заглавную букву, цифры, и английские буквы');
               }
               return Promise.resolve();
             },
@@ -113,19 +118,21 @@ export default function AuthForm(): React.ReactElement {
       >
         <Input.Password placeholder="Введите пароль" />
       </Form.Item>
+
       {!type && (
         <>
           <Form.Item
             name="repeat"
             hasFeedback
-            dependencies={["password"]}
+            dependencies={['password']}
             rules={[
-              { required: true, message: "Пожалуйста, повторите пароль" },
+              { required: true, message: 'Пожалуйста, повторите пароль' },
               ({ getFieldValue }) => ({
                 validator(_, value) {
-                  if (!value) {
+                  if (!value || getFieldValue('password') === value) {
                     return Promise.resolve();
                   }
+
                   if (getFieldValue("password") === value) {
                     return Promise.resolve();
                   }
@@ -136,25 +143,21 @@ export default function AuthForm(): React.ReactElement {
           >
             <Input.Password placeholder="Повторите пароль" />
           </Form.Item>
+
           <Form.Item
             name="username"
             required
             hasFeedback
             rules={[
-              {
-                required: true,
-                message: "Пожалуйста, укажите имя пользователя",
-              },
+              { required: true, message: 'Пожалуйста, укажите имя пользователя' },
               {
                 validator: async (_, value) => {
                   const usernameRegex = /^[a-zA-Z0-9]{4,}$/;
                   if (!value) {
-                    return Promise.reject("Поле не может быть пустым");
+                    return Promise.reject('Поле не может быть пустым');
                   }
                   if (!usernameRegex.test(value)) {
-                    return Promise.reject(
-                      "Имя пользователя может содержать только английские буквы, цифры, и иметь длинну 4 символа"
-                    );
+                    return Promise.reject('Имя пользователя может содержать только английские буквы, цифры, и иметь длину 4 символа');
                   }
                   return Promise.resolve();
                 },
@@ -165,21 +168,23 @@ export default function AuthForm(): React.ReactElement {
           </Form.Item>
         </>
       )}
+
       <Button
         type="primary"
         disabled={isButtonDisabled}
         htmlType="submit"
+        style={{ width: "100%", fontFamily: "Comfortaa", backgroundColor: "purple" }}
         className={styles.enterButton}
       >
         {type ? "Войти" : "Зарегистрироваться"}
       </Button>
+
       <br />
       <br />
+
       <Button
         type="dashed"
-        onClick={() => {
-          setType((prev) => !prev);
-        }}
+        onClick={() => setType((prev) => !prev)}
         style={{ width: "100%", fontFamily: "Comfortaa" }}
       >
         {type ? "Я здесь впервые" : "Уже есть аккаунт"}
