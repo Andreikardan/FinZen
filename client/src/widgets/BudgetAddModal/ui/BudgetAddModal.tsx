@@ -1,3 +1,4 @@
+import styles from './BudgetAddModal.module.css'
 import  { useState } from "react";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { Dialog, Input, Toast } from "antd-mobile";
@@ -10,7 +11,7 @@ type Props = {
   isModalVisible: boolean;
   setIsModalVisible: (value:boolean) => void
 } 
-export function BudgetAddModal({ isModalVisible, setIsModalVisible }:Props) {
+export function BudgetAddModal({  setIsModalVisible,isModalVisible }:Props) {
   const dispatch = useAppDispatch()
   const initialInputsState = {name:'',sum:null}
   const [inputs,setInputs] = useState<IRawBudgetData>(initialInputsState)
@@ -20,13 +21,20 @@ export function BudgetAddModal({ isModalVisible, setIsModalVisible }:Props) {
   };
 
   const onUpdate =  async (data:IRawBudgetData) =>{
+    if (!data.name || !data.sum || data.name.trim() === ''  ) {
+      Toast.show({
+        content: "Заполните все поля",
+        position: "bottom",
+      });
+      return;
+    }
+    
     const resultAction = await dispatch(createBudgetThunk(data))
     unwrapResult(resultAction)
      setIsModalVisible(false);
     Toast.show({
       content: "Бюджет Добавлен",
       position: "bottom",
-      icon:'success'
     });
   }
   
@@ -42,6 +50,7 @@ export function BudgetAddModal({ isModalVisible, setIsModalVisible }:Props) {
               value={inputs.name}
               onChange={(value) => onChangeHandler(value, "name")}
               placeholder="Название"
+              className={styles.inputs}
             />
             <Input
               type="number"
@@ -49,6 +58,7 @@ export function BudgetAddModal({ isModalVisible, setIsModalVisible }:Props) {
               value={String(inputs.sum)}
               onChange={(value) => onChangeHandler(value, "sum")}
               placeholder="Сумма"
+              className={styles.inputs}
             />
           </div>
         }
@@ -57,12 +67,13 @@ export function BudgetAddModal({ isModalVisible, setIsModalVisible }:Props) {
             {
               key: "cancel",
               text: "Отмена",
+              style: {backgroundColor: 'grey', color: 'white'},
               onClick: () => setIsModalVisible(false),
             },
             {
               key: "confirm",
               text: "Добавить",
-              bold: true,
+              style: {backgroundColor: '#6a1b9a', color: 'white'},
               onClick: ()=>onUpdate(inputs),
             },
           ],

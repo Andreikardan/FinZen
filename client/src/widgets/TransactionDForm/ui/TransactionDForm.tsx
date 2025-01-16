@@ -7,7 +7,8 @@ import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { IRawTransactionDData } from "@/entities/transactionD/model";
 import { createTransactionDThunk } from "@/entities/transactionD";
 import { IOneBudgetTransactions } from "@/entities/budget/model/type";
-import { updateBudgetThunk } from "@/entities/budget/api";
+import { getAllTransactionsThunk, updateBudgetThunk } from "@/entities/budget/api";
+
 
 type Props = {
   isModalVisible: boolean;
@@ -23,7 +24,7 @@ export function TransactionDForm({
   refreshTransactions,
 }: Props) {
   const dispatch = useAppDispatch();
-  const categoryDs = budget!.CategoryDs;
+  const categoryDs = budget?.CategoryDs;
   const initialInputsState = { description: "", sum: 0, category_id: null };
   const [inputs, setInputs] =
     useState<IRawTransactionDData>(initialInputsState);
@@ -47,11 +48,12 @@ export function TransactionDForm({
       Toast.show({
         content: "Все поля обязательны к заполнению",
         position: "bottom",
-        icon: "fail",
       });
     } else {
       const resultAction = await dispatch(createTransactionDThunk(data));
       unwrapResult(resultAction);
+       await dispatch(getAllTransactionsThunk())
+      // dispatch(addNewTransaction(resultAction.payload?.data))
       const updatedBudgetData = {
         name: budget?.name,
         //@ts-ignore
@@ -67,7 +69,6 @@ export function TransactionDForm({
       Toast.show({
         content: "Операция добавлена",
         position: "bottom",
-        icon: "success",
       });
     }
   };
@@ -84,6 +85,7 @@ export function TransactionDForm({
               value={inputs.description}
               onChange={(value) => onChangeHandler(value, "description")}
               placeholder="Описание"
+              className={styles.inputs}
             />
             <Input
               type="number"
@@ -91,12 +93,14 @@ export function TransactionDForm({
               value={String(inputs.sum)}
               onChange={(value) => onChangeHandler(value, "sum")}
               placeholder="Сумма"
+              className={styles.inputs}
             />
             <div className={styles.categoryContainer}>
               {inputs.category_id ? (
                 <img
-                  src={`http://localhost:3000/static/images/${
-                    categoryDs.find(
+
+                  src={`${import.meta.env.VITE_IMAGES_API}${
+                    categoryDs?.find(
                       (category) => category.id === inputs.category_id
                     )?.icon
                   }`}
@@ -123,10 +127,10 @@ export function TransactionDForm({
               >
                 <div className={styles.iconGridContainer}>
                   <Grid columns={3} gap={8}>
-                    {categoryDs.map((category) => (
+                    {categoryDs?.map((category) => (
                       <Grid.Item className={styles.gridItem} key={category.id}>
                         <img
-                          src={`http://localhost:3000/static/images/${category.icon}`}
+                          src={`${import.meta.env.VITE_IMAGES_API}${category.icon}`}
                           className={styles.iconItem}
                           onClick={() => onCategorySelect(category.id)}
                         />
@@ -146,12 +150,14 @@ export function TransactionDForm({
             {
               key: "cancel",
               text: "Отмена",
+              style: {backgroundColor: 'grey', color: 'white'},
               onClick: () => setIsModalVisible(false),
             },
             {
               key: "confirm",
               text: "Добавить",
-              bold: true,
+              style: {backgroundColor: '#6a1b9a', color: 'white'},
+            
               onClick: () => onCreate(inputs),
             },
           ],

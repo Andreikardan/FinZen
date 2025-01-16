@@ -23,3 +23,12 @@
     border-radius: 8px;
   }
 
+
+  .ant-select-focused .ant-select-selector {
+    border-color: var(--primary-dark-purple)!important; 
+    box-shadow: none !important; 
+  }
+
+  .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+    border-color: var(--primary-dark-purple)!important;
+  }

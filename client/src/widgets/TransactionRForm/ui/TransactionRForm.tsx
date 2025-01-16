@@ -7,7 +7,7 @@ import { useAppDispatch } from "@/shared/hooks/reduxHooks";
 import { IRawTransactionRData } from "@/entities/transactionR/model";
 import { createTransactionRThunk } from "@/entities/transactionR";
 import { IOneBudgetTransactions } from "@/entities/budget/model/type";
-import { updateBudgetThunk } from "@/entities/budget/api";
+import { getAllTransactionsThunk, updateBudgetThunk } from "@/entities/budget/api";
 
 type Props = {
   isModalVisibleR: boolean;
@@ -23,7 +23,7 @@ export function TransactionRForm({
   refreshTransactions,
 }: Props) {
   const dispatch = useAppDispatch();
-  const categoryRs = budget!.CategoryRs;
+  const categoryRs = budget?.CategoryRs;
   const initialInputsState = { description: "", sum: 0, category_id: null };
   const [inputs, setInputs] =
     useState<IRawTransactionRData>(initialInputsState);
@@ -47,7 +47,6 @@ export function TransactionRForm({
       Toast.show({
         content: "Бюджет не найден",
         position: "bottom",
-        icon: "fail",
       });
       return;
     }
@@ -63,17 +62,17 @@ export function TransactionRForm({
       Toast.show({
         content: "Бюджет не может быть отрицательным",
         position: "bottom",
-        icon: "fail",
       });
     } else if (!data.category_id || !data.description || !data.sum) {
       Toast.show({
         content: "Все поля обязательны к заполнению",
         position: "bottom",
-        icon: "fail",
       });
     } else {
       const resultAction = await dispatch(createTransactionRThunk(data));
       unwrapResult(resultAction);
+             await dispatch(getAllTransactionsThunk())
+      
       const resultBudgetAction = await dispatch(
         //@ts-ignore
         updateBudgetThunk({ id: budget!.id, updatedBudget: updatedBudgetData })
@@ -84,7 +83,6 @@ export function TransactionRForm({
       Toast.show({
         content: "Операция добавлена",
         position: "bottom",
-        icon: "success",
       });
     }
   };
@@ -101,6 +99,7 @@ export function TransactionRForm({
               value={inputs.description}
               onChange={(value) => onChangeHandler(value, "description")}
               placeholder="Описание"
+              className={styles.inputs}
             />
             <Input
               type="number"
@@ -108,12 +107,14 @@ export function TransactionRForm({
               value={String(inputs.sum)}
               onChange={(value) => onChangeHandler(value, "sum")}
               placeholder="Сумма"
+              className={styles.inputs}
             />
             <div className={styles.categoryContainer}>
               {inputs.category_id ? (
                 <img
-                  src={`http://localhost:3000/static/images/${
-                    categoryRs.find(
+
+                  src={`${import.meta.env.VITE_IMAGES_API}${
+                    categoryRs?.find(
                       (category) => category.id === inputs.category_id
                     )?.icon
                   }`}
@@ -140,10 +141,10 @@ export function TransactionRForm({
               >
                 <div className={styles.iconGridContainer}>
                   <Grid columns={3} gap={8}>
-                    {categoryRs.map((category) => (
+                    {categoryRs?.map((category) => (
                       <Grid.Item className={styles.gridItem} key={category.id}>
                         <img
-                          src={`http://localhost:3000/static/images/${category.icon}`}
+                          src={`${import.meta.env.VITE_IMAGES_API}${category.icon}`}
                           className={styles.iconItem}
                           onClick={() => onCategorySelect(category.id)}
                         />
@@ -163,12 +164,13 @@ export function TransactionRForm({
             {
               key: "cancel",
               text: "Отмена",
+              style: {backgroundColor: 'grey', color: 'white'},
               onClick: () => setIsModalVisibleR(false),
             },
             {
               key: "confirm",
               text: "Добавить",
-              bold: true,
+              style: {backgroundColor: '#6a1b9a', color: 'white'},
               onClick: () => onCreate(inputs),
             },
           ],

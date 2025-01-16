@@ -5,8 +5,12 @@ import { PlusSquareOutlined } from "@ant-design/icons";
 import { BudgetAddModal } from "@/widgets/BudgetAddModal";
 import { BudgetsList } from "@/widgets/BudgetsList";
 
+
 export function BudgetsPage() {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+ 
+
+
 
   return (
     <div className={styles.container}>
@@ -24,12 +28,12 @@ export function BudgetsPage() {
         </Button>
       </div>
 
-      {isModalVisible && (
+      
         <BudgetAddModal
           isModalVisible={isModalVisible}
           setIsModalVisible={setIsModalVisible}
         />
-      )}
+      
     </div>
   );
 }

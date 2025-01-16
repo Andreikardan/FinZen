@@ -1,11 +1,12 @@
-
+import styles from './GoalTransaction.module.css'
 import { updateBudgetThunk } from "@/entities/budget/api";
 import { updateGoalThunk } from "@/entities/goal/api"; 
 import { createGoalTransactionThunk, IRawGoalTransactionData } from "@/entities/goalTransaction";
 import { useAppDispatch } from "@/shared";
 import { useAppSelector } from "@/shared/hooks/reduxHooks";
+import { QuestionCircleOutlined } from "@ant-design/icons";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { Input } from "antd";
+import { Input, Tooltip } from "antd";
 import { Dialog, Toast } from "antd-mobile";
 import { useState } from "react";
 
@@ -15,7 +16,7 @@ type Props = {
   setIsModalVisible: (value: boolean) => void;
   goal_id: number; 
   budget_id: number
-  accumulator:number |null;
+  accumulator:number 
   sum: number 
   goal:number |null
 
@@ -49,21 +50,13 @@ export function GoalTransactionForm({ isModalVisible,
 
     if (accumulator === null || goal === null) {
       Toast.show({
-        content: "Некорректные данные цели",
-        icon: "error",
+        content: "Заполните поле",
         position: "bottom",
       });
       return;
     }
 
-try {
-  const resultTransactionAction = await dispatch(createGoalTransactionThunk({sumGoal, goal_id, budget_id}));
-  unwrapResult(resultTransactionAction);
- 
-} catch (error) {
-  console.error("Ошибка", error);
-  return; 
-}
+
 
 
 if(!currentBudget){
@@ -78,13 +71,22 @@ const updatedGoalData = {
 };
 
 
+
 if (updatedGoalData.accumulator > goal) {
   Toast.show({
-    content: "Сумма цели не может быть выше вложенных",
-    icon: "error", 
+    content: "Вложение не должно превышать цель",
     position: "bottom",
   });
   return;
+}
+
+try {
+  const resultTransactionAction = await dispatch(createGoalTransactionThunk({sumGoal, goal_id, budget_id}));
+  unwrapResult(resultTransactionAction);
+ 
+} catch (error) {
+  console.error("Ошибка", error);
+  return; 
 }
 
 try {
@@ -106,13 +108,11 @@ try {
   Toast.show({
     content: "Сумма добавлена и цель обновлена",
     position: "bottom",
-    icon: "success",
   });
-} catch (error) {
-  console.error("Ошибка при обновлении цели или бюджета:", error);
+} catch {
+  
   Toast.show({
     content: "Ошибка при обновлении данных",
-    icon: "error",
     position: "bottom",
   });
 }
@@ -129,11 +129,29 @@ try {
         content={
           <div>
             <Input
-              type="string"
+              type="number"
               name="sumGoal"
               value={inputs.sumGoal !== null ? inputs.sumGoal : ''}
               onChange={(e) => onChangeHandler(e.target.value, "sumGoal")}
               placeholder="Сумма на цель"
+              className={styles.inputs}
+              suffix={
+                <Tooltip
+                  title="Введите сумму, которую хотите добавить к цели."
+               
+                  placement="top"
+                  color="var(--primary-light-purple)"
+                  overlayStyle={{
+                  
+                    padding: "12px",
+                    maxWidth: "200px",
+                    
+                  }}
+                  
+                >
+                  <QuestionCircleOutlined style={{ color: "rgba(0, 0, 0, 0.45)" }} />
+                </Tooltip>
+              }
             />
           </div>
         }
@@ -142,12 +160,13 @@ try {
             {
               key: "cancel",
               text: "Отмена",
+              style: {backgroundColor: 'grey', color: 'white'},
               onClick: () => setIsModalVisible(false),
             },
             {
               key: "confirm",
               text: "Добавить",
-              bold: true,
+              style: {backgroundColor: '#6a1b9a', color: 'white'},
               onClick: () => onUpdate(inputs.sumGoal,goal_id, budget_id),
             },
           ],

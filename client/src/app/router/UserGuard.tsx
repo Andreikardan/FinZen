@@ -6,9 +6,10 @@ export default function UserGuard(): JSX.Element {
   const user = useAppSelector((state) => state.user.user);
   const {loading, isInitialized} = useAppSelector((state) => state.user);
   const location = useLocation();
-  if (loading || !isInitialized) {
+  if (loading && !isInitialized) {
     return <div>Загрузка...</div>;
   }
+
   if (!user) {
     return (
       <Navigate

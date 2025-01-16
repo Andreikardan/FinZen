@@ -1,4 +1,4 @@
-import { Popup, Button, Toast } from "antd-mobile";
+import { Popup, Toast } from "antd-mobile";
 import styles from "./PopupTransactionPage.module.css";
 import React, { useState, useEffect } from "react";
 import { IAllTransaction } from "@/entities/transactionR";
@@ -135,7 +135,7 @@ export function PopupTransactionPage({
     } catch (error) {
       console.error(error);
       Toast.show({
-        content: "Что то пошло не так..",
+        content: "Что-то пошло не так..",
         position:'top'
       });
       throw error;
@@ -154,12 +154,12 @@ export function PopupTransactionPage({
         <div className={styles.popupContent}>
           <div className={styles.header}>
             <div className={styles.title}>{transaction.description}</div>
-            <Button
+            {/* <Button
               className={styles.closeButton}
               onClick={() => setVisible(false)}
             >
               Закрыть
-            </Button>
+            </Button> */}
           </div>
 
           <div className={styles.content}>
