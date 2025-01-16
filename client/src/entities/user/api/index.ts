@@ -61,10 +61,12 @@ export const signUpThunk = createAsyncThunk<
 
 export const signInThunk = createAsyncThunk<IApiResponseSuccess<UserWithTokenType>,ISignInData,{ rejectValue: IApiResponseReject }
 >(USER_THUNKS_TYPES.SIGN_IN, async (signInData, { rejectWithValue }) => {
+  
   try {
     const { data } = await axiosInstance.post<IApiResponseSuccess<UserWithTokenType>>(AUTH_API_ROUTES.SIGN_IN, signInData,
     );
     setAccessToken(data.data.accessToken);
+    
     return data;
   } catch (error) {
     const err = error as AxiosError<IApiResponseReject>;
