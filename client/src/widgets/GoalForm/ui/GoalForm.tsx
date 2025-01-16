@@ -55,7 +55,7 @@ export function GoalForm({ isModalVisible, setIsModalVisible }: Props) {
       });
     } catch (error) {
       Toast.show({
-        content: "Ошибка при добавлении ",
+        content: "Ошибка",
         position: "bottom",
       });
     }

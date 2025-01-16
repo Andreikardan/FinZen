@@ -46,13 +46,13 @@ const userSlice = createSlice({
         state.loading = false;
         state.user = action.payload.data.user;
         state.error = null;
-        Toast.show({content: action.payload.message ,position: "bottom",});
+        Toast.show({content: 'Привет!' ,position: "bottom",});
       })
       .addCase(signUpThunk.rejected, (state, action) => {
         state.loading = false;
         state.user = null;
         state.error = action.payload!.error;
-        Toast.show({content: action.payload!.message ,position: "bottom",});
+        Toast.show({content: 'Что-то не так' ,position: "bottom",});
       })
       .addCase(signInThunk.pending, (state) => {
         state.loading = true;
@@ -61,13 +61,13 @@ const userSlice = createSlice({
         state.loading = false;
         state.user = action.payload.data.user;
         state.error = null;
-        Toast.show({content: action.payload.message ,position: "bottom",});
+        Toast.show({content: 'Привет!' ,position: "bottom",});
       })
       .addCase(signInThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload!.error;
         state.user = null;
-        Toast.show({content: action.payload?.message ,position: "bottom",});
+        Toast.show({content: 'Что-то не так' ,position: "bottom",});
       })
 
       .addCase(signOutThunk.pending, (state) => {
@@ -83,7 +83,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.user = null;
         state.error = action.payload!.error;
-        Toast.show({content: action.payload?.message ,position: "bottom",});
+        Toast.show({content: 'Что-то не так' ,position: "bottom",});
       })
 
       .addCase(updateThunk.pending, (state)=>{

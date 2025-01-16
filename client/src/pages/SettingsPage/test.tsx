@@ -69,6 +69,8 @@ const CollapseComponent = () => {
                       {categoryD
                         .filter((category) => category.budget_id === budget.id)
                         .map((category) => (
+                          
+                          
                           <Panel
                             key={category.id}
                             header={
@@ -77,7 +79,7 @@ const CollapseComponent = () => {
                                 <Col>
                                   {category.icon && (
                                     <Image
-                                      src={`http://localhost:3000/static/images/${category.icon}`}
+                                      src={`${import.meta.env.VITE_IMAGES_API}${category.icon}`}
                                       width={24}
                                       height={24}
                                       preview={false}
@@ -115,7 +117,7 @@ const CollapseComponent = () => {
                                 <Col>
                                   {category.icon && (
                                     <Image
-                                      src={`http://localhost:3000/static/images/${category.icon}`}
+                                      src={`${import.meta.env.VITE_IMAGES_API}${category.icon}`}
                                       width={24}
                                       height={24}
                                       preview={false}

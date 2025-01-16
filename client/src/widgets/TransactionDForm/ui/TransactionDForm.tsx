@@ -46,7 +46,7 @@ export function TransactionDForm({
   const onCreate = async (data: IRawTransactionDData) => {
     if (!data.category_id || !data.description || !data.sum) {
       Toast.show({
-        content: "Все поля обязательны к заполнению",
+        content: "Заполните все поля",
         position: "bottom",
       });
     } else {

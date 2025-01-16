@@ -40,7 +40,7 @@ const EditCategoryRForm: React.FC<EditCategoryFormProps> = ({ category, icons })
       await updateCategoryR(category.id, values.name, selectedIcon,);
       Toast.show({ content: 'Категория обновлена', position: "bottom" });
     } catch (error) {
-      Toast.show({ content: 'Ошибка при обновлении категории', position: "bottom" });
+      Toast.show({ content: 'Ошибка', position: "bottom" });
     }
   };
 
@@ -49,7 +49,7 @@ const EditCategoryRForm: React.FC<EditCategoryFormProps> = ({ category, icons })
       await deleteCategoryR(category.id); // Удаляем категорию доходов
       Toast.show({ content: 'Категория удалена', position: "bottom" });
     } catch (error) {
-      Toast.show({ content: 'Ошибка при удалении категории', position: "bottom" });
+      Toast.show({ content: 'Ошибка ', position: "bottom" });
     }
   };
 
@@ -90,7 +90,7 @@ const EditCategoryRForm: React.FC<EditCategoryFormProps> = ({ category, icons })
                 onClick={() => setIsModalVisible(true)}
               >
                 <Image
-                  src={`http://localhost:3000/static/images/${selectedIcon}`}
+                  src={`${import.meta.env.VITE_IMAGES_API}${selectedIcon}`}
                   width={24}
                   height={24}
                   preview={false}
@@ -117,7 +117,7 @@ const EditCategoryRForm: React.FC<EditCategoryFormProps> = ({ category, icons })
           {icons.map((iconObj) => (
             <Col key={iconObj.icon} span={4}>
               <Image
-                src={`http://localhost:3000/static/images/${iconObj.icon}`}
+                src={`${import.meta.env.VITE_IMAGES_API}${iconObj.icon}`}
                 width={32}
                 height={32}
                 preview={false}
