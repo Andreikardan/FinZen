@@ -130,23 +130,25 @@ class UserController {
     }
   }
 
-  static async update(req, res){
+  static async update(req, res) {
     try {
-      const {user:{id}}= res.locals
-      const user = await UserService.getById(+id)
-      if(req.body.password){
+      const { user: { id } } = res.locals;
+      const user = await UserService.getById(+id);
+      if (req.body.password) {
         req.body.password = await bcrypt.hash(req.body.password, 10);
       }
-      if(req.body.email){
-        req.body.email=req.body.email.toLowerCase()
-        const isEmpty = await UserService.getByEmail(req.body.email)
-        if (isEmpty){
-          return res.status(400).json(formatResponse(400,`Email ${req.body.email} занят`, null , `Email ${req.body.email} занят`))
-        }
-      }
-      const update = await UserService.update(user, req.body)
-      res.status(200).json(formatResponse(200,'Успешное обновление', update))
-    } catch ({message}) {
+      if (req.body.email) {
+        req.body.email = req.body.email.toLowerCase();
+        const currentEmail = user.email;
+        if (req.body.email !== currentEmail) {
+          const existingUser = await UserService.getByEmail(req.body.email);
+          if (existingUser) {
+            return res.status(400).json(
+              formatResponse(400, `Email ${req.body.email} занят`, null, `Email ${req.body.email} занят`)
+            )}}}
+      const update = await UserService.update(user, req.body);
+      res.status(200).json(formatResponse(200, 'Успешное обновление', update));
+    } catch ({ message }) {
       console.log(message);
       res
         .status(500)
@@ -176,9 +178,9 @@ class UserController {
         .json(
           formatResponse(
             400,
-            'Email обязателен для проверки и должен быть корректным.',
+            'Данный email не существует.',
             null,
-            'Email обязателен для проверки и должен быть корректным.'
+            'Данный email не существует.'
           )
         )
       }
