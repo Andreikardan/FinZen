@@ -13,7 +13,7 @@ export default function AuthGuard({
   if (user) {
     return (
       <Navigate
-        to={ROUTES.BUDGETS}
+        to={ROUTES.OPERATIONS}
         state={{ from: location }}
         replace
       />
