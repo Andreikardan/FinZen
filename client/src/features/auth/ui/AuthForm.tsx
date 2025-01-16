@@ -187,4 +187,3 @@ export default function AuthForm(): React.ReactElement {
   );
 }
 
-
