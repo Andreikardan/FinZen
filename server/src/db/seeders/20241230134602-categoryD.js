@@ -48,6 +48,48 @@ module.exports = {
           borderColor: 'dfsdfs',
           budget_id: 1,
         },
+        {
+          name: "Зарплата",
+          icon: "зарплата.svg",
+          borderColor: 'dfsdfs',
+          budget_id: 2,
+        },
+        {
+          name: "Инвестиции",
+          icon: "инвестиции.svg",
+          borderColor: 'dfsdfs',
+          budget_id: 2,
+        },
+        {
+          name: "Перевод",
+          icon: "перевод.svg",
+          borderColor: 'dfsdfs',
+          budget_id: 2,
+        },
+        {
+          name: "Подарок",
+          icon: "подарок.svg",
+          borderColor: 'dfsdfs',
+          budget_id: 2,
+        },
+        {
+          name: "Халтура",
+          icon: "халтура.svg",
+          borderColor: 'dfsdfs',
+          budget_id: 2,
+        },
+        {
+          name: "Шальной доход",
+          icon: "шальнойДоход.svg",
+          borderColor: 'dfsdfs',
+          budget_id: 2,
+        },
+        {
+          name: "Кэшбек",
+          icon: "кэшбек.svg",
+          borderColor: 'dfsdfs',
+          budget_id: 2,
+        },
       ],
       {}
     );
