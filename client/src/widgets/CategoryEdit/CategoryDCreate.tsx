@@ -1,75 +1,134 @@
-import React from "react";
-import { Form, Input, Select, Button, message } from "antd";
-import { useBudgetList } from "@/widgets/BudgetsList/useBudgetList";
-
-const { Option } = Select;
+import React, { useState } from "react";
+import { Form, Input, Button, Row, Col, Image, Modal } from "antd";
+import { useCategoryDList } from "@/entities/category"; // Импортируем хук
+import { Toast } from "antd-mobile";
 
 interface EditCategoryFormProps {
   category: {
     id: number;
     name: string;
-    budget_id: number;
+    icon: string;
   };
-  onEdit: (id: number, newName: string, budget_id: number) => Promise<void>;
-  onDelete: (id: number) => Promise<void>;
+  icons: { icon: string }[];
 }
 
-const EditCategoryDForm: React.FC<EditCategoryFormProps> = ({ category, onEdit, onDelete }) => {
-  const { budgets } = useBudgetList();
+const EditCategoryDForm: React.FC<EditCategoryFormProps> = ({ category, icons }) => {
+  const { updateCategoryD, deleteCategoryD } = useCategoryDList();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedIcon, setSelectedIcon] = useState<string>(category.icon);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [form] = Form.useForm();
 
-  const onFinish = async (values: { name: string; budget_id: number }) => {
+  const handleIconSelect = (icon: string) => {
+    setSelectedIcon(icon);
+    setIsModalVisible(false);
+    checkFormValidity();
+  };
+
+  const checkFormValidity = () => {
+    const fields = form.getFieldsValue();
+    const isNameEmpty = !fields.name || fields.name.trim() === "";
+    setIsButtonDisabled(isNameEmpty);
+  };
+
+  const handleFormChange = () => {
+    checkFormValidity();
+  };
+
+  const onFinish = async (values: { name: string }) => {
     try {
-      await onEdit(category.id, values.name, values.budget_id);
-      message.success("Категория обновлена");
+      await updateCategoryD(category.id, values.name, selectedIcon, '');
+      Toast.show({ content: 'Категория обновлена', position: "bottom" });
     } catch (error) {
-      message.error("Ошибка при обновлении категории");
+      Toast.show({ content: 'Ошибка при обновлении категории', position: "bottom" });
     }
   };
 
   const handleDelete = async () => {
     try {
-      await onDelete(category.id);
-      message.success("Категория удалена");
+      await deleteCategoryD(category.id);
+      Toast.show({ content: 'Категория удалена', position: "bottom" });
     } catch (error) {
-      message.error("Ошибка при удалении категории");
+      Toast.show({ content: 'Ошибка при удалении категории', position: "bottom" });
     }
   };
 
   return (
-    <Form
-      onFinish={onFinish}
-      initialValues={{
-        name: category.name,
-        budget_id: category.budget_id,
-      }}
-    >
-      <Form.Item
-        label="Название категории"
-        name="name"
-        rules={[{ required: true, message: "Введите название категории" }]}
+    <>
+      <Form
+        form={form}
+        onFinish={onFinish}
+        onFieldsChange={handleFormChange}
+        initialValues={{
+          name: category.name,
+        }}
       >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label="Счет"
-        name="budget_id"
-        rules={[{ required: true, message: "Выберите счет" }]}
+        <Form.Item
+          label="Название категории"
+          name="name"
+          rules={[{ required: true, message: "Введите название категории" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="icon"
+          rules={[{ required: false, message: "Выберите иконку" }]}
+        >
+          <Row justify="center">
+            <Col>
+              <Button
+                type="default"
+                size="small"
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  padding: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onClick={() => setIsModalVisible(true)}
+              >
+                <Image
+                  src={`http://localhost:3000/static/images/${selectedIcon}`}
+                  width={24}
+                  height={24}
+                  preview={false}
+                />
+              </Button>
+            </Col>
+          </Row>
+        </Form.Item>
+        <Button type="primary" htmlType="submit" disabled={isButtonDisabled} style={{ minWidth: '100%' }}>
+          Сохранить
+        </Button>
+        <Button type="primary" danger onClick={handleDelete} style={{ minWidth: '100%', marginTop: '8px' }}>
+          Удалить
+        </Button>
+      </Form>
+
+      <Modal
+        title="Выберите иконку"
+        visible={isModalVisible}
+        onCancel={() => setIsModalVisible(false)}
+        footer={null}
       >
-        <Select>
-          {budgets.map((budget) => (
-            <Option key={budget.id} value={budget.id}>
-              {budget.name}
-            </Option>
+        <Row gutter={[16, 16]}>
+          {icons.map((iconObj) => (
+            <Col key={iconObj.icon} span={4}>
+              <Image
+                src={`http://localhost:3000/static/images/${iconObj.icon}`}
+                width={32}
+                height={32}
+                preview={false}
+                onClick={() => handleIconSelect(iconObj.icon)}
+                style={{ cursor: 'pointer' }}
+              />
+            </Col>
           ))}
-        </Select>
-      </Form.Item>
-      <Button type="primary" htmlType="submit">
-        Сохранить
-      </Button>
-      <Button type="primary" danger onClick={handleDelete}>
-        Удалить
-      </Button>
-    </Form>
+        </Row>
+      </Modal>
+    </>
   );
 };
 

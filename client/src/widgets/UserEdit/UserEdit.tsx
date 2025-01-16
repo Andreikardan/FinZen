@@ -10,7 +10,7 @@ import { useState } from 'react';
 export function UserEdit() {
     const [pass, setPass] = useState<boolean>(false)
     const dispatch = useAppDispatch()
-    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const user = useAppSelector((state)=>state.user.user)
 
     const submit = async (values: ISignUpData )=>{

@@ -93,7 +93,6 @@ export const deleteTransactionDThunk = createAsyncThunk<
     const { data } = await axiosInstance.delete<
       IApiResponseSuccess<ITransactionD>
     >(`/transactionds/${id}`);
-    console.log(data.data, 444);
 
     return data;
   } catch (error) {

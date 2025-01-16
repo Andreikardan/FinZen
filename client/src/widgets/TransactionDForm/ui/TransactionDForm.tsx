@@ -48,7 +48,6 @@ export function TransactionDForm({
       Toast.show({
         content: "Все поля обязательны к заполнению",
         position: "bottom",
-        icon: "fail",
       });
     } else {
       const resultAction = await dispatch(createTransactionDThunk(data));
@@ -70,7 +69,6 @@ export function TransactionDForm({
       Toast.show({
         content: "Операция добавлена",
         position: "bottom",
-        icon: "success",
       });
     }
   };

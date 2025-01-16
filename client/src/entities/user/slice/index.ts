@@ -1,7 +1,7 @@
 import type { UserType } from '../model';
 import { createSlice } from '@reduxjs/toolkit';
 import { refreshTokensThunk, signInThunk, signOutThunk, signUpThunk, updateThunk } from '../api';
-import { message } from 'antd';
+import { Toast } from 'antd-mobile';
 
 type UserState = {
   user: UserType | null;
@@ -46,13 +46,13 @@ const userSlice = createSlice({
         state.loading = false;
         state.user = action.payload.data.user;
         state.error = null;
-        message.success(action.payload.message);
+        Toast.show({content: action.payload.message ,position: "bottom",});
       })
       .addCase(signUpThunk.rejected, (state, action) => {
         state.loading = false;
         state.user = null;
         state.error = action.payload!.error;
-        message.error(action.payload!.error);
+        Toast.show({content: action.payload!.message ,position: "bottom",});
       })
       .addCase(signInThunk.pending, (state) => {
         state.loading = true;
@@ -61,13 +61,13 @@ const userSlice = createSlice({
         state.loading = false;
         state.user = action.payload.data.user;
         state.error = null;
-        message.success(action.payload.message);
+        Toast.show({content: action.payload.message ,position: "bottom",});
       })
       .addCase(signInThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload!.error;
         state.user = null;
-        message.error(action.payload?.error);
+        Toast.show({content: action.payload?.message ,position: "bottom",});
       })
 
       .addCase(signOutThunk.pending, (state) => {
@@ -77,13 +77,13 @@ const userSlice = createSlice({
         state.user = null;
         state.loading = false;
         state.error = null;
-        message.success(action.payload.message);
+        Toast.show({content: action.payload.message ,position: "bottom",});
       })
       .addCase(signOutThunk.rejected, (state, action) => {
         state.loading = false;
         state.user = null;
         state.error = action.payload!.error;
-        message.error(action.payload?.error);
+        Toast.show({content: action.payload?.message ,position: "bottom",});
       })
 
       .addCase(updateThunk.pending, (state)=>{
@@ -92,12 +92,12 @@ const userSlice = createSlice({
       .addCase(updateThunk.fulfilled, (state, action)=>{
         state.loading = false;
         state.error=null;
-        message.success(action.payload.message)
+        Toast.show({content: action.payload.message ,position: "bottom",});
       })
       .addCase(updateThunk.rejected, (state, action)=>{
         state.loading = false;
         state.error = action.payload!.error
-        message.error(action.payload?.error)
+        Toast.show({content: action.payload?.message ,position: "bottom",});
       })
   },
 });

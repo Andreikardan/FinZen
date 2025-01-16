@@ -5,12 +5,7 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "antd-mobile";
 import { useAppDispatch, ROUTES, isEmailExistsChecker } from "@/shared";
-import {
-  ISignInData,
-  ISignUpData,
-  signInThunk,
-  signUpThunk,
-} from "@/entities/user";
+import { ISignInData,  ISignUpData,  signInThunk,  signUpThunk,} from "@/entities/user";
 
 export default function AuthForm(): React.ReactElement {
   const [type, setType] = useState<boolean>(true);
@@ -61,26 +56,42 @@ export default function AuthForm(): React.ReactElement {
   };
 
   return (
-    <Form
-      style={{ maxWidth: "400px" }}
-      onFinish={submit}
-      onFieldsChange={(_, changedFields) => handleFormChange(changedFields)}
-    >
-      <Form.Item
-        name="email"
-        required
-        hasFeedback
-        rules={[
-          { required: true, message: "Пожалуйста, укажите ваш email" },
-          {
-            validator: async (_, value) => {
-              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-              if (!value) {
-                return Promise.reject("Поле не может быть пустым");
-              }
-              if (!emailRegex.test(value)) {
-                return Promise.reject("Введите корректный email");
-              }
+    <Form style={{ maxWidth: '350px', minWidth: '350px' }} onFinish={submit} onFieldsChange={(_, changedFields) => handleFormChange(changedFields)}>
+      <Form.Item name='email' required hasFeedback rules={[{ required: true, message: 'Пожалуйста, укажите ваш email' },{
+        validator: async (_,value) => {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!value) {
+            return Promise.reject('Поле не может быть пустым');
+          }
+          if (!emailRegex.test(value)) {
+            return Promise.reject('Введите корректный email');
+          }
+          return Promise.resolve();
+        }}]}>
+        <Input placeholder="email"/>
+      </Form.Item>
+      <Form.Item name="password" required hasFeedback rules={[{ required: true, message: 'Пожалуйста, укажите ваш пароль' },{ 
+        validator: async (_, value) => {
+          const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-zA-Z0-9])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+          if (!value) {
+            return Promise.reject('Поле не может быть пустым');
+          }
+          if (!passwordRegex.test(value)) {
+            return Promise.reject('От 8 символов. Содержит спецсимвол, заглавную букву, цифры, и английские буквы');
+          }
+          return Promise.resolve();
+      }}]}>
+        <Input.Password placeholder="Введите пароль" />
+      </Form.Item>
+      {!type && (<>
+        <Form.Item name="repeat" hasFeedback dependencies={['password']} rules={[{ required: true, message: 'Пожалуйста, повторите пароль'},
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+            if (!value) {
+              return Promise.resolve();
+            }
+            if (getFieldValue('password') === value) {
+
               return Promise.resolve();
             },
           },

@@ -10,8 +10,7 @@ export const useCategoryDList = () => {
     async (id: number) => {
       try {
         const result = await dispatch(deleteCategoryDThunk({ id })).unwrap();
-        // После успешного удаления обновляем состояние
-        dispatch(getAllCategoryDThunk()); // Загружаем актуальный список категорий
+        dispatch(getAllCategoryDThunk());
         return result;
       } catch (error) {
         console.error("Ошибка при удалении категории:", error);
@@ -22,12 +21,11 @@ export const useCategoryDList = () => {
   );
 
   const updateCategoryD = useCallback(
-    async (id: number, name: string, icon: string, borderColor: string, budget_id:number) => {
+    async (id: number, name: string, icon: string, borderColor: string) => {
       try {
-        const updatedCategory = { id, name, icon, borderColor, budget_id };
+        const updatedCategory = { id, name, icon, borderColor};
         const result = await dispatch(updateCategoryDThunk(updatedCategory)).unwrap();
-        // После успешного обновления обновляем состояние
-        dispatch(getAllCategoryDThunk()); // Загружаем актуальный список категорий
+        dispatch(getAllCategoryDThunk());
         return result;
       } catch (error) {
         console.error("Ошибка при обновлении категории:", error);
@@ -42,8 +40,7 @@ export const useCategoryDList = () => {
       try {
         const newCategory = { name, icon, borderColor, budget_id };
         const result = await dispatch(createCategoryDThunk(newCategory)).unwrap();
-        // После успешного создания обновляем состояние
-        dispatch(getAllCategoryDThunk()); // Загружаем актуальный список категорий
+        dispatch(getAllCategoryDThunk());
         return result;
       } catch (error) {
         console.error("Ошибка при создании категории:", error);

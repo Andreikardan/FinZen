@@ -1,12 +1,12 @@
-const CategoryRController = require("../controllers/CategoryD.controller");
+const CategoryRController = require("../controllers/CategoryR.controller");
 const verifyRefreshToken = require("../middleware/verifeRefreshToken");
 
 const router = require("express").Router();
 
 router
-  .get("/",verifyRefreshToken, CategoryRController.getAllCategoryDs)
-  .post("/", CategoryRController.createCategoryD)
-  .put("/", CategoryRController.updateCategoryD)
-  .delete("/", CategoryRController.deleteCategoryD);
+  .get("/",verifyRefreshToken, CategoryRController.getAllCategoryRs)
+  .post("/", CategoryRController.createCategoryR)
+  .put("/", CategoryRController.updateCategoryR)
+  .delete("/", CategoryRController.deleteCategoryR);
 
 module.exports = router;

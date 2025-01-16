@@ -6,7 +6,7 @@ import { IGoal, IRawGoalData } from "@/entities/goal/model";
 import { GoalTransactionForm } from "@/widgets/GoalTransactionForm/ui/GoalTransactionForm";
 import { IApiResponseSuccess } from "@/shared/types";
 import { Dialog, SwipeAction, SwipeActionRef, Toast } from "antd-mobile";
-import { DeleteOutlined, EditOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, LeftOutlined } from "@ant-design/icons";
 import { useAppSelector } from "@/shared/hooks/reduxHooks";
 import { Option } from "antd/es/mentions";
 
@@ -130,7 +130,6 @@ export const GoalCard: React.FC<Props> = React.memo(
                     confirmText: "Да",
                     async onConfirm() {
                       const result = await onDelete();
-                      console.log(result);
 
                       if (result && result.statusCode === 200) {
                         setIsModalVisible(false);
@@ -185,6 +184,7 @@ export const GoalCard: React.FC<Props> = React.memo(
                 value={updatedGoalData.title}
                 onChange={(e) => onChangeHandler(e.target.value, "title")}
                 placeholder="Новое название"
+                className={styles.inputs}
               />
               <Input
                 name="goal"
@@ -192,6 +192,7 @@ export const GoalCard: React.FC<Props> = React.memo(
                 onChange={(e) => onChangeHandler(e.target.value, "goal")}
                 placeholder="Сумма"
                 type="number"
+                className={styles.inputs}
               />
             </div>
           }
@@ -201,11 +202,7 @@ export const GoalCard: React.FC<Props> = React.memo(
                 key: "cancel",
                 text: "Отмена",
                 onClick: () => setIsModalVisible(false),
-                style: {
-                  color: "#fff",
-                  backgroundColor: "var(--primary-light-purple)",
-                  padding: "8px 16px",
-                },
+                style: {backgroundColor: 'grey', color: 'white'},
               },
               {
                 key: "confirm",

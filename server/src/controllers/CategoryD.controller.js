@@ -30,10 +30,8 @@ class CategoryDController {
       // if (!valid) {
       //   return res.status(400).json(formatResponse(400, error, null, error));
       // }
-      console.log(req.body)
       req.body.borderColor = 'green'
       const newCategoryD = await CategoryDService.create(req.body);
-      console.log(req.body)
       if (!newCategoryD) {
         return res.status(400).json(formatResponse(400, `Категория не создалась`, null));
       }
@@ -52,10 +50,8 @@ class CategoryDController {
         return res.status(404).json(formatResponse(404, 'Категория не найдена', null));
       }
       delete req.body.id
-      console.log(req.body)
       const { valid, error, clearData } = CategoryValidator.validateUpdate(req.body);
       if (!valid) {
-        console.log(clearData)
         return res.status(400).json(formatResponse(400, error, null));
       }
       const updatedCategoryD = await CategoryDService.update(categoryD, clearData);
