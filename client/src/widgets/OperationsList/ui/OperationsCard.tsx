@@ -11,6 +11,7 @@ type Props = {
 
 export function OperationsCard({ transaction }: Props) {
   const [visible, setVisible] = useState<boolean>(false);
+// console.log(transaction);
 
   return (
     <>
