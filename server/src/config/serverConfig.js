@@ -20,6 +20,7 @@ const serverConfig = (app) => {
   app.use(cors(corsConfig));
   app.use(removeHTTPheader);
   app.use('/static/images',express.static(path.join(__dirname,'..','public')))
+  app.use(express.static(path.join(__dirname, '..', 'public', 'dist')));
 
 };
 
