@@ -11,7 +11,7 @@
   --primary-light-purple-2: rgb(123, 93, 179);
   --primary-white: rgb(255 255 255 / 100%);
   --primary-gray-1: rgb(128 128 128);
-  --primary-gray-2: rgb(209 209 209 / 100%);
+  --primary-gray-2: rgba(209, 209, 209, 0.69);
   --primary-black-50: rgb(37 37 50 / 100%);
   --primary-black-100: rgb(24 24 27 / 100%);
   --primary-translucent-blue: rgb(18 18 45 / 90%);

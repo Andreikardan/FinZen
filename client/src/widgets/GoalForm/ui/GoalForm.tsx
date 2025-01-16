@@ -84,14 +84,7 @@ export function GoalForm({ isModalVisible, setIsModalVisible }: Props) {
               placeholder="Сумма на цель"
               className={styles.inputs}
             />
-            <Input
-              type="number"
-              name="accumulator"
-              value={inputs.accumulator !== null ? inputs.accumulator : ''}
-              onChange={(e) => onChangeHandler(e.target.value, "accumulator")}
-              placeholder="Сумма добавления"
-              className={styles.inputs}
-            />
+          
 
           </div>
         }
