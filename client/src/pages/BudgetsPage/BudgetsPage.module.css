@@ -6,6 +6,13 @@
   
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #f9f9f9
+}
+
 .buttonContainer {
   position: fixed;
   bottom: 125px; 

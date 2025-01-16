@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { PlusOutlined  } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import { Button, Select, Space } from 'antd';
 import { GoalForm } from '@/widgets/GoalForm';
 import { GoalList } from '@/widgets/GoalList';
@@ -18,7 +18,6 @@ export function GoalPage() {
   const budget = useAppSelector((state) => state.budget.currentBudget);
   const budgets = useAppSelector((state) => state.budget.budgets);
 
- 
   const budgetStatisticsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -73,16 +72,16 @@ export function GoalPage() {
       <div>
         <GoalList />
         <div className={styles.buttonContainer}>
-        <Button
-          type="primary"
-          className={styles.addButton}
-          onClick={() => setIsModalVisible(true)}
-        >
-          <Space>
-          <PlusOutlined className={styles.addIcon} />
-          </Space>
-        </Button>
-      </div>
+          <Button
+            type="primary"
+            className={styles.addButton}
+            onClick={() => setIsModalVisible(true)}
+          >
+            <Space>
+              <PlusOutlined className={styles.addIcon} />
+            </Space>
+          </Button>
+        </div>
 
         <GoalForm
           isModalVisible={isModalVisible}
@@ -104,11 +103,9 @@ export function GoalPage() {
         </div>
       </div>
 
-     
       <div ref={budgetStatisticsRef} style={{ minHeight: '300px', marginTop: '15px' }}>
         {budget && hasTransactions() ? (
           <BudgetStatistics
-          
             categoriesRs={categoriesRs}
             categoriesDs={categoriesDs}
           />
