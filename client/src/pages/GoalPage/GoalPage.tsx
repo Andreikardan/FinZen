@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
-import { PlusSquareOutlined } from '@ant-design/icons';
-import { Select, Space } from 'antd';
+import { PlusOutlined, PlusSquareOutlined } from '@ant-design/icons';
+import { Button, Select, Space } from 'antd';
 import { GoalForm } from '@/widgets/GoalForm';
 import { GoalList } from '@/widgets/GoalList';
 import { useAppDispatch, useAppSelector } from '@/shared/hooks/reduxHooks';
@@ -72,17 +72,17 @@ export function GoalPage() {
     <div>
       <div>
         <GoalList />
-        <div>
-          <button
-            className={styles.buttonContainer}
-            color="var(--primary-light-purple)"
-            onClick={() => setIsModalVisible(true)}
-          >
-            <Space>
-              <PlusSquareOutlined style={{ fontSize: "32px" }} />
-            </Space>
-          </button>
-        </div>
+        <div className={styles.buttonContainer}>
+        <Button
+          type="primary"
+          className={styles.addButton}
+          onClick={() => setIsModalVisible(true)}
+        >
+          <Space>
+          <PlusOutlined className={styles.addIcon} />
+          </Space>
+        </Button>
+      </div>
 
         <GoalForm
           isModalVisible={isModalVisible}

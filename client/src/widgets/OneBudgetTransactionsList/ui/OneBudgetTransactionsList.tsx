@@ -7,6 +7,7 @@ import { OneBudgetTransactionCard } from "./OneBudgetTransactionCard/OneBudgetTr
 import { Button } from "antd";
 import { TransactionDForm } from "@/widgets/TransactionDForm/ui/TransactionDForm";
 import { TransactionRForm } from "@/widgets/TransactionRForm/ui/TransactionRForm";
+import { PlusOutlined } from "@ant-design/icons";
 
 type Props = {
   budgetId: number;
@@ -88,7 +89,7 @@ export function OneBudgetTransactionsList({ budgetId }: Props): JSX.Element {
                   className={styles.plusButton}
                   onClick={() => setIsModalVisible(true)}
                 >
-                  +
+                 <PlusOutlined />
                 </button>
               </div>
 
@@ -127,7 +128,7 @@ export function OneBudgetTransactionsList({ budgetId }: Props): JSX.Element {
                   onClick={() => setIsModalVisibleR(true)}
 
                 >
-                  +
+                  <PlusOutlined />
                 </button>
               </div>
             </div>

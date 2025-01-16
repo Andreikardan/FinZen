@@ -42,11 +42,24 @@ export function GoalTransactionForm({ isModalVisible,
  const currentGoal = goals.find((el) => el.id === goal_id)
 
   const onChangeHandler = (value: string, name: string) => {
+
+
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
+
+ 
   const onUpdate = async (sumGoal: string, goal_id: number, budget_id:number) => {
     const sumGoalNumber = +sumGoal;
+console.log(sumGoalNumber, 111);
+
+    if(sumGoalNumber === 0){
+      Toast.show({
+            content: "Заполните поле",
+            position: "bottom",
+          });
+          return;
+    }
 
     if (accumulator === null || goal === null) {
       Toast.show({
@@ -166,7 +179,11 @@ try {
             {
               key: "confirm",
               text: "Добавить",
-              style: {backgroundColor: '#6a1b9a', color: 'white'},
+              style: {
+                color: "#fff",
+                backgroundColor: "var(--primary-light-purple)",
+                padding: "8px 16px",
+              },
               onClick: () => onUpdate(inputs.sumGoal,goal_id, budget_id),
             },
           ],
