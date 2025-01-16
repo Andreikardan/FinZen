@@ -21,12 +21,11 @@ export const useCategoryRList = () => {
   );
 
   const updateCategoryR = useCallback(
-    async (id: number, name: string, icon: string, borderColor: string, budget_id:number) => {
+    async (id: number, name: string, icon: string) => {
       try {
-        const updatedCategory = { id, name, icon, borderColor, budget_id };
+        const updatedCategory = { id, name, icon};
         const result = await dispatch(updateCategoryRThunk(updatedCategory)).unwrap();
-        // После успешного обновления обновляем состояние
-        dispatch(getAllCategoryRThunk()); // Загружаем актуальный список категорий
+        dispatch(getAllCategoryRThunk());
         return result;
       } catch (error) {
         console.error("Ошибка при обновлении категории:", error);
@@ -41,8 +40,7 @@ export const useCategoryRList = () => {
       try {
         const newCategory = { name, icon, borderColor, budget_id };
         const result = await dispatch(createCategoryRThunk(newCategory)).unwrap();
-        // После успешного создания обновляем состояние
-        dispatch(getAllCategoryRThunk()); // Загружаем актуальный список категорий
+        dispatch(getAllCategoryRThunk());
         return result;
       } catch (error) {
         console.error("Ошибка при создании категории:", error);

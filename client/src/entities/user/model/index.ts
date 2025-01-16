@@ -11,6 +11,7 @@ export interface ISignUpData extends ISignInData {
 export type UserType = {
   id: number;
   email: string;
+  img: string;
   username: string;
   createdAt: Date;
   updatedAt: Date;

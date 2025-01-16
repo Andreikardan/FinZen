@@ -47,7 +47,7 @@ export default function AuthForm(): React.ReactElement {
   };
 
   return (
-    <Form style={{ maxWidth: '400px' }} onFinish={submit} onFieldsChange={(_, changedFields) => handleFormChange(changedFields)}>
+    <Form style={{ maxWidth: '350px', minWidth: '350px' }} onFinish={submit} onFieldsChange={(_, changedFields) => handleFormChange(changedFields)}>
       <Form.Item name='email' required hasFeedback rules={[{ required: true, message: 'Пожалуйста, укажите ваш email' },{
         validator: async (_,value) => {
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
