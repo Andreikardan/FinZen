@@ -3,33 +3,46 @@ import styles from "./InfoSlider.module.css";
 import { Swiper, Toast } from "antd-mobile";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { getInfoSliderDataThunk } from "@/entities/infoSlider";
-import { SkeletonSlider } from "./SkeletonSlider/SkeletonSlider"; 
+import { SkeletonSlider } from "./SkeletonSlider/SkeletonSlider";
 
 export function InfoSlider() {
   const dispatch = useAppDispatch();
   const sliderDataArray = useAppSelector((state) => state.infoSlider.slider);
-  const [isLoading, setIsLoading] = useState(true); 
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(getInfoSliderDataThunk()).unwrap(); 
-      setTimeout(() => setIsLoading(false), 2000); 
+      try {
+        await dispatch(getInfoSliderDataThunk()).unwrap();
+      } catch (error) {
+        console.error("Ошибка при загрузке данных слайдера:", error);
+      } finally {
+        setIsLoading(false); 
+      }
     };
     fetchData();
   }, [dispatch]);
 
+  if (isLoading) {
+    return <SkeletonSlider />;
+  }
+
+  
+  if (sliderDataArray.length === 0) {
+    return <div className={styles.emptyMessage}>Данные отсутствуют</div>;
+  }
+
+  
   const items = sliderDataArray.map((el, index) => (
     <Swiper.Item key={index}>
       <div
         className={styles.slideContainer}
-        onClick={() => {
-          Toast.show(`Вы нажали на карточку ${index + 1}`);
-        }}
+        
       >
         <div className={styles.slideTitle}>{el.title}</div>
         <div className={styles.slideText}>{el.text}</div>
         <img
-          src={`http://localhost:3000/static/images/${el.img}`}
+          src={`${import.meta.env.VITE_IMAGES_API}${el.img}`}
           alt={el.title}
           className={styles.slideImage}
         />
@@ -39,13 +52,9 @@ export function InfoSlider() {
 
   return (
     <div>
-      {isLoading ? (
-        <SkeletonSlider />
-      ) : (
-        <Swiper loop autoplay>
-          {items}
-        </Swiper>
-      )}
+      <Swiper loop autoplay>
+        {items}
+      </Swiper>
     </div>
   );
 }

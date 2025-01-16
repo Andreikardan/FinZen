@@ -1,6 +1,6 @@
 import styles from "./BudgetCard.module.css";
 import React, { useRef, useState } from "react";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, LeftOutlined } from "@ant-design/icons";
 import { Dialog, List, SwipeAction, Toast, Input } from "antd-mobile";
 import { SwipeActionRef } from "antd-mobile/es/components/swipe-action";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,6 @@ export const BudgetCard: React.FC<Props> = React.memo(
     const ref = useRef<SwipeActionRef>(null);
     const navigate = useNavigate();
 
-
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [updatedBudgetData, setUpdatedBudgetData] = useState({
       name: budget.name,
@@ -34,7 +33,6 @@ export const BudgetCard: React.FC<Props> = React.memo(
       setIsModalVisible(false);
       Toast.show({
         content: "Бюджет обновлен",
-        icon: "success",
         position: "bottom",
       });
     };
@@ -51,12 +49,11 @@ export const BudgetCard: React.FC<Props> = React.memo(
                 key: "update",
                 text: <EditOutlined className={styles.actionIcon} />,
                 color: "warning",
-                
+
                 onClick: async () => {
                   setIsModalVisible(true);
                   ref.current?.close();
                 },
-                
               },
               {
                 key: "delete",
@@ -68,10 +65,11 @@ export const BudgetCard: React.FC<Props> = React.memo(
                     confirmText: "Да",
                     async onConfirm() {
                       const result = await onDelete();
+                      
+                      
                       if (result.statusCode === 200) {
                         Toast.show({
                           content: "Бюджет удален",
-                          icon: "success",
                           position: "bottom",
                         });
                       } else {
@@ -91,15 +89,18 @@ export const BudgetCard: React.FC<Props> = React.memo(
             <List.Item
               arrow={false}
               className={styles.listItem}
-              
               onClick={() => {
                 navigate(`/transaction/${budget.id}`);
               }}
             >
+              <div className={styles.swipeHint}>
+               <LeftOutlined style={{ fontSize: "20px", color: "var(--primary-light-purple)" }} />
+               </div>
               <div className={styles.listItemContent}>
                 <span className={styles.listItemName}>{budget.name}</span>
                 <span className={styles.listItemSum}>{budget.sum} ₽</span>
               </div>
+               
             </List.Item>
           </SwipeAction>
         </List>

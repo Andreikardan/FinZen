@@ -40,23 +40,15 @@ export function UserEdit() {
 
 
     const handleFormChange = (allFields: any[]) => {
-        // Проверяем наличие ошибок в полях
         const hasErrors = allFields.some(({ errors }) => errors && errors.length > 0);
-
-        // Получаем значения полей password и repeat
         const passwordField = allFields.find((field) => field.name[0] === 'password');
         const repeatField = allFields.find((field) => field.name[0] === 'repeat');
-
         const password = passwordField?.value;
         const repeat = repeatField?.value;
-
-        // Если пароль введен, но повторение пароля пустое или не совпадает, блокируем кнопку
         if (password && (!repeat || password !== repeat)) {
             setIsButtonDisabled(true);
             return;
         }
-
-        // Если есть ошибки или пароли не совпадают, блокируем кнопку
         setIsButtonDisabled(hasErrors || (password && password !== repeat));
     };
 

@@ -18,12 +18,12 @@ module.exports = {
         },
         {
           category_id: 3,
-          sum: 3000,
+          sum: 4000,
           description: "Вернули долг",
         },
         {
           category_id: 4,
-          sum: 7000,
+          sum: 6000,
           description: "Подарок от команды",
         },
         {

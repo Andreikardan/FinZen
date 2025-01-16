@@ -92,7 +92,7 @@ function CategoryForm({ icons, budgetId, isIncome }: Props) {
               >
                 {selectedIcon ? (
                   <Image
-                    src={`http://localhost:3000/static/images/${selectedIcon}`}
+                    src={`${import.meta.env.VITE_IMAGES_API}${selectedIcon}`}
                     width={24}
                     height={24}
                     preview={false}
@@ -125,7 +125,7 @@ function CategoryForm({ icons, budgetId, isIncome }: Props) {
           {icons.map((iconObj) => (
             <Col key={iconObj.icon} span={4}>
               <Image
-                src={`http://localhost:3000/static/images/${iconObj.icon}`}
+                src={`${import.meta.env.VITE_IMAGES_API}${iconObj.icon}`}
                 width={32}
                 height={32}
                 preview={false}
