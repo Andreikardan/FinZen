@@ -7,7 +7,6 @@ import { Toast } from "antd-mobile";
 import { useAppDispatch, ROUTES, isEmailExistsChecker } from "@/shared";
 import { ISignInData, ISignUpData, signInThunk, signUpThunk } from "@/entities/user";
 
-
 export default function AuthForm(): React.ReactElement {
   const [type, setType] = useState<boolean>(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -46,7 +45,7 @@ export default function AuthForm(): React.ReactElement {
     navigate(ROUTES.OPERATIONS);
   };
 
-  const handleFormChange = ( allFields: any[]) => {
+  const handleFormChange = (allFields: any[]) => {
     const hasErrors = allFields.some(({ errors }) => errors && errors.length > 0);
 
     if (!type) {
@@ -66,10 +65,8 @@ export default function AuthForm(): React.ReactElement {
   };
 
   return (
-
     <Form
       style={{ maxWidth: '350px', minWidth: '350px' }}
-
       onFinish={submit}
       onFieldsChange={(_, changedFields) => handleFormChange(changedFields)}
     >
@@ -79,7 +76,6 @@ export default function AuthForm(): React.ReactElement {
         hasFeedback
         rules={[
           { required: true, message: 'Пожалуйста, укажите ваш email' },
-
           {
             validator: async (_, value) => {
               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -90,11 +86,9 @@ export default function AuthForm(): React.ReactElement {
                 return Promise.reject('Введите корректный email');
               }
               return Promise.resolve();
-            }
-          }
-          }),
+            },
+          },
         ]}
-      
       >
         <Input placeholder="email" />
       </Form.Item>
@@ -121,9 +115,6 @@ export default function AuthForm(): React.ReactElement {
       >
         <Input.Password placeholder="Введите пароль" />
       </Form.Item>
-      </>
-      )}
-
 
       {!type && (
         <>
@@ -136,10 +127,6 @@ export default function AuthForm(): React.ReactElement {
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue('password') === value) {
-                    return Promise.resolve();
-                  }
-
-                  if (getFieldValue("password") === value) {
                     return Promise.resolve();
                   }
                   return Promise.reject(new Error("Пароли не совпадают"));
@@ -197,6 +184,4 @@ export default function AuthForm(): React.ReactElement {
       </Button>
     </Form>
   );
-
 }
-
