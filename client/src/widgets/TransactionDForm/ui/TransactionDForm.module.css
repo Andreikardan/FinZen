@@ -1,11 +1,11 @@
-.categoryNames {
-  font-family: Comfortaa; 
-  font-weight: 500; 
-  color: #4a148c; 
-  margin-top: 4px; 
-  text-align: center; 
+.categoryNames { 
   width: 100%; 
+  margin-top: 4px;
+  font-family: Comfortaa, Arial, sans-serif; 
+  font-weight: 500; 
   line-height: 1.2; 
+  color: #4a148c; 
+  text-align: center; 
 }
 
 .iconGridContainer {
@@ -58,20 +58,19 @@
   width: 40px; 
   height: 40px; 
   margin-bottom: 4px; 
-  border-radius: 50%; 
-  object-fit: cover;
+  object-fit: cover; 
+  border-radius: 50%;
 }
 
-.iconGridContainer .iconItem span {
-  text-align: center; 
-  font-size: 12px;
-  color: #333;
-  font-family: Comfortaa; 
-  font-weight: 500; 
-  color: #4a148c; 
-  margin-top: 4px; 
+.iconGridContainer .iconItem span { 
   width: 100%; 
+  margin-top: 4px;
+  font-family: Comfortaa, Arial, sans-serif; 
+  font-size: 12px; 
+  font-weight: 500; 
   line-height: 1.2; 
+  color: #4a148c;
+  text-align: center; 
 }
 
 .categoryButton {
@@ -88,9 +87,9 @@
   justify-content: space-between; 
 }
 
-.iconGridContainer .grid .gridItem {
-  flex: 1 1 30%; 
+.iconGridContainer .grid .gridItem { 
   display: flex;
+  flex: 1 1 30%;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start; 
@@ -108,23 +107,22 @@
   width: 40px; 
   height: 40px; 
   margin-bottom: 4px; 
-  border-radius: 50%; 
-  object-fit: cover;
+  object-fit: cover; 
+  border-radius: 50%;
 }
 
-.gridItem span {
-  text-align: center; 
-  font-size: 12px;
-  color: #333;
-  font-family: Comfortaa; 
-  font-weight: 500; 
-  color: #4a148c; 
-  margin-top: 4px; 
+.gridItem span { 
   width: 100%; 
+  margin-top: 4px;
+  font-family: Comfortaa, Arial, sans-serif; 
+  font-size: 12px; 
+  font-weight: 500; 
   line-height: 1.2; 
+  color: #4a148c;
+  text-align: center; 
 }
 
 .inputs {
   margin: 25px 0;
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 0.5px solid rgb(0 0 0 / 5%);
 }

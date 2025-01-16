@@ -1,20 +1,20 @@
 * {
   box-sizing: border-box;
-  font-family: Comfortaa;
-  margin: 0;
   padding: 0;
+  margin: 0;
+  font-family: Comfortaa, Arial, sans-serif;
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding-top: 3vh;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 1s ease-out forwards;
-  padding-top: 3vh;
-  min-height: 100vh;
   will-change: opacity, transform; 
 }
 
@@ -27,38 +27,38 @@
 }
 
 .welcomeText {
+  margin-right: 10vw;
+  margin-bottom: 2vh;
+  margin-left: 10vw;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #333;
+  text-align: center;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 1s ease-out forwards;
-  margin-left: 10vw;
-  margin-right: 10vw;
-  text-align: center;
-  font-size: 16px;
-  color: #333;
-  line-height: 1.4;
-  margin-bottom: 2vh;
   will-change: opacity, transform; 
 }
 
 .warning {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  margin: 2vh 3vw;
+  justify-content: center;
   width: 80%;
   max-width: 600px;
-  border: 3px solid rgb(124, 95, 202);
   padding: 2vw;
+  margin: 2vh 3vw;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #555;
+  text-align: center;
+  border: 3px solid rgb(124 95 202);
   border-radius: 1vw;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 20%);
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 1s ease-out 0.5s forwards;
-  text-align: center;
-  font-size: 14px;
-  color: #555;
-  line-height: 1.4;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   will-change: opacity, transform;
 }
 
@@ -72,11 +72,11 @@
 .instructions {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
-  margin-top: 2vh;
+  justify-content: space-around;
   width: 80%;
   max-width: 800px;
+  margin-top: 2vh;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 1s ease-out 0.5s forwards;
@@ -84,39 +84,39 @@
 }
 
 .instructions > div {
+  margin-bottom: 2vh;
   font-size: 20px;
   font-weight: bold;
-  margin-bottom: 2vh;
 }
 
 .steps {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   align-items: center;
-  margin-top: 2vh;
+  justify-content: space-around;
   width: 100%;
   max-width: 800px;
+  margin-top: 2vh;
 }
 
 .step {
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   width: 30%;
   height: 150px;
-  background-color: rgb(124, 95, 202);
-  color: white;
+  padding: 15px;
   font-size: 18px;
   font-weight: bold;
+  color: white;
+  background-color: rgb(124 95 202);
   border-radius: 10px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 20%);
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 1s ease-out 0.5s forwards;
-  padding: 15px;
-  position: relative;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   will-change: opacity, transform; 
 }
 
@@ -129,24 +129,24 @@
 }
 
 .text {
-  text-align: center;
+  margin-top: 10px;
   font-size: 14px;
   line-height: 1.4;
-  margin-top: 10px;
+  text-align: center;
 }
 
 .footer {
   position: fixed; 
   bottom: 0; 
   left: 0; 
+  z-index: 1000; 
   width: 100%; 
   padding: 10px; 
-  background-color: rgb(124, 95, 202); 
+  font-size: 14px; 
   color: white; 
   text-align: left; 
-  font-size: 14px; 
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); 
-  z-index: 1000; 
+  background-color: rgb(124 95 202); 
+  box-shadow: 0 -2px 10px rgb(0 0 0 / 20%); 
 }
 
 @keyframes fadeInUp {
@@ -154,6 +154,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

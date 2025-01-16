@@ -139,7 +139,7 @@ export const GoalCard: React.FC<Props> = React.memo(
                         });
                       } else {
                         Toast.show({
-                          content: "Кажется у нас проблемы",
+                          content: "У нас проблемы",
                           position: "bottom",
                         });
                       }

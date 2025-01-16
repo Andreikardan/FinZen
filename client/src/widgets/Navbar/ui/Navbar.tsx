@@ -6,7 +6,7 @@ import { ROUTES } from '@/shared/enums/routes';
 import { Button } from '@/shared/ui/Button';
 import { useAppDispatch, useAppSelector } from '@/shared/hooks/reduxHooks';
 import { getAllBudgetsThunk } from '@/entities/budget';
-import { HistoryOutlined, LineChartOutlined, WalletOutlined, SettingOutlined, PieChartOutlined } from '@ant-design/icons';
+import { HistoryOutlined,  WalletOutlined, SettingOutlined, PieChartOutlined } from '@ant-design/icons';
 
 export function Navbar(): React.ReactElement {
   const dispatch = useAppDispatch();

@@ -1,5 +1,5 @@
 :root {
-  font-family: Comfortaa;
+  font-family: Comfortaa, Arial, sans-serif;
   font-weight: 400;
   line-height: 1.5;
   color: rgb(255 255 255 / 87%);
@@ -14,7 +14,7 @@
 
  ::-webkit-scrollbar {
   display: none !important;
-  width: 0px !important;
+  width: 0 !important;
   color: white;
   background-color: white;
 } 
@@ -23,7 +23,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: Comfortaa;
+  font-family: Comfortaa, Arial, sans-serif;
 }
 
 a {

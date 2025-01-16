@@ -1,32 +1,32 @@
 .container {
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
+  width: 300px;
   padding-bottom: 10px;
-  width: 300px; 
+  border-bottom: 0.5px solid rgb(0 0 0 / 5%); 
 }
 
 .categoryIconD {
+  padding: 6px;
   margin-right: 12px;
   object-fit: cover;
+  background-color: var(--category-d-icon-background-color);
+  border: var(--category-d-icon-border-color);
   border-radius: 50%;
-  padding: 6px;
-  background-color: var(--categoryDIcon-background-color);
-  border: var(--categoryDIcon-border-color);
 }
 
 .categoryIconR {
+  padding: 6px;
   margin-right: 12px;
   object-fit: cover;
+  background-color: var(--category-r-icon-background-color);
+  border: var(--category-r-icon-border-color);
   border-radius: 50%;
-  padding: 6px;
-  background-color: var(--categoryRIcon-background-color);
-  border: var(--categoryRIcon-border-color);
 }
 
 .descriptionBlock {
   flex: 1;
   flex-direction: column;
-  margin-right: 12px;
-  width: 100%; 
+  width: 100%;
+  margin-right: 12px; 
   word-wrap: break-word; 
 }
 
@@ -34,9 +34,9 @@
   margin: 0;
   font-size: 16px;
   font-weight: 500;
-  color: #333;
+  color: #333; 
+  word-break: break-word;
   white-space: normal; 
-  word-break: break-word; 
 }
 
 .date {
@@ -47,25 +47,25 @@
 }
 
 .sumD {
+  align-self: flex-start;
   min-width: 80px;
+  padding-top: 4px;
   margin: 0;
   font-size: 15px;
   font-weight: 400;
-  color: var(--transactionD-sum-color);
+  color: var(--transaction-d-sum-color);
   text-align: right;
-  align-self: flex-start;
-  padding-top: 4px;
 }
 
 .sumR {
+  align-self: flex-start;
   min-width: 80px;
+  padding-top: 4px;
   margin: 0;
   font-size: 15px;
   font-weight: 400;
-  color: var(--transactionR-sum-color);
+  color: var(--transaction-r-sum-color);
   text-align: right;
-  align-self: flex-start;
-  padding-top: 4px;
 }
 
 

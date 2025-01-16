@@ -83,8 +83,10 @@ export default function AuthForm(): React.ReactElement {
       }}]}>
         <Input.Password placeholder="Введите пароль" />
       </Form.Item>
-      {!type && (<>
-        <Form.Item name="repeat" hasFeedback dependencies={['password']} rules={[{ required: true, message: 'Пожалуйста, повторите пароль'},
+      {!type && (
+        <>
+        <Form.Item name="repeat" hasFeedback dependencies={['password']} 
+        rules={[{ required: true, message: 'Пожалуйста, повторите пароль'},
           ({ getFieldValue }) => ({
             validator(_, value) {
             if (!value) {
@@ -93,9 +95,11 @@ export default function AuthForm(): React.ReactElement {
             if (getFieldValue('password') === value) {
 
               return Promise.resolve();
-            },
-          },
+            }
+          }
+          }),
         ]}
+      
       >
         <Input style={{ fontFamily: "Comfortaa" }} placeholder="email" />
       </Form.Item>
@@ -127,6 +131,9 @@ export default function AuthForm(): React.ReactElement {
           placeholder="Введите пароль"
         />
       </Form.Item>
+      </>
+      )}
+
       {!type && (
         <>
           <Form.Item
@@ -206,4 +213,5 @@ export default function AuthForm(): React.ReactElement {
       </Button>
     </Form>
   );
+
 }

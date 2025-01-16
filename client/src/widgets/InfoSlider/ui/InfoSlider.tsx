@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./InfoSlider.module.css";
-import { Swiper, Toast } from "antd-mobile";
+import { Swiper } from "antd-mobile";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { getInfoSliderDataThunk } from "@/entities/infoSlider";
 import { SkeletonSlider } from "./SkeletonSlider/SkeletonSlider";

@@ -1,14 +1,14 @@
 .enterButton {
-    background: linear-gradient(45deg, #bd90d9, #763881);
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-size: 16px;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
-    overflow: hidden;
     width: 100%;
+    padding: 12px 24px;
+    overflow: hidden;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    background: linear-gradient(45deg, #bd90d9, #763881);
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
+    transition: all 0.3s ease;
   }

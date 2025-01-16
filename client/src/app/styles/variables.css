@@ -1,39 +1,39 @@
 :root {
   /* colors */
   --primary-blue: rgb(5 160 208);
-  --primary-blue-1: rgb(3, 119, 154);
+  --primary-blue-1: rgb(3 119 154);
   --primary-purple: rgb(233 92 233 / 100%);
-  --primary-purple-1: rgb(235, 0, 235); 
-  --primary-purple-2: rgb(68, 36, 74); 
+  --primary-purple-1: rgb(235 0 235); 
+  --primary-purple-2: rgb(68 36 74); 
   --primary-dark-purple: rgb(71 37 77);
-  --primary-dark-purple-2: rgb(113, 57, 123);
+  --primary-dark-purple-2: rgb(113 57 123);
   --primary-light-purple: rgb(158 124 219 / 100%);
-  --primary-light-purple-2: rgb(123, 93, 179);
+  --primary-light-purple-2: rgb(123 93 179);
   --primary-white: rgb(255 255 255 / 100%);
   --primary-gray-1: rgb(128 128 128);
-  --primary-gray-2: rgba(209, 209, 209, 0.69);
+  --primary-gray-2: rgb(209 209 209 / 69%);
   --primary-black-50: rgb(37 37 50 / 100%);
   --primary-black-100: rgb(24 24 27 / 100%);
   --primary-translucent-blue: rgb(18 18 45 / 90%);
 
-  /*categoryIcon-background-color*/
-  --categoryDIcon-background-color: rgba(93, 232, 91, 0.367);
-  --categoryRIcon-background-color: rgba(239, 6, 6, 0.367);
+  /* categoryIcon-background-color */
+  --category-d-icon-background-color: rgb(93 232 91 / 36.7%);
+  --category-r-icon-background-color: rgb(239 6 6 / 36.7%);
 
-  /*categoryIcon-border-color*/
-  --categoryDIcon-border-color: 0.5px solid rgb(3, 173, 0);
-  --categoryRIcon-border-color: 0.5px solid rgb(212, 76, 31);
+  /* categoryIcon-border-color */
+  --category-d-icon-border-color: 0.5px solid rgb(3 173 0);
+  --category-r-icon-border-color: 0.5px solid rgb(212 76 31);
 
-  /*transactions-sum-color*/
-  --transactionD-sum-color: #00451a;
-  --transactionR-sum-color: #c40f06;
-  --transactionP-sum-color: #003ea8;
+  /* transactions-sum-color */
+  --transaction-d-sum-color: #00451a;
+  --transaction-r-sum-color: #c40f06;
+  --transaction-p-sum-color: #003ea8;
 
   /* color-gradient */
   --primary-gradient: linear-gradient(
     97deg,
     rgb(48 25 52 / 100%),
-    rgb(107, 84, 150)
+    rgb(107 84 150)
   );
   --secondary-gradient: linear-gradient(
     97deg,
@@ -50,7 +50,7 @@
   /* border-radius */
   --border-radius-large: 20px;
 
-  /*фон заголовков*/
+  /* фон заголовков */
   --primary-light-purple-background: rgb(158 124 219 / 25%);
 
   /* z-indexes */
