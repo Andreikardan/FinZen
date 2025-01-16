@@ -1,6 +1,6 @@
 class CategoryValidator {
   static validateCreate(data) {
-    const keys = ['name', 'icon', 'budget_id'];
+    const keys = ['name', 'icon', 'budget_id', 'borderColor'];
     const missingKeys = keys.filter(key => !Object.hasOwn(data, key));
     if (missingKeys.length > 0) {
       return { valid: false, error: `Отсутствуют обязательные поля: ${missingKeys.join(', ')}.` };
@@ -10,7 +10,7 @@ class CategoryValidator {
       return { valid: false, error: `Используются недопустимые поля: ${invalidKeys.join(', ')}.` };
     }
     for (const key of keys) {
-      if (data[key] === '' || data[key] === null || data[key] === undefined) {
+      if ((data[key] === '' || data[key] === null || data[key] === undefined)&&data[key]==='borderColor') {
         return { valid: false, error: `Поле "${key}" не может быть пустым.` };
       }
     }
