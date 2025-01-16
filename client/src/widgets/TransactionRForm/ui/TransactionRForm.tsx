@@ -60,12 +60,12 @@ export function TransactionRForm({
 
     if (updatedBudgetData.sum < 0) {
       Toast.show({
-        content: "Бюджет не может быть отрицательным",
+        content: "Трата превышает бюджет",
         position: "bottom",
       });
     } else if (!data.category_id || !data.description || !data.sum) {
       Toast.show({
-        content: "Все поля обязательны к заполнению",
+        content: "Заполните все поля",
         position: "bottom",
       });
     } else {

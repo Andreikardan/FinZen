@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between; /* Распределение пространства между элементами */
+  justify-content: flex-start; 
   height: 100vh;
   padding: 20px;
   background: linear-gradient(135deg, #ffffff, #e0e0e0, #cfbdd7, #ffffff);
@@ -45,19 +45,12 @@
   }
 }
 
-.topSection {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px; /* Логотип и слоган чуть ниже */
-}
-
 .logo {
   width: 400px;
-  height: 230px;
+  height: 200px;
   object-fit: contain;
   animation: float 3s ease-in-out infinite;
-  margin-top: 180px;
+  margin-top: 17vh; 
 }
 
 @keyframes float {
@@ -69,19 +62,14 @@
   }
 }
 
-.credo {
-  margin-top: 10px; 
-  font-size: 18px;
-  font-weight: 500;
-  color: #333;
-  text-align: center;
-}
-
 .bottomSection {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 50px; 
+  justify-content: center; 
+  flex-grow: 1; 
+  width: 100%;
+  margin-top: 20px; 
 }
 
 .enterButton {
@@ -96,7 +84,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
-  margin-bottom: 150px;
+  margin-bottom: 20px; 
 }
 
 .enterButton::before {
@@ -133,15 +121,15 @@
 }
 
 .termsText {
-  position: absolute; 
-  bottom: 20px; 
-  left: 50%; 
-  transform: translateX(-50%); 
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 12px;
   color: #666;
   text-align: center;
-  width: 100%; 
-  max-width: 300px; 
+  width: 100%;
+  max-width: 300px;
 }
 
 .termsText u {
