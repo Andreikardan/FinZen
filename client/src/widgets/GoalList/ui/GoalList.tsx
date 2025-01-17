@@ -18,7 +18,7 @@ export function GoalList(): JSX.Element {
           />
         ))
       ) : (
-        <h1 style={{ marginTop: '20px' }}>Задач пока не обнаружено</h1> 
+        <h1 style={{ marginTop: '20px' }}>Целей пока нет</h1> 
       )}
     </div>
   );

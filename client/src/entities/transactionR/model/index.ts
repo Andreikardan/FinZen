@@ -15,6 +15,8 @@ export interface ITransactionR extends IRawTransactionRData {
 }
 
 export interface IAllTransaction extends ITransactionR {
+  goal_id?:number; 
+  budget_id:number;
   type: string;
   icon: string;
   borderColor: string;

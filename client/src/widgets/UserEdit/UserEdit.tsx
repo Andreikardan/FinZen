@@ -15,7 +15,7 @@ export function UserEdit({ onSuccess }: UserEditProps) {
   const dispatch = useAppDispatch();
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const user = useAppSelector((state) => state.user.user);
-
+  const [form] = Form.useForm()
   const submit = async (values: ISignUpData) => {
     for (const key in values) {
       if (values[key] === undefined || values[key] === '') {
@@ -44,6 +44,8 @@ export function UserEdit({ onSuccess }: UserEditProps) {
     });
 
     onSuccess();
+    form.resetFields()
+    
   };
 
   const handleFormChange = (allFields: any[]) => {
@@ -58,7 +60,10 @@ export function UserEdit({ onSuccess }: UserEditProps) {
       setIsButtonDisabled(true);
       return;
     }
-    setIsButtonDisabled(hasErrors || (password && password !== repeat));
+    const isPasswordEditing = password ? password !== repeat : false
+
+
+    setIsButtonDisabled(hasErrors || isPasswordEditing);
   };
 
   return (
@@ -68,6 +73,7 @@ export function UserEdit({ onSuccess }: UserEditProps) {
         onFinish={submit}
         onFieldsChange={(_, allFields) => handleFormChange(allFields)}
         initialValues={{ username: user!.username, email: user!.email }}
+        form={form}
       >
         <Form.Item
           name='email'

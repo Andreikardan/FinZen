@@ -1,5 +1,5 @@
 import styles from './GoalTransaction.module.css'
-import { updateBudgetThunk } from "@/entities/budget/api";
+import { getAllTransactionsThunk, updateBudgetThunk } from "@/entities/budget/api";
 import { updateGoalThunk } from "@/entities/goal/api"; 
 import { createGoalTransactionThunk, IRawGoalTransactionData } from "@/entities/goalTransaction";
 import { useAppDispatch } from "@/shared";
@@ -114,6 +114,7 @@ try {
     updateBudgetThunk({ id: +budget_id, updatedBudget: updatedBudgetData })
   );
   unwrapResult(resultBudgetAction);
+  dispatch(getAllTransactionsThunk())
 
 
   setIsModalVisible(false);

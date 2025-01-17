@@ -60,7 +60,7 @@ export function TransactionRForm({
 
     if (updatedBudgetData.sum < 0) {
       Toast.show({
-        content: "Трата превышает бюджет",
+        content: "Недостаточно средств",
         position: "bottom",
       });
     } else if (!data.category_id || !data.description || !data.sum) {

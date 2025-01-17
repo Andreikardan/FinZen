@@ -147,6 +147,7 @@ class BudgetController {
         ...budget.CategoryDs.flatMap((categoryD) =>
           categoryD.TransactionDs.map((transaction) => ({
             budgetName: budget.name,
+            budget_id:budget.id,
             ...transaction,
             icon: categoryD.icon,
             borderColor: categoryD.borderColor,
@@ -155,6 +156,8 @@ class BudgetController {
         ...budget.CategoryRs.flatMap((categoryR) =>
           categoryR.TransactionRs.map((transaction) => ({
             budgetName: budget.name,
+            budget_id:budget.id,
+
             ...transaction,
             icon: categoryR.icon,
           }))
@@ -163,7 +166,10 @@ class BudgetController {
           const { Goal, id,budget_id,goal_id,...rest } = goalTransaction;
 
           return {
+         
             budgetName: budget.name,
+            budget_id:budget.id,
+            goal_id,
             goalTitle: Goal.title,
             ...rest,
           };

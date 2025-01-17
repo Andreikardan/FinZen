@@ -29,7 +29,29 @@ const initialState: BudgetsState = {
 const budgetSlice = createSlice({
   name: "budget",
   initialState,
-  reducers: {},
+  reducers: {
+    deleteBudget: (state, action) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+
+      state.allTransactionsArray = state.allTransactionsArray?.filter(
+        (el) => el.budget_id !== action.payload
+      );
+    },
+    deleteGoal: (state, action) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+
+      state.allTransactionsArray = state.allTransactionsArray?.filter((el) => {
+        if (el.goal_id) {
+          return el.goal_id!==action.payload
+
+        }else{
+          return true
+        }
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllBudgetsThunk.pending, (state) => {
@@ -115,12 +137,11 @@ const budgetSlice = createSlice({
       .addCase(addPhotoToTransactionRThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         state.allTransactionsArray = state.allTransactionsArray?.map(
           (transaction) => {
             if (transaction.id === action.payload.id) {
-
               if (!transaction.TransactionRPhotos) {
                 transaction.TransactionRPhotos = [];
                 transaction.TransactionRPhotos.push(action.payload.data.data);
@@ -143,3 +164,5 @@ const budgetSlice = createSlice({
 });
 
 export const budgetReducer = budgetSlice.reducer;
+export const deleteBudget = budgetSlice.actions.deleteBudget;
+export const deleteGoal = budgetSlice.actions.deleteGoal

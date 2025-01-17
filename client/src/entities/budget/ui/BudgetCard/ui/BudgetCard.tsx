@@ -6,6 +6,8 @@ import { SwipeActionRef } from "antd-mobile/es/components/swipe-action";
 import { useNavigate } from "react-router-dom";
 import { IBudget, IRawBudgetData } from "@/entities/budget/model/type";
 import { IApiResponseSuccess } from "@/shared/types";
+import { useAppDispatch } from "@/shared";
+import { deleteBudget } from "@/entities/budget/slice";
 
 type Props = {
   budget: IBudget;
@@ -23,7 +25,7 @@ export const BudgetCard: React.FC<Props> = React.memo(
       name: budget.name,
       sum: budget.sum,
     });
-
+const dispatch = useAppDispatch()
     const onChangeHandler = (value: string, name: string) => {
       setUpdatedBudgetData((prev) => ({ ...prev, [name]: value }));
     };
@@ -65,6 +67,7 @@ export const BudgetCard: React.FC<Props> = React.memo(
                     confirmText: "Да",
                     async onConfirm() {
                       const result = await onDelete();
+                      dispatch(deleteBudget(budget.id))
                       
                       
                       if (result.statusCode === 200) {

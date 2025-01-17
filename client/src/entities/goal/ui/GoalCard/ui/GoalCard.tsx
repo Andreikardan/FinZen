@@ -7,8 +7,9 @@ import { GoalTransactionForm } from "@/widgets/GoalTransactionForm/ui/GoalTransa
 import { IApiResponseSuccess } from "@/shared/types";
 import { Dialog, SwipeAction, SwipeActionRef, Toast } from "antd-mobile";
 import { DeleteOutlined, EditOutlined, LeftOutlined } from "@ant-design/icons";
-import { useAppSelector } from "@/shared/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/reduxHooks";
 import { Option } from "antd/es/mentions";
+import { deleteGoal } from "@/entities/budget/slice";
 
 type Props = {
   goal: IGoal;
@@ -30,7 +31,7 @@ export const GoalCard: React.FC<Props> = React.memo(
       accumulator: null,
     });
     const [selectedBudgetId, setSelectedBudgetId] = useState<number | null>(null);
-
+const dispatch = useAppDispatch()
     const onChangeHandler = (value: string, name: string) => {
       if (name === "title") {
         if (!/^[a-zA-Zа-яА-Я\s]*$/.test(value)) {
@@ -130,6 +131,7 @@ export const GoalCard: React.FC<Props> = React.memo(
                     confirmText: "Да",
                     async onConfirm() {
                       const result = await onDelete();
+                      dispatch(deleteGoal(goal.id))
 
                       if (result && result.statusCode === 200) {
                         setIsModalVisible(false);
